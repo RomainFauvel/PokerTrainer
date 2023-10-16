@@ -53,4 +53,4 @@ __pycache__/
 *$py.class
 
 # Krita
-*.kra
+*.kra*
