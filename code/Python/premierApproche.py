@@ -48,9 +48,11 @@ class JeuDeCartes:
         # Crée le jeu de cartes sans doublons
         self.cartes = [Carte(couleur, hauteur) for couleur in Couleur for hauteur in Hauteur]
 
+    #melange le jeu
     def melanger(self):
         random.shuffle(self.cartes)
 
+    #distribue dans une liste le nombre de cartes demandées en les supprimant du jeu de cartes
     def distribuer(self, nombre_de_cartes):
         if nombre_de_cartes > len(self.cartes):
             print("Il n'y a pas assez de cartes pour distribuer.")
@@ -59,13 +61,26 @@ class JeuDeCartes:
         self.cartes = self.cartes[nombre_de_cartes:]
         return main
 
+    #affiche le jeu de cartes
     def afficher_cartes(self, cartes):
         for carte in cartes:
             print(carte)
 
+    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cartes en entrée (une main)
+    def toStringPaire(Paire):
+        carte1=Paire[0]
+        carte2=Paire[1]
+        res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
+        if(carte1.hauteur==carte2.hauteur):
+            return res
+        else: 
+            if(carte1.couleur==carte2.couleur):
+                return f"{res}s"
+            else:
+                return f"{res}o"
+    
 
-
-# Exemple d'utilisation
+# créer un jeu et le mélange (utile en début de partie)
 def creationJeu():
     jeu = JeuDeCartes()
     jeu.melanger()
