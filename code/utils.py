@@ -11,3 +11,5 @@ def get_display_size():
     width = root.winfo_screenwidth()
     root.destroy()
     return height, width
+
+
