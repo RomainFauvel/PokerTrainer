@@ -17,7 +17,9 @@ class App(customtkinter.CTk):
         # configure window
         self.title("Poker Trainer")
         self.geometry(str(width)+"x"+str(height)+"+0+0")
-        self.iconbitmap("img\\icone.ico")
+        
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        self.iconbitmap(os.path.join(current_path+"\\img\\icone.ico"))
         
         #import frames
         self.frames = {}
@@ -50,7 +52,7 @@ class App(customtkinter.CTk):
 def main():
     print("------------------Main called------------------")
     height, width = utils.get_display_size()
-    root = App(height-20, width)
+    root = App(height-60, width)
     root.mainloop()
 
 main()
