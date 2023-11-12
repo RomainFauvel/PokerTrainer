@@ -21,18 +21,49 @@ class Home(customtkinter.CTkFrame):
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\interface.jpg"),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\img\\home_fond.png"),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
         self.bg_image_label.grid(row=0, column=0)
         
-        #create button
-        self.play_button = customtkinter.CTkButton(self, text="Play", command=self.play_event, width=200)
-        self.play_button.grid(row=0, column=0)
-        self.play_button.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
+        #create buttons
+        #play
+        self.play_button = customtkinter.CTkButton(self, text="PLAY", command=self.play_event, width=100)
+        self.play_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.play_button.place(relx=0.5,rely=0.58,anchor=tkinter.CENTER)
+        #exit
+        self.exit_button = customtkinter.CTkButton(self, text="Exit", command=self.exit_event, width=150)
+        self.exit_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.exit_button.place(relx=0.05,rely=0.97,anchor=tkinter.CENTER)
+        #home
+        self.home_button = customtkinter.CTkButton(self, text="Home", command=self.home_event, width=150)
+        self.home_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.home_button.place(relx=0.05,rely=0.03,anchor=tkinter.CENTER)
+        #settings
+        self.settings_button = customtkinter.CTkButton(self, text="SETTINGS", width=100)
+        self.settings_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.settings_button.place(relx=0.5,rely=0.63,anchor=tkinter.CENTER)
+        #help
+        self.help_button = customtkinter.CTkButton(self, text="Help", command=self.help_event, width=150)
+        self.help_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.help_button.place(relx=0.95,rely=0.03,anchor=tkinter.CENTER)
+        #Select Configuration
+        self.SelectConf_button = customtkinter.CTkButton(self, text="Select\nConfiguration", width=100)
+        self.SelectConf_button.grid(row=0, column=0, padx=15, pady=(15,15))
+        self.SelectConf_button.place(relx=0.93,rely=0.55,anchor=tkinter.CENTER)
+
         
     def play_event(self):
         self.master.show_frame("Play")
+    
+    def home_event(self):
+        self.master.show_frame("Home")
+
+    def help_event(self):
+        self.master.show_frame("Help")
+
+    def exit_event(self):
+        self.master.destroy()
         
     def resize(self,event):
         width=event.width
@@ -48,8 +79,12 @@ class Home(customtkinter.CTkFrame):
             self.bg_image.configure(size=(self.width, self.height))
             self.bg_image_label.configure(image=self.bg_image)
             
-            #resize button
+            #resize buttons
             self.play_button.configure(width=self.width/10)
+            
+            
+            
+            
             
             
             

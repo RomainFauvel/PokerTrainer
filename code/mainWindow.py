@@ -7,6 +7,7 @@ import home as home
 import play as play
 import settings as settings
 import utils as utils
+import help as help
 
 
 class App(customtkinter.CTk):
@@ -16,10 +17,11 @@ class App(customtkinter.CTk):
         # configure window
         self.title("Poker Trainer")
         self.geometry(str(width)+"x"+str(height)+"+0+0")
+        self.iconbitmap("img\\icone.ico")
         
         #import frames
         self.frames = {}
-        for F in (home.Home, play.Play, settings.Settings):
+        for F in (home.Home, play.Play, settings.Settings, help.Help):
             page_name = F.__name__
             self.frame = F(master=self, width=width, height=height)
             self.frames[page_name] = self.frame
