@@ -1,8 +1,11 @@
 
 import tkinter
+import tkinter as tk
+from tkinter import filedialog
 import customtkinter
 import os
 from PIL import Image
+import re
 
 #a basic frame with a label
 
@@ -16,6 +19,13 @@ class Home(customtkinter.CTkFrame):
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
+
+
+        #Variable pour stocker le chemin du fichier choisi
+        self.var_fichier = None
+
+       
+       
         
         
         
@@ -25,6 +35,16 @@ class Home(customtkinter.CTkFrame):
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
         self.bg_image_label.grid(row=0, column=0)
+
+
+        #Etiquette pour afficher le chemin du fichier choisi
+        self.etiquette_chemin = customtkinter.CTkLabel(self.bg_image_label,text="Fichier choisi :\n")   #Texte par défaut
+        self.etiquette_chemin.grid(row=0, column=0, padx=15, pady=(15, 15))
+
+        #Position au-dessus du bouton "Select Configuration"
+        self.etiquette_chemin.place(relx=0.93, rely=0.45, anchor=tkinter.CENTER)
+
+
         
         #create buttons
         #play
@@ -48,10 +68,10 @@ class Home(customtkinter.CTkFrame):
         self.help_button.grid(row=0, column=0, padx=15, pady=(15,15))
         self.help_button.place(relx=0.95,rely=0.03,anchor=tkinter.CENTER)
         #Select Configuration
-        self.SelectConf_button = customtkinter.CTkButton(self, text="Select\nConfiguration", width=100)
+        self.SelectConf_button = customtkinter.CTkButton(self, text="Select\nConfiguration", command=self.SelectConf_event, width=100)
         self.SelectConf_button.grid(row=0, column=0, padx=15, pady=(15,15))
         self.SelectConf_button.place(relx=0.93,rely=0.55,anchor=tkinter.CENTER)
-
+        
         
     def play_event(self):
         self.master.show_frame("Play")
@@ -64,6 +84,23 @@ class Home(customtkinter.CTkFrame):
 
     def exit_event(self):
         self.master.destroy()
+
+    def SelectConf_event(self):
+
+        #Ouvrir la boîte de dialogue pour choisir un fichier
+        fichier = filedialog.askopenfilename()
+        #Mettre à jour la variable de classe avec le chemin du fichier choisi
+        self.var_fichier = fichier
+        #Expression régulière
+        result=re.search(r"(/[^/]+\.[^/]+)$",fichier)
+        if(result!=None):
+
+
+
+            #Mettre à jour l'étiquette avec le chemin du fichier choisi
+            self.etiquette_chemin.configure(text=f"Fichier choisi :\n{result.group(1)}")
+
+
         
     def resize(self,event):
         width=event.width
