@@ -16,10 +16,11 @@ class App(customtkinter.CTk):
 
         # configure window
         self.title("Poker Trainer")
+        self.attributes('-topmost', True)
         self.geometry(str(width)+"x"+str(height)+"+0+0")
         
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.iconbitmap(os.path.join(current_path+"\\img\\icone.ico"))
+        self.iconbitmap(os.path.join(current_path+"/img/icone.ico"))
         
         #import frames
         self.frames = {}
@@ -45,6 +46,10 @@ class App(customtkinter.CTk):
         '''Show a frame for the given page name'''
         self.frame = self.frames[page_name]
         self.frame.tkraise()
+
+        # Il y a un bug ici. Je pense que ca vient de l instanciation des frames
+        print("Frames", self.frames)
+        print("Frame raised: ", self.frame)
             
         
 
@@ -52,7 +57,7 @@ class App(customtkinter.CTk):
 def main():
     print("------------------Main called------------------")
     height, width = utils.get_display_size()
-    root = App(height-60, width)
+    root = App(height, width)
     root.mainloop()
 
 main()
