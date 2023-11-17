@@ -68,7 +68,7 @@ class Help(customtkinter.CTkFrame):
     def resize(self,event):
         width=event.width
         height=event.height
-        if(width != self.width or height != self.height):
+        if((width != self.width or height != self.height)and self.master.frame == self):
             print("Play resize")
             print("New width: ", width)
             print("New height: ", height)
