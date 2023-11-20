@@ -120,10 +120,6 @@ class Play(customtkinter.CTkFrame):
     def resize(self,event):
         width=event.width
         height=event.height
-        print("self.master.frame: ")
-        print(self.master.frame)
-        print("self : ")
-        print(self)
         if((width != self.width or height != self.height) and self.master.frame == self):
             print("Play resize")
             print("New width: ", width)

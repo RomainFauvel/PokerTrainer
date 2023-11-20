@@ -13,6 +13,8 @@ import help as help
 class App(customtkinter.CTk):
     def __init__(self,height,width):
         super().__init__()
+        self.height=height
+        self.width=width
 
         # configure window
         self.title("Poker Trainer")
@@ -34,22 +36,23 @@ class App(customtkinter.CTk):
             # will be the one that is visible.
             self.frame.place(x=0, y=0, relwidth=1, relheight=1)
             
-            print(self.frames)
-            
         # show home page
         self.show_frame("Home")
         
         #Window resizing event
-        self.bind("<Configure>", func=self.frame.resize)
+        self.bind("<Configure>", func=self.resize)
         
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
         self.frame = self.frames[page_name]
         self.frame.tkraise()
 
-        # Il y a un bug ici. Je pense que ca vient de l instanciation des frames
-        print("Frames", self.frames)
-        print("Frame raised: ", self.frame)
+
+
+    def resize(self,event):
+        self.width=self.winfo_width()
+        self.height=self.winfo_height()
+        self.frame.resize(self)
             
         
 
