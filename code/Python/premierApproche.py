@@ -67,17 +67,23 @@ class JeuDeCartes:
             print(carte)
 
     # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cartes en entrée (une main)
+    #tri les cartes et formate le string pour l'appel du solveur 
     def toStringPaire(Paire):
         carte1=Paire[0]
         carte2=Paire[1]
         res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
-        if(carte1.hauteur==carte2.hauteur):
-            return res
-        else: 
+        if(carte1.hauteur.value!=carte2.hauteur.value):
+            if(carte1.hauteur.value>carte2.hauteur.value):
+                res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
+            else:
+                res=f"{carte2.hauteur.value}{carte1.hauteur.value}"
             if(carte1.couleur==carte2.couleur):
                 return f"{res}s"
             else:
                 return f"{res}o"
+        else:
+            res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
+            return res
     
 
 # créer un jeu et le mélange (utile en début de partie)
