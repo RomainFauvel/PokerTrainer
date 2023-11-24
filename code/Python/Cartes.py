@@ -26,6 +26,8 @@ class Hauteur(Enum):
     AS="A"
 
 
+
+
 class Carte:
     #attributs de la classe
     def __init__(self, couleur, hauteur):
@@ -71,9 +73,11 @@ class JeuDeCartes:
     def toStringPaire(Paire):
         carte1=Paire[0]
         carte2=Paire[1]
+        hauteur_correspondance = {hauteur: index for index, hauteur in enumerate(Hauteur)}
         res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
         if(carte1.hauteur.value!=carte2.hauteur.value):
-            if(carte1.hauteur.value>carte2.hauteur.value):
+            #Modifier la comparaison qui ne marche pas bien
+            if(hauteur_correspondance[carte1.hauteur] > hauteur_correspondance[carte2.hauteur]):
                 res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
             else:
                 res=f"{carte2.hauteur.value}{carte1.hauteur.value}"
