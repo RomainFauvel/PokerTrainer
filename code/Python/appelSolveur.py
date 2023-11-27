@@ -17,7 +17,8 @@ def lancerSolveur():
 #main
 
 jeu =Cartes.creationJeu()
-flop=Cartes.JeuDeCartes.distribuer(jeu,3)  
-joueur1=joueur.joueur(0,(Cartes.JeuDeCartes.distribuer(jeu,2)))
+flop=jeu.distribuer(3)
+joueur1=joueur.joueur(0)
+joueur1.pioche(jeu)
 ecritureEntree()
 lancerSolveur()
