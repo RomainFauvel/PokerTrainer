@@ -68,7 +68,7 @@ class JeuDeCartes:
         for carte in cartes:
             print(carte)
 
-    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cartes en entrée (une main)
+    # renvoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cartes en entrée (une main)
     #tri les cartes et formate le string pour l'appel du solveur 
     def toStringPaire(Paire):
         carte1=Paire[0]
