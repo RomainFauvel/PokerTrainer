@@ -1,6 +1,33 @@
 from asyncio.windows_events import NULL
 import json
 
+class joueur:
+
+    data=NULL  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
+    valeurCarte="" #contient la valeur de la carte du joueur
+    
+    def __init__(self,nomFichier,valeurCarte):
+        with open(nomFichier,'r') as json_file:
+            self.data=json.load(json_file)
+        self.valeurCarte=valeurCarte
+        
+    def recupProba(self): # renvoie les proba pour le flop pour joueur IP
+        return self.data["strategy"]["strategy"][self.valeurCarte]
+    
+    def setData(self,actionARealiser): # modifie le chemin pour prendre en compte l'action réalisée par le joueur
+        self.data=self.data["childrens"][actionARealiser]
+        return True
+
+    def faireJouerOrdi(self):
+        # est-ce que faut faire jouer l'ordi de la meilleure des façons ou au hasard ?
+        self.data=self.data["childrens"]["Choisir l'action que l'ordi doit faire"]
+
+
+
+
+"""
+ce qui est en commentaire c'est les tests pour récupérer une certaine proba après l'action d'un joueur
+
 #import pprint
 
 read_jsonOOP='outputOOP.json'
@@ -9,7 +36,7 @@ read_jsonIP='outputIP.json'
 
 # faire un chemin de parcours du tableau et dès qu'il y a une action on ajoute pour savoir où on en est dans l'arbre 
 
-"""
+
 with open(read_jsonOOP,'r') as json_file:
     dataOOP=json.load(json_file)
 #pprint.pprint(data)
@@ -38,25 +65,3 @@ def FlopIN(actionOOP,valeurCarte,donnees):
 
 FlopOOP("QcTd", dataOOP)
 """
-class JoueurIP():
-
-    dataIP=NULL  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
-    valeurCarteIN="" #contient la valeur de la carte du joueur
-    
-    def __init__(self,nomFichier,valeurCarte):
-        with open(nomFichier,'r') as json_file:
-            self.dataIP=json.load(json_file)
-        self.valeurCarteIP=valeurCarte
-        
-    def FlopIP(self):
-        return self.dataIP["strategy"]["strategy"][self.valeurCarteIN]
-    
-    def setDataIP(self,actionARealiser):
-        if(actionARealiser=="CALL" or actionARealiser=="CHECK"):
-            self.dataIP=self.dataIP["childrens"][actionARealiser]["dealcards"]
-            return True
-        else:
-            self.dataIP=self.dataIP["childrens"][actionARealiser]
-            return False
-    
-    
