@@ -6,7 +6,7 @@ class partie:
     def __init__(self,positionJoueur):
         self.position=positionJoueur
         self.joueur=lectureFichierJson.joueur("nomFichierJson","valeurCarteJoueur")
-        #je te laisser faire théo tout ce qui touche à la partie je fais juste les parties que j'ai besoin pour récupérer les probas
+        #je te laisse faire théo tout ce qui touche à la partie je fais juste les parties que j'ai besoin pour récupérer les probas
 
 
     def tourFlop(self):
