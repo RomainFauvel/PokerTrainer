@@ -9,3 +9,4 @@
 {"exploitibility":0.8081989288330078,"iteration":90,"time_ms":133661}
 {"exploitibility":0.6562423706054688,"iteration":100,"time_ms":149151}
 {"exploitibility":0.5304069519042969,"iteration":110,"time_ms":164382}
+{"exploitibility":0.41439059376716614,"iteration":120,"time_ms":179868}

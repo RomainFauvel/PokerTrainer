@@ -40,6 +40,7 @@ class Carte:
 
     def __str__(self):
         return f"{self.hauteur.value}{self.couleur.value}"
+    
 
 
 
@@ -77,6 +78,5 @@ def creationJeu():
     jeu.melanger()
     return jeu
     
-
 
 

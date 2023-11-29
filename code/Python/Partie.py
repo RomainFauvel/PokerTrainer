@@ -52,6 +52,7 @@ class Partie:
 
 partie1=Partie(1)
 
-partie1.appelerSolveur()
+#partie1.appelerSolveur()
 
+print(partie1.joueur.toStringPaireLectureJson())
     

@@ -2,9 +2,9 @@
 import json
 
 class joueur:
-
+    
     data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
-    valeurCarte="" #contient la valeur de la carte du joueur
+    valeurCarte="" #contient la paire de cartes du joueur sous la forme "AsJh"
     
     def __init__(self,nomFichier,valeurCarte):
         with open(nomFichier,'r') as json_file:
