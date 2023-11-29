@@ -1,7 +1,7 @@
 
 import Joueur
 import Cartes
-import lectureFichierJson
+import LectureFichierJson
 import Solveur
 
 class Partie:
@@ -9,7 +9,7 @@ class Partie:
     def __init__(self,position):
         self.paquetDeCartes=Cartes.creationJeu()
         self.joueur=Joueur.Joueur(position)
-        self.board=self.paquetDeCartes.distribuer(5)
+        self.board=self.paquetDeCartes.distribuer(3)
         self.joueur.pioche(self.paquetDeCartes)
 
 
@@ -52,7 +52,7 @@ class Partie:
 
 partie1=Partie(1)
 
-#partie1.appelerSolveur()
+partie1.appelerSolveur()
 
-print(partie1.joueur.toStringPaireLectureJson())
-    
+resultat=LectureFichierJson.LectureFichierJson("code/Solveur/output_result.json",partie1.joueur.toStringPaireLectureJson())
+

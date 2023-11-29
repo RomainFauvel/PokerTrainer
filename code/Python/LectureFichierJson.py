@@ -1,8 +1,8 @@
 
 import json
 
-class joueur:
-    
+class LectureFichierJson:
+
     data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
     valeurCarte="" #contient la paire de cartes du joueur sous la forme "AsJh"
     
