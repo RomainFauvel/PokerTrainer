@@ -1,12 +1,24 @@
+
 import joueur
 import Cartes
 import lectureFichierJson
+import Solveur
 
-class partie:
-    def __init__(self,positionJoueur):
-        self.position=positionJoueur
-        self.joueur=lectureFichierJson.joueur("nomFichierJson","valeurCarteJoueur")
-        #je te laisse faire théo tout ce qui touche à la partie je fais juste les parties que j'ai besoin pour récupérer les probas
+class Partie:
+
+    def __init__(self,position):
+        self.paquetDeCartes=Cartes.creationJeu()
+        self.joueur=joueur.Joueur(position)
+        self.board=self.paquetDeCartes.distribuer(5)
+        self.joueur.pioche(self.paquetDeCartes)
+
+
+    #modifie le fichier d'entrée du solveur et lance automatiquement le solveur
+    def appelerSolveur(self):
+        Solveur.ecritureEntree(self.board,self.joueur)
+        Solveur.lancerSolveur()
+
+    
 
 
     def tourFlop(self):
@@ -38,3 +50,8 @@ class partie:
 
         
 
+partie1=Partie(1)
+
+partie1.appelerSolveur()
+
+    
