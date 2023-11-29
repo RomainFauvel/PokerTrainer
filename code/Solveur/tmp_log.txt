@@ -4,3 +4,8 @@
 {"exploitibility":5.472478866577148,"iteration":40,"time_ms":57238}
 {"exploitibility":3.1958634853363037,"iteration":50,"time_ms":72815}
 {"exploitibility":1.9557210206985474,"iteration":60,"time_ms":87988}
+{"exploitibility":1.358987808227539,"iteration":70,"time_ms":103494}
+{"exploitibility":1.038320541381836,"iteration":80,"time_ms":118923}
+{"exploitibility":0.8081989288330078,"iteration":90,"time_ms":133661}
+{"exploitibility":0.6562423706054688,"iteration":100,"time_ms":149151}
+{"exploitibility":0.5304069519042969,"iteration":110,"time_ms":164382}
