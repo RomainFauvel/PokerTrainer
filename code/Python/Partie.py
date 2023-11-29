@@ -12,6 +12,8 @@ class Partie:
         self.board=self.paquetDeCartes.distribuer(3)
         self.joueur.pioche(self.paquetDeCartes)
 
+        self.appelerSolveur()  #Comme ça on appelle directement le solveur quand on crée une partie à voir si ça fonctionne bien
+        self.fichier=LectureFichierJson.LectureFichierJson("code/Solveur/output_result.json",self.joueur.toStringPaireLectureJson()) #Ouvre le fichier Json après l'appel au solveur
 
     #modifie le fichier d'entrée du solveur et lance automatiquement le solveur
     def appelerSolveur(self):
@@ -22,28 +24,26 @@ class Partie:
 
 
     def tourFlop(self):
-        # self.joueur.faireJouerOrdi() si c'est à l'ordi de jouer mais pas faite pour l'instant cette fonction
-
         # doit demander à l'interface ce que joue le joueur
         # il faut rester dans le flop tant que qqun mise plus que l'autre d'avant
         # après avoir récupéré l'action du joueur, 
         # je modifie le chemin actuel dans l'arbre pour pouvoir récupérer proba ordi puis du prochain tour 
-        self.joueur.setData(actionARealiser="")  # renvoie vrai si la modif a bien été effectuée
-        return self.joueur.recupProba() # renvoie les proba pour le flop
+        self.fichier.setData(actionARealiser="")  # renvoie vrai si la modif a bien été effectuée
+        return self.fichier.recupProba() # renvoie les proba pour le flop
 
         
     #meme principe que le tourFLOP
     def tourTurnCard(self,turnCard):
-        self.joueur.data=self.joueur.data["dealcards"][turnCard] # remplacer turnCard ! au début du tour on modifie le chemin pour se placer au prochain tour
+        self.fichier.data=self.fichier.data["dealcards"][turnCard] # remplacer turnCard ! au début du tour on modifie le chemin pour se placer au prochain tour
         # self.joueur.faireJouerOrdi() si c'est à l'ordi de jouer mais pas faite pour l'instant cette fonction
-        self.joueur.setData(actionARealiser="")
-        return self.joueur.recupProba()
+        self.fichier.setData(actionARealiser="")
+        return self.fichier.recupProba()
     
     def tourRiver(self,river):
-        self.joueur.data=self.joueur.data["dealcards"][river]
+        self.fichier.data=self.fichier.data["dealcards"][river]
         # self.joueur.faireJouerOrdi() si c'est à l'ordi de jouer mais pas faite pour l'instant cette fonction
-        self.joueur.setData(actionARealiser="")
-        return self.joueur.recupProba()
+        self.fichier.setData(actionARealiser="")
+        return self.fichier.recupProba()
 
         # faudra faire différents cas quand un joueur peut encore jouer ou pas selon s'il a fait tapis au tour d'avant extc
 
@@ -51,8 +51,4 @@ class Partie:
         
 
 partie1=Partie(1)
-
-partie1.appelerSolveur()
-
-resultat=LectureFichierJson.LectureFichierJson("code/Solveur/output_result.json",partie1.joueur.toStringPaireLectureJson())
 

@@ -28,13 +28,15 @@ class LectureFichierJson:
             for carte in coupajouer:
                 tab[i] += carte[i]                      # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
         actionordi = self.recupmax(tab)                 # On récupère l'indice de l'action à jouer
-        self.setData(actions[actionordi])
+        self.setData(actions[actionordi])               # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
+   
     def recupmax(self,tab):                             # Fonction pour récupérer l'indice de la valeur max dans un tableau
         res=0
         for i in range(len(tab)-1):
             if(tab[i]<tab[i+1]):
                 res=i+1
         return res
+   
     def recupActions(self):
         return self.data["strategy"]["actions"]     # retourne un tableau contenant les actions possibles du joueur (pour savoir à quoi correspondent les probas)
 
