@@ -1,9 +1,9 @@
-from asyncio.windows_events import NULL
+
 import json
 
 class joueur:
 
-    data=NULL  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
+    data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
     valeurCarte="" #contient la valeur de la carte du joueur
     
     def __init__(self,nomFichier,valeurCarte):
