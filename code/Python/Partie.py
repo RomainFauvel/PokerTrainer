@@ -1,5 +1,5 @@
 
-import joueur
+import Joueur
 import Cartes
 import lectureFichierJson
 import Solveur
@@ -8,7 +8,7 @@ class Partie:
 
     def __init__(self,position):
         self.paquetDeCartes=Cartes.creationJeu()
-        self.joueur=joueur.Joueur(position)
+        self.joueur=Joueur.Joueur(position)
         self.board=self.paquetDeCartes.distribuer(5)
         self.joueur.pioche(self.paquetDeCartes)
 

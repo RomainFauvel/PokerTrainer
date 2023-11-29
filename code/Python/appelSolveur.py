@@ -1,6 +1,6 @@
 import Cartes
 import subprocess
-import joueur
+import code.Python.Joueur as Joueur
 
 #modifie le fichier texte qui sert d'entrée au solveur (version Linux pour le moment)
 def ecritureEntree():
@@ -18,7 +18,7 @@ def lancerSolveur():
 
 jeu =Cartes.creationJeu()
 flop=jeu.distribuer(3)
-joueur1=joueur.joueur(0)
+joueur1=Joueur.joueur(0)
 joueur1.pioche(jeu)
 ecritureEntree()
 lancerSolveur()
