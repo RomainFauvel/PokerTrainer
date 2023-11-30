@@ -143,7 +143,7 @@ class Play(customtkinter.CTkFrame):
 
 
     def button_bet_x_event(self, event):
-        print("Bet x")
+        return [True]
     
     def button_bet_y_event(self, event):
         print("Bet y")

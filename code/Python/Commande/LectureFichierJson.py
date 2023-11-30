@@ -15,6 +15,7 @@ class LectureFichierJson:
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.valeurCarte][i]*100,3)})
+        print(dicoProba)
         return dicoProba
 
     def setData(self,actionARealiser): # modifie le chemin pour prendre en compte l'action réalisée par le joueur/Ordi
