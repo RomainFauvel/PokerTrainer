@@ -6,30 +6,26 @@ import Solveur
 
 class Partie:
 
-    def __init__(self,position):
-        self.paquetDeCartes=Cartes.creationJeu()
-        self.joueur=Joueur.Joueur(position)
-        self.board=self.paquetDeCartes.distribuer(3)
-        self.joueur.pioche(self.paquetDeCartes)
-
-        self.appelerSolveur()  #Comme ça on appelle directement le solveur quand on crée une partie à voir si ça fonctionne bien
-        self.fichier=LectureFichierJson.LectureFichierJson("code/Solveur/output_result.json",self.joueur.toStringPaireLectureJson()) #Ouvre le fichier Json après l'appel au solveur
-
-    #modifie le fichier d'entrée du solveur et lance automatiquement le solveur
-    def appelerSolveur(self):
-        Solveur.ecritureEntree(self.board,self.joueur)
-        Solveur.lancerSolveur()
-
-    
+    def __init__(self,position,nomJsonAOuvrir,ValeurCarte):
+        self.joueur=Joueur.Joueur(position)  # créer un joueur avec la bonne position
+        self.joueur.main=ValeurCarte # donne au joueur la main correspondante à la partie 
+        self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
 
-    def tourFlop(self):
-        # doit demander à l'interface ce que joue le joueur
-        # il faut rester dans le flop tant que qqun mise plus que l'autre d'avant
-        # après avoir récupéré l'action du joueur, 
-        # je modifie le chemin actuel dans l'arbre pour pouvoir récupérer proba ordi puis du prochain tour 
-        self.fichier.setData(actionARealiser="")  # renvoie vrai si la modif a bien été effectuée
-        return self.fichier.recupProba() # renvoie les proba pour le flop
+    def faireJouerJoueur(self):
+        if(self.fichier.data.get("strategy",0)!=0):
+            return self.fichier.recupProba()
+        else:
+            return False
+        
+    def tour(self):
+        if(self.joueur.position==0):
+            print(self.faireJouerJoueur())
+            self.fichier.faireJouerOrdi()
+        else:
+            self.fichier.faireJouerOrdi()
+            self.faireJouerJoueur()
+        
 
         
     #meme principe que le tourFLOP
@@ -50,5 +46,5 @@ class Partie:
 
         
 
-partie1=Partie(1)
-
+partie1=Partie(0,"\\Users\\buche\\OneDrive\\Documents\\GitHub\\PokerTrainer\\code\\Solveur\\resources\\output_result.json","KdJd")
+print(partie1.tour())
