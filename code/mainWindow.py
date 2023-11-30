@@ -22,7 +22,7 @@ class App(customtkinter.CTk):
         self.geometry(str(width)+"x"+str(height)+"+0+0")
         
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.iconbitmap(os.path.join(current_path+"/img/icone.ico"))
+        #self.iconbitmap(os.path.join(current_path+"/img/icone.ico"))
         
         #import frames
         self.frames = {}
