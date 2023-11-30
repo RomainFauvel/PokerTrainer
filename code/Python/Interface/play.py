@@ -20,9 +20,9 @@ class Play(customtkinter.CTkFrame):
         
         #Import images
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "/img/fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\..\\..\\img\\fond_vierge.png"),
                                                size=(self.width, self.height))
-        self.button_image = customtkinter.CTkImage(Image.open(current_path + "/img/bouton.png"),
+        self.button_image = customtkinter.CTkImage(Image.open(current_path + "\\..\\..\\img\\bouton.png"),
                                                    size=self.button_size)
         
         

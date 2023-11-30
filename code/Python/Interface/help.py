@@ -22,7 +22,7 @@ class Help(customtkinter.CTkFrame):
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "/img/fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\..\\..\\img\\fond_vierge.png"),
                                                size=(self.width, self.height))
         
         #label
