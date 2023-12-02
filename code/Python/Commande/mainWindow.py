@@ -11,6 +11,7 @@ import help as help
 
 # import files of Commande
 
+import Partie
 
 class App(customtkinter.CTk):
     def __init__(self,height,width):
@@ -18,6 +19,8 @@ class App(customtkinter.CTk):
         self.height=height
         self.width=width
 
+        self.game=Partie.Partie(0,"\\Users\\buche\\OneDrive\\Documents\\GitHub\\PokerTrainer\\code\\Solveur\\resources\\output_result.json","KdJd")
+       
         # configure window
         self.title("Poker Trainer")
         self.attributes('-topmost', True)
@@ -55,15 +58,15 @@ class App(customtkinter.CTk):
         self.width=self.winfo_width()
         self.height=self.winfo_height()
         self.frame.resize(self)
-            
-        
 
-
+    
 def main():
     print("------------------Main called------------------")
     height, width = utils.get_display_size()
     root = App(height, width)
     root.mainloop()
+    
+    root.frames["Play"].affichageAndActivation(root.game)
 
 
 

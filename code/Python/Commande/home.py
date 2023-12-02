@@ -7,6 +7,9 @@ import os
 from PIL import Image
 import re
 
+import Partie
+import play
+
 #a basic frame with a label
 
 class Home(customtkinter.CTkFrame):
@@ -76,7 +79,7 @@ class Home(customtkinter.CTkFrame):
         
     def play_event(self):
         self.master.show_frame("Play")
-    
+
     def home_event(self):
         self.master.show_frame("Home")
 
@@ -120,6 +123,8 @@ class Home(customtkinter.CTkFrame):
             #resize buttons
             self.play_button.configure(width=self.width/10)
             
+
+
             
             
             
