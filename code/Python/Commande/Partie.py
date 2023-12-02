@@ -1,8 +1,9 @@
 import Joueur
 import LectureFichierJson
 
-from ..Interface import utils
-from ..Interface import mainWindow
+from ..Interface import utils,mainWindow 
+
+
 
 class Partie:
 
