@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./code/Python/Interface",
+        "./code/Python/Commande"
+    ]
+}

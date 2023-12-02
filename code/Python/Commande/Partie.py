@@ -1,15 +1,8 @@
-
 import Joueur
-import Cartes
 import LectureFichierJson
-import Solveur
-import sys
 
-sys.path.insert(0,"C:\\Users\\buche\\OneDrive\\Documents\\GitHub\\PokerTrainer\\code\\Python\\Interface")
-
-import mainWindow
-
-
+from ..Interface import utils
+from ..Interface import mainWindow
 
 class Partie:
 
@@ -17,7 +10,11 @@ class Partie:
         self.joueur=Joueur.Joueur(position)  # créer un joueur avec la bonne position
         self.joueur.main=ValeurCarte # donne au joueur la main correspondante à la partie 
         self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
-        mainWindow.run()
+        
+        print("------------------Main called------------------")
+        self.window=height, width = utils.get_display_size()
+        root = mainWindow.App(height, width)
+        root.mainloop()
         
 
 
