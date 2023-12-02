@@ -1,6 +1,7 @@
 import Joueur
 import LectureFichierJson
-
+import utils
+import mainWindow
 
 
 class Partie:
@@ -80,4 +81,4 @@ class Partie:
         
 
 partie1=Partie(0,"\\Users\\buche\\OneDrive\\Documents\\GitHub\\PokerTrainer\\code\\Solveur\\resources\\output_result.json","KdJd")
-partie1.jouerUnePartie()
+
