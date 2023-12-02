@@ -65,9 +65,5 @@ def main():
     height, width = utils.get_display_size()
     root = App(height, width)
     root.mainloop()
-    
-    root.frames["Play"].affichageAndActivation(root.game)
-
-
 
 main()

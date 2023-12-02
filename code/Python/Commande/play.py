@@ -6,6 +6,7 @@ import os
 import card as card
 
 import LectureFichierJson
+import home
 
 class Play(customtkinter.CTkFrame):
     def __init__(self, master: any, width: int = 200, height: int = 200):
@@ -36,37 +37,25 @@ class Play(customtkinter.CTkFrame):
         
         #create buttons
         #bet 'x'
-        self.textx=tkinter.StringVar()
-        self.textx.set("Bet\n 'x'")
-
-        self.texty=tkinter.StringVar()
-        self.texty.set("Bet\n 'y'")
-
-        self.textCheck=tkinter.StringVar()
-        self.textCheck.set("Check")
-
-        self.textFold=tkinter.StringVar()
-        self.textFold.set("Fold")
-
-        self.button_bet_x = customtkinter.CTkLabel(self, image=self.button_image, text=self.textx,text_color="white")
+        self.button_bet_x = customtkinter.CTkLabel(self, image=self.button_image, text="Bet\n 'x'",text_color="white")
         self.button_bet_x.bind("<Button-1>", self.button_bet_x_event) 
         # self.button_bet_x.grid(row=0, column=0, padx=15, pady=(15,15))
         self.button_bet_x.place(relx=0.1, rely=1*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
         
         #bet 'y'
-        self.button_bet_y = customtkinter.CTkLabel(self, image=self.button_image, text=self.texty,text_color="white")
+        self.button_bet_y = customtkinter.CTkLabel(self, image=self.button_image, text="Bet\n 'y'",text_color="white")
         self.button_bet_y.bind("<Button-1>", self.button_bet_y_event)
         # self.button_bet_y.grid(row=1, column=0, padx=15, pady=(15,15))
         self.button_bet_y.place(relx=0.1, rely=2*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
         
         #check
-        self.button_check = customtkinter.CTkLabel(self, image=self.button_image, text=self.textCheck,text_color="white")
+        self.button_check = customtkinter.CTkLabel(self, image=self.button_image, text="Check",text_color="white")
         self.button_check.bind("<Button-1>", self.button_check_event)
         # self.button_check.grid(row=2, column=0, padx=15, pady=(15,15))
         self.button_check.place(relx=0.1, rely=3*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
         
         #fold
-        self.button_fold = customtkinter.CTkLabel(self, image=self.button_image, text=self.textFold,text_color="white")
+        self.button_fold = customtkinter.CTkLabel(self, image=self.button_image, text="Fold",text_color="white")
         self.button_fold.bind("<Button-1>", self.button_fold_event)
         # self.button_fold.grid(row=3, column=0, padx=15, pady=(15,15))
         self.button_fold.place(relx=0.1, rely=4*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
@@ -169,33 +158,3 @@ class Play(customtkinter.CTkFrame):
         print("Fold")
 
 
-    # la fonction suivante permettra d'afficher les bons noms des boutons et s'ils peuvent être clické ou pas
-    def affichageAndActivation(self,Partie): #fichier c'est le json utilisé pendant la partie
-        tabActions=Partie.fichier.recupActions() # récupère les actions que le joueur peut effectuer
-        print(len(tabActions))
-        if(len(tabActions)==2):
-            self.textx.set(tabActions[0])
-
-            self.texty.set(tabActions[1])
-
-            self.textCheck.set("")
-
-            self.textFold.set("")
-
-        elif(len(tabActions)==3):
-            self.textx.set(tabActions[0])
-
-            self.texty.set(tabActions[1])
-
-            self.textCheck.set(tabActions[2])
-
-            self.textFold.set("")
-
-        elif(len(tabActions)==4):
-            self.textx.set(tabActions[0])
-
-            self.texty.set(tabActions[1])
-
-            self.textCheck.set(tabActions[2])
-
-            self.textFold.set(tabActions[3])

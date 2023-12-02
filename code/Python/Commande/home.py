@@ -26,11 +26,6 @@ class Home(customtkinter.CTkFrame):
 
         #Variable pour stocker le chemin du fichier choisi
         self.var_fichier = None
-
-       
-       
-        
-        
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
@@ -78,6 +73,7 @@ class Home(customtkinter.CTkFrame):
         
         
     def play_event(self):
+
         self.master.show_frame("Play")
 
     def home_event(self):
