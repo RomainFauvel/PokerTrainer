@@ -1,0 +1,22 @@
+import Carte
+import random
+
+class PaquetDeCartes:
+    def __init__(self):
+        couleurs = list(Carte.Couleur)
+        hauteurs = list(Carte.Hauteur)
+        # Crée le jeu de cartes sans doublons
+        self.cartes = [Carte(couleur, hauteur) for couleur in Carte.Couleur for hauteur in Carte.Hauteur]
+
+    #melange le jeu
+    def melanger(self):
+        random.shuffle(self.cartes)
+
+    #distribue dans une liste le nombre de cartes demandées en les supprimant du jeu de cartes
+    def distribuer(self, nombre_de_cartes):
+        if nombre_de_cartes > len(self.cartes):
+            print("Il n'y a pas assez de cartes pour distribuer.")
+            return None
+        main = self.cartes[:nombre_de_cartes]
+        self.cartes = self.cartes[nombre_de_cartes:]
+        return main
