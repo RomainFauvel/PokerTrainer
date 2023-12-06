@@ -33,11 +33,7 @@ class Carte:
     def __init__(self, couleur, hauteur):
         self.couleur = couleur
         self.hauteur = hauteur
-    
-    def carteAleatoire(self):
-        self.couleur=random.choice(list(Couleur))
-        self.hauteur=random.choice(list(Hauteur))
-
+ 
     def __str__(self):
         return f"{self.hauteur.value}{self.couleur.value}"
     
@@ -68,6 +64,12 @@ class JeuDeCartes:
     def afficher_cartes(self, cartes):
         for carte in cartes:
             print(carte)
+
+    def supprimerCarteChoisie(self,carte):
+        for c in self.cartes:
+            if carte==c:
+                self.carte.remove(c)
+
 
 
 

@@ -3,23 +3,21 @@ import Joueur
 import Cartes
 import LectureFichierJson
 import Solveur
+import Scenario
+import random
+
+tableauDeScenarios=[]
 
 class Partie:
 
     def __init__(self,position):
         self.paquetDeCartes=Cartes.creationJeu()
         self.joueur=Joueur.Joueur(position)
-        self.board=self.paquetDeCartes.distribuer(3)
+        self.scenario=tableauDeScenarios[random.randint(0,len(tableauDeScenarios))]
         self.joueur.pioche(self.paquetDeCartes)
 
-        self.appelerSolveur()  #Comme ça on appelle directement le solveur quand on crée une partie à voir si ça fonctionne bien
-        self.fichier=LectureFichierJson.LectureFichierJson("code/Solveur/output_result.json",self.joueur.toStringPaireLectureJson()) #Ouvre le fichier Json après l'appel au solveur
-
-    #modifie le fichier d'entrée du solveur et lance automatiquement le solveur
-    def appelerSolveur(self):
-        Solveur.ecritureEntree(self.board,self.joueur)
-        Solveur.lancerSolveur()
-
+        
+    
     
 
 
