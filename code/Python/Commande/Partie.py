@@ -28,8 +28,9 @@ class Partie:
             if(self.fichier.faireJouerOrdi()==False):
                 return False
             self.fichier.faireJouerOrdi()
+            return True
 
-        else:
+        elif(self.position==1):
             if(self.fichier.faireJouerOrdi()==False):
                 return False
             self.fichier.faireJouerOrdi()
@@ -43,14 +44,17 @@ class Partie:
             indiceaction = input(
                 "Entrez l'action choisie :")  # Récupérer l'action faite par le joueur (lire sur le clavier)
             self.fichier.setData(actionsjoueur[int(indiceaction)])  # Permet de modifier le chemin selon l'action du joueur
+            return True
 
     def jouerUnePartie(self):
         arret=False
         self.position = input ("Choisissez la position 0 ou 1")  #Faudra checker l'input du joueur qd c'est sur terminal
+        print(self.position)
         while(arret!=True): #condition d'arret ligne 50
             boolean=True
             while(boolean==True): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
                 boolean=self.tour()
+                print(boolean)
             if (self.fichier.data["node_type"] == "chance_node"):
                 arret = True
                 print("Fin de partie")
@@ -60,5 +64,5 @@ class Partie:
 
         
 
-partie1=Partie("C:\\Users\maths\Documents\Documents INSA\Etude pratique\TexasSolver-v0.2.0-Windows\\resources\outputs\output_strategybon.json","KdJd")
+partie1=Partie("Ressources/output_strategy.json","KdJd")
 partie1.jouerUnePartie()
