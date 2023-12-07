@@ -30,3 +30,7 @@ class Carte:
     def __init__(self, couleur, hauteur):
         self.couleur = couleur
         self.hauteur = hauteur
+
+    def __str__(self):
+        return f"{self.couleur.value}{self.hauteur.value}"
+
