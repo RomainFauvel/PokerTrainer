@@ -21,9 +21,10 @@ class PaquetDeCartes:
         self.cartes = self.cartes[nombre_de_cartes:]
         return cartes
 
+    #On retire le flop du paquet carte
     def retirerFlop(self,flop):
         for c in self.cartes:
-            if c==flop[0] or c==flop[0] or c==flop[0]:
+            if c==flop[0] or c==flop[1] or c==flop[2]:
                 self.cartes.remove(c)
 
     # affiche le jeu de cartes
