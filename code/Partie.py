@@ -15,6 +15,12 @@ class Partie:
         self.river=self.paquetDeCartes.distribuer(1)
         self.turn = self.paquetDeCartes.distribuer(1)
 
+
+
+
+
+
+    
 def test(position):
     p1=Partie(0)
     p1.paquetDeCartes.afficher_cartes(p1.scenario.flop)

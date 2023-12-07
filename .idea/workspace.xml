@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5787a4c6-5b89-47af-a013-1e5160f43895" name="Changes" comment="modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie">
-      <change afterPath="$PROJECT_DIR$/code/Joueur.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/Partie.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/code/Scenario.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/Carte" beforeDir="false" afterPath="$PROJECT_DIR$/code/Carte.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/PaquetDeCartes" beforeDir="false" afterPath="$PROJECT_DIR$/code/PaquetDeCartes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/Scenario" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/Partie.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/Partie.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,16 +45,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Partie.executor": "Run",
-    "Python.Scenario.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Partie-et-scenario",
-    "last_opened_file_path": "/home/theohebert/PycharmProjects/PokerTrainer"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Partie.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Scenario.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Partie-et-scenario&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/theohebert/PycharmProjects/PokerTrainer&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
