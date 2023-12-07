@@ -8,9 +8,10 @@ class Scenario:
     def __init__(self):
 
         #recuperation d'un fichier Json aléatoirement
-        repertoire_Json = "../fichiersJson"
+        repertoire_Json = "./fichiersJson"
         noms_fichiers = [f for f in os.listdir(repertoire_Json) if os.path.isfile(os.path.join(repertoire_Json, f))]
-        self.nomFichierJson = random.choice(noms_fichiers)
+        #self.nomFichierJson = random.choice(noms_fichiers)
+        self.nomFichierJson="sQhJh2.json"
 
         #creation du flop a partir du titre du fichier json
         carte1=CarteDepuisString(self.nomFichierJson[:2])
