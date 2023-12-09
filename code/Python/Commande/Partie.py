@@ -5,64 +5,89 @@ import LectureFichierJson
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
-        self.position=0
+        self.position = int(input ("Choisissez la position 0 ou 1"))
         self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
+
+    def demanderActionJoueur(self,actionsjoueur): #prend en paramètre les différentes actions que le joueur peut faire
         
-    def faireJouerJoueur(self):
-        if(self.fichier.data.get("strategy",0)!=0):  # Si pas de strategy, retourne 0
-            return self.fichier.recupProba()
-        else:
-            return False
+        for i in range(len(actionsjoueur)):
+            print("Pour faire "+actionsjoueur[i]+" tapez "+str(i))
+        
+        return input("Entrez l'action choisie :")  # Récupérer l'action faite par le joueur (lire sur le clavier)
+        
         
     def tour(self):
         if(self.position==0):
-            if(self.faireJouerJoueur()==False): #Permet de tester si on doit ou pas tourner une carte
-                return False
-            print(self.faireJouerJoueur()) #Cela recupère les probas pour chaque actions
-            actionsjoueur = self.fichier.recupActions()
-            for i in range(len(actionsjoueur)):
-               print("Pour faire "+actionsjoueur[i]+" tapez "+str(i))
-            indiceaction = input("Entrez l'action choisie :")  # Récupérer l'action faite par le joueur (lire sur le clavier)
-            self.fichier.setData(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
+            print("cas 1")
+            if(self.fichier.faireJouerJoueur()==False): #Permet de tester si on doit ou pas tourner une carte
+                return "Piocher une carte"
             
-            if(self.fichier.faireJouerOrdi()==False):
-                return False
-            self.fichier.faireJouerOrdi()
-            return True
+            actionsjoueur=self.fichier.recupActions() #récupère les différentes actions que le joueur peut faire
+
+            indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
+
+            print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+
+            if(actionsjoueur[int(indiceaction)]=="FOLD"): #car fin de partie quand fold
+                return "Fin de partie"
+            
+            self.fichier.setData(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
+
+            actionOrdi=self.fichier.faireJouerOrdi()
+
+            if(actionOrdi==False):
+                return "Piocher une carte"
+            if(actionOrdi=="Fin de partie"):
+                return "Fin de partie"
+
+            return "Fin du tour"
 
         elif(self.position==1):
-            if(self.fichier.faireJouerOrdi()==False):
-                return False
-            self.fichier.faireJouerOrdi()
-            if(self.faireJouerJoueur()==False):
-                return False
+            print("cas 2")
+
+            actionOrdi=self.fichier.faireJouerOrdi()
             
-            print(self.faireJouerJoueur())
-            actionsjoueur = self.fichier.recupActions()
-            for i in range(len(actionsjoueur)):
-                print("Pour faire " + actionsjoueur[i] + " tapez " + str(i))
-            indiceaction = input(
-                "Entrez l'action choisie :")  # Récupérer l'action faite par le joueur (lire sur le clavier)
-            self.fichier.setData(actionsjoueur[int(indiceaction)])  # Permet de modifier le chemin selon l'action du joueur
-            return True
+            if(actionOrdi==False): 
+                return "Piocher une carte"
+            if(actionOrdi=="Fin de partie"):
+                return "Fin de partie"
+        
+            
+            if(self.fichier.faireJouerJoueur()==False):
+                return "Piocher une carte"
+            
+            actionsjoueur=self.fichier.recupActions() #récupère les différentes actions que le joueur peut faire
+
+            indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
+
+            print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+
+            if(actionsjoueur[int(indiceaction)]=="FOLD"):
+                return "Fin de partie"
+            
+            self.fichier.setData(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
+            
+            return "Fin du tour"
+    
+        print("erreur")
 
     def jouerUnePartie(self):
         arret=False
-        self.position = input ("Choisissez la position 0 ou 1")  #Faudra checker l'input du joueur qd c'est sur terminal
-        print(self.position)
+        nbCarte=1
         while(arret!=True): #condition d'arret ligne 50
-            boolean=True
-            while(boolean==True): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
-                boolean=self.tour()
-                print(boolean)
-            if (self.fichier.data["node_type"] == "chance_node"):
-                arret = True
-                print("Fin de partie")
-                return 0
-            self.fichier.dealcards("3c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
-
+            Etat="Fin du tour"
+            while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
+                Etat=self.tour()
+                if(Etat=="Fin de partie"):
+                    print("Fin de partie")
+                    return 0       
+            if(nbCarte==1):
+                self.fichier.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
+                nbCarte+=1
+            else:
+                self.fichier.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
 
         
 
-partie1=Partie("Ressources/output_strategy.json","KdJd")
+partie1=Partie("Ressources/output_strategyTest.json","KsKh")
 partie1.jouerUnePartie()

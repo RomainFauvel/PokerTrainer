@@ -15,7 +15,6 @@ class LectureFichierJson:
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.valeurCarte][i]*100,3)})
-        print(dicoProba)
         return dicoProba
 
     def setData(self,actionARealiser): # modifie le chemin pour prendre en compte l'action réalisée par le joueur/Ordi
@@ -30,19 +29,33 @@ class LectureFichierJson:
             for i in range(len(actions)):
                 for tabProba in coupajouer.values():
                     tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
+            print(tab)
             actionordi = self.recupmax(tab)  # On récupère l'indice de l'action à jouer
+            print(actionordi)
+            print("l'ordi : "+actions[actionordi]) #affiche l'action que joue l'ordinateur
+
+            if(actions[actionordi]=="FOLD"):
+                return "Fin de partie"
+            
             self.setData(actions[actionordi])  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
             return True
         else:
             return False
+        
+    def faireJouerJoueur(self):
+        if(self.data.get("strategy",0)!=0):  # Si pas de strategy, retourne 0
+            return self.recupProba()
+        else:
+            return False
 
-    
 
     def recupmax(self,tab):                             # Fonction pour récupérer l'indice de la valeur max dans un tableau
         res=0
-        for i in range(len(tab)-1):
-            if(tab[i]<tab[i+1]):
-                res=i+1
+        max=tab[0]
+        for i in range(len(tab)):
+            if(tab[i]>max):
+                res=i
+                max=tab[i]
         return res
    
     def recupActions(self):
