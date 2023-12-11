@@ -5,7 +5,7 @@ import LectureFichierJson
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
-        self.position = int(input ("Choisissez la position 0 ou 1"))
+        self.position = int(input ("Choisissez la position 0 ou 1 \n"))
         self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
     def demanderActionJoueur(self,actionsjoueur): #prend en paramètre les différentes actions que le joueur peut faire
@@ -13,7 +13,7 @@ class Partie:
         for i in range(len(actionsjoueur)):
             print("Pour faire "+actionsjoueur[i]+" tapez "+str(i))
         
-        return input("Entrez l'action choisie :")  # Récupérer l'action faite par le joueur (lire sur le clavier)
+        return input("Entrez l'action choisie : \n")  # Récupérer l'action faite par le joueur (lire sur le clavier)
         
         
     def tour(self):
