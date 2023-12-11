@@ -75,17 +75,18 @@ class Partie:
 
         
 
-partie1=Partie(0)
-partie1.jouerUnePartie()
+
 
 
 
     
 def test(position):
-    p1=Partie(0)
+    p1=Partie(position)
     p1.paquetDeCartes.afficher_cartes(p1.scenario.flop)
     p1.paquetDeCartes.afficher_cartes(p1.river)
     p1.paquetDeCartes.afficher_cartes(p1.turn)
     print("======================================\nmain:")
     p1.paquetDeCartes.afficher_cartes(p1.joueur.main)
 
+
+test()
