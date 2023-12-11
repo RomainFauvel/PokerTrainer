@@ -31,7 +31,7 @@ class Home(customtkinter.CTkFrame):
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\img\\home_fond.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "/img/home_fond.png"),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
         self.bg_image_label.grid(row=0, column=0)
@@ -105,7 +105,7 @@ class Home(customtkinter.CTkFrame):
     def resize(self,event):
         width=event.width
         height=event.height
-        if(width != self.width or height != self.height):
+        if((width != self.width or height != self.height) and self.master.frame == self) :
             print("Home resize")
             print("New width: ", width)
             print("New height: ", height)

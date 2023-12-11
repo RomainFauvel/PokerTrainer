@@ -22,7 +22,7 @@ class Help(customtkinter.CTkFrame):
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "\\img\\fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + "/img/fond_vierge.png"),
                                                size=(self.width, self.height))
         
         #label
@@ -68,7 +68,7 @@ class Help(customtkinter.CTkFrame):
     def resize(self,event):
         width=event.width
         height=event.height
-        if(width != self.width or height != self.height):
+        if((width != self.width or height != self.height)and self.master.frame == self):
             print("Play resize")
             print("New width: ", width)
             print("New height: ", height)
