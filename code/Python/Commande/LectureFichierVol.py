@@ -1,10 +1,9 @@
 import ijson
 
-with open("C:\\Users\\buche\\OneDrive\\Documents\\INSA_Rennes\\3A_INFO\\EtudePratique", 'r') as fichier:
+with open("C:\\Users\\buche\\Documents\\INSA_Rennes\\3A_INFO\\EtudePratique\\output_strategy.json", 'r') as fichier:
         # Créer un lecteur ijson
-    lecteur = ijson.items(fichier, 'output_strategy.json')
+    lecteur=ijson.items(fichier,'')
 
-        # Iterer sur les objets du fichier JSON
-    for objet in lecteur:
-            # Faire quelque chose avec chaque objet
-        print(objet)
+    strategy=next(lecteur,None)
+    actions=strategy.get("childrens")
+    print(actions)

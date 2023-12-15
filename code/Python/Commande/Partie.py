@@ -79,7 +79,9 @@ class Partie:
             while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
                 Etat=self.tour()
                 if(Etat=="Fin de partie"):
+                    print("<--------------------------------->")
                     print("Fin de partie")
+                    print("<--------------------------------->")
                     return 0       
             if(nbCarte==1):
                 self.fichier.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
