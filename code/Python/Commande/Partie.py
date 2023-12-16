@@ -88,6 +88,7 @@ class Partie:
             if(nbCarte==1):
                 self.fichier.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 nbCarte+=1
+                print("\nLa river card est : \n")
                 print("┌───────┐")
                 print("│ 2     │")
                 print("│       │")
@@ -98,7 +99,7 @@ class Partie:
             else:
                 self.fichier.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
 
-                print("\nla turn card est : \n")
+                print("\nLa turn card est : \n")
                 print("┌───────┐")
                 print("│ 2     │")
                 print("│       │")
@@ -114,7 +115,7 @@ class Partie:
 
         
 
-partie1=Partie("Ressources/output_strategyTest.json","KsKh")
+partie1=Partie("Ressources\output_strategyTest.json","KsKh")
 print("\nVotre main est : \n")
 
 print("┌───────┐ ┌───────┐")

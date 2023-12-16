@@ -35,7 +35,7 @@ class LectureFichierJson:
             print("<--------------------------------->\n")"""
             actionordi = self.recupmax(tab)  # On récupère l'indice de l'action à jouer
             print("<--------------------------------->")
-            print("l'ordinateur : "+actions[actionordi]) #affiche l'action que joue l'ordinateur
+            print("l'ordinateur joue : "+actions[actionordi]) #affiche l'action que joue l'ordinateur
             print("<--------------------------------->\n")
 
             if(actions[actionordi]=="FOLD"):
