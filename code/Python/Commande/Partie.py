@@ -5,7 +5,7 @@ import LectureFichierJson
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
-        self.position = int(input ("Choisissez la position 0 ou 1 \n"))
+        self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
         self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
     def demanderActionJoueur(self,actionsjoueur): #prend en paramètre les différentes actions que le joueur peut faire
@@ -13,12 +13,11 @@ class Partie:
         for i in range(len(actionsjoueur)):
             print("Pour faire "+actionsjoueur[i]+" tapez "+str(i))
         
-        return input("Entrez l'action choisie : \n")  # Récupérer l'action faite par le joueur (lire sur le clavier)
+        return input("\nEntrez l'action choisie :\n")  # Récupérer l'action faite par le joueur (lire sur le clavier)
         
         
     def tour(self):
         if(self.position==0):
-            print("cas 1")
             if(self.fichier.faireJouerJoueur()==False): #Permet de tester si on doit ou pas tourner une carte
                 return "Piocher une carte"
             
@@ -26,7 +25,9 @@ class Partie:
 
             indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
 
+            print("<--------------------------------->")
             print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+            print("<--------------------------------->\n")
 
             if(actionsjoueur[int(indiceaction)]=="FOLD"): #car fin de partie quand fold
                 return "Fin de partie"
@@ -43,7 +44,6 @@ class Partie:
             return "Fin du tour"
 
         elif(self.position==1):
-            print("cas 2")
 
             actionOrdi=self.fichier.faireJouerOrdi()
             
@@ -60,7 +60,9 @@ class Partie:
 
             indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
 
+            print("<--------------------------------->")
             print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+            print("<--------------------------------->\n")
 
             if(actionsjoueur[int(indiceaction)]=="FOLD"):
                 return "Fin de partie"
@@ -81,7 +83,7 @@ class Partie:
                 if(Etat=="Fin de partie"):
                     print("<--------------------------------->")
                     print("Fin de partie")
-                    print("<--------------------------------->")
+                    print("<--------------------------------->\n")
                     return 0       
             if(nbCarte==1):
                 self.fichier.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
@@ -92,4 +94,13 @@ class Partie:
         
 
 partie1=Partie("Ressources/output_strategyTest.json","KsKh")
+print("\nVotre main est : \n")
+
+print("┌───────┐ ┌───────┐")
+print("│ K     │ │ K     │")
+print("│       │ │       │")
+print("│   ♠   │ │   ♦   │")
+print("│       │ │       │")
+print("│     K │ │     K │")
+print("└───────┘ └───────┘\n")
 partie1.jouerUnePartie()

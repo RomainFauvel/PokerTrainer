@@ -29,15 +29,14 @@ class LectureFichierJson:
             for i in range(len(actions)):
                 for tabProba in coupajouer.values():
                     tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
-            print("<--------------------------------->")
+            """print("<--------------------------------->")
             print("Le nombre de combinaisons possibles pour l'ordinateur ")
             print(tab)
-            print("<--------------------------------->")
+            print("<--------------------------------->\n")"""
             actionordi = self.recupmax(tab)  # On récupère l'indice de l'action à jouer
-            print(actionordi)
             print("<--------------------------------->")
             print("l'ordinateur : "+actions[actionordi]) #affiche l'action que joue l'ordinateur
-            print("<--------------------------------->")
+            print("<--------------------------------->\n")
 
             if(actions[actionordi]=="FOLD"):
                 return "Fin de partie"
