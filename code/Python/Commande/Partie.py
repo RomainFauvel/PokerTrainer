@@ -111,28 +111,26 @@ class Partie:
 
 
 
+if __name__ == "__main__":
             
+    partie1=Partie("Ressources\output_strategyTest.json","KsKh")
+    print("\nVotre main est : \n")
 
-        
+    print("┌───────┐ ┌───────┐")
+    print("│ K     │ │ K     │")
+    print("│       │ │       │")
+    print("│   ♠   │ │   ♥   │")
+    print("│       │ │       │")
+    print("│     K │ │     K │")
+    print("└───────┘ └───────┘\n")
 
-partie1=Partie("Ressources\output_strategyTest.json","KsKh")
-print("\nVotre main est : \n")
+    print("\nLes cartes du board sont : \n")
 
-print("┌───────┐ ┌───────┐")
-print("│ K     │ │ K     │")
-print("│       │ │       │")
-print("│   ♠   │ │   ♥   │")
-print("│       │ │       │")
-print("│     K │ │     K │")
-print("└───────┘ └───────┘\n")
-
-print("\nLes cartes du board sont : \n")
-
-print("┌───────┐ ┌───────┐ ┌───────┐")
-print("│ Q     │ │ J     │ │ 2     │")
-print("│       │ │       │ │       │")
-print("│   ♠   │ │   ♥   │ │   ♥   │")
-print("│       │ │       │ │       │")
-print("│     Q │ │     J │ │     2 │")
-print("└───────┘ └───────┘ └───────┘\n")
-partie1.jouerUnePartie()
+    print("┌───────┐ ┌───────┐ ┌───────┐")
+    print("│ Q     │ │ J     │ │ 2     │")
+    print("│       │ │       │ │       │")
+    print("│   ♠   │ │   ♥   │ │   ♥   │")
+    print("│       │ │       │ │       │")
+    print("│     Q │ │     J │ │     2 │")
+    print("└───────┘ └───────┘ └───────┘\n")
+    partie1.jouerUnePartie()
