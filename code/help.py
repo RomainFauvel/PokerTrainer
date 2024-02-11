@@ -61,7 +61,7 @@ class Help(customtkinter.CTkFrame):
                 text=file.read()
             return text
         except FileNotFoundError:
-            return "Fichier introuvable"
+            return "File not found"
         except Exception as e:
             return f"Erreur {str(e)}"
         
