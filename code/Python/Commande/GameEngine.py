@@ -1,17 +1,27 @@
 
 import GameTree
-import json
+import utils
+
 
 class GameEngine:
 
     gameTree=None #contient l'arbre de jeu provenant du fichier json de sortie du solveur
 
-    def __init__(self,nomFichier,valeurCarte):
-        self.gameTree=gameTree.GameTree(nomFichier,valeurCarte)
+    """
+    Initializes the GameEngine with a game tree from a given file path and card value.
+    """
+    def __init__(self,filePath,cardValue):
+        self.gameTree=self.gameTree.GameTree(filePath,cardValue)
+
+    """
+    Executes the computer's play turn. If there are no moves to play, it returns False.
+    Otherwise, it calculates the probabilities of each action, chooses the action with the highest probability,
+    and plays that action. If the chosen action is "FOLD", it ends the game.
+    """
 
     def computerPlay(self):
 
-        if (gameTree.isPlayable()==True): # Si il n'y a pas de coup a jouer, retourne 0
+        if (self.gameTree.isPlayable()==True): # Si il n'y a pas de coup a jouer, retourne 0
             return False
 
         actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
@@ -27,18 +37,16 @@ class GameEngine:
         print("Le nombre de combinaisons possibles pour l'ordinateur ")
         print(tab)
         print("<--------------------------------->\n")"""
-        actionordi = self.recupmax(tab)  # On récupère l'indice de l'action à jouer
+        computerAction = utils.getIndexMax(tab)  # On récupère l'indice de l'action à jouer
         print("<--------------------------------->")
-        print("l'ordinateur joue : "+actions[actionordi]) #affiche l'action que joue l'ordinateur
+        print("l'ordinateur joue : "+actions[computerAction]) #affiche l'action que joue l'ordinateur
         print("<--------------------------------->\n")
 
-        if(actions[actionordi]=="FOLD"):
+        if(actions[computerAction]=="FOLD"):
             return "Fin de partie"
         
-        self.gameTree.play(actions[actionordi])  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
+        self.gameTree.play(actions[computerAction])  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
         return True
-        else:
-            return False
         
     def playerPlay(self):
         if(self.gameTree.isPlayable()==True): 
@@ -46,14 +54,9 @@ class GameEngine:
         else:
             return False # Si il n'y a pas de coup a jouer, retourne False
 
-    def recupmax(self,tab):  # Fonction pour récupérer l'indice de la valeur max dans un tableau
-        res=0
-        max=tab[0]
-        for i in range(len(tab)):
-            if(tab[i]>max):
-                res=i
-                max=tab[i]
-        return res
+
+
+    
 
     # def dealcards(self,cartepiochee):
     #     self.data=self.data["dealcards"][cartepiochee]

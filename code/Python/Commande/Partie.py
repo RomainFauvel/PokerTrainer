@@ -1,12 +1,12 @@
 import Joueur
-import LectureFichierJson
+import GameEngine
 
 
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
-        self.fichier=LectureFichierJson.LectureFichierJson(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
+        self.fichier=GameEngine.GameEngine(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
     def demanderActionJoueur(self,actionsjoueur): #prend en paramètre les différentes actions que le joueur peut faire
         

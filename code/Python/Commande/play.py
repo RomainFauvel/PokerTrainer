@@ -5,7 +5,7 @@ import os
 
 import card as card
 
-import LectureFichierJson
+# import LectureFichierJson
 import home
 
 class Play(customtkinter.CTkFrame):

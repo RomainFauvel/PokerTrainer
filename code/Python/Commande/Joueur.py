@@ -1,18 +1,16 @@
 import Cartes
 
 
-
 class Joueur:
     def __init__(self, pos):
         #position=0 => ip , position=1 => oop
         self.position=pos
-        self.main=None
+        self.hand=None
 
-    #permet de piocher 2 cartes dans le paquet
-    def pioche(self,jeu):
-        self.main=jeu.distribuer(2)
-
-    
+    #permet de piocher 2 cards dans le paquet
+    def pick2Cards(self,deck):
+        self.hand=deck.dealCards(2)
+  
     def toStringIp(self):
         ip="AA,KK,QQ,JJ,TT,99:0.75,88:0.75,77:0.5,66:0.25,55:0.25,AK,AQs,AQo:0.75,AJs,AJo:0.5,ATs:0.75,A6s:0.25,A5s:0.75,A4s:0.75,A3s:0.5,A2s:0.5,KQs,KQo:0.5,KJs,KTs:0.75,K5s:0.25,K4s:0.25,QJs:0.75,QTs:0.75,Q9s:0.5,JTs:0.75,J9s:0.75,J8s:0.75,T9s:0.75,T8s:0.75,T7s:0.75,98s:0.75,97s:0.75,96s:0.5,87s:0.75,86s:0.5,85s:0.5,76s:0.75,75s:0.5,65s:0.75,64s:0.5,54s:0.75,53s:0.5,43s:0.5"
         if(self.position==1):
@@ -27,37 +25,35 @@ class Joueur:
         else:
             return self.toStringPaireSolveur()
 
-    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cartes en entrée (une main)
-    #tri les cartes et formate le string pour l'appel du solveur 
+    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cards en entrée (une hand)
+    #tri les cards et formate le string pour l'appel du solveur 
     def toStringPaireSolveur(self):
-        carte1=self.main[0]
-        carte2=self.main[1]
-        hauteur_correspondance = {hauteur: index for index, hauteur in enumerate(Cartes.Hauteur)}
-        res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
-        if(carte1.hauteur.value!=carte2.hauteur.value):
+        card1=self.hand[0]
+        card2=self.hand[1]
+        cardHeight = {height: index for index, height in enumerate(Cartes.height)}
+        res=f"{card1.height.value}{card2.height.value}"
+        if(card1.height.value!=card2.height.value):
             #Modifier la comparaison qui ne marche pas bien
-            if(hauteur_correspondance[carte1.hauteur] > hauteur_correspondance[carte2.hauteur]):
-                res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
+            if(cardHeight[card1.height] > cardHeight[card2.height]):
+                res=f"{card1.height.value}{card2.height.value}"
             else:
-                res=f"{carte2.hauteur.value}{carte1.hauteur.value}"
-            if(carte1.couleur==carte2.couleur):
+                res=f"{card2.height.value}{card1.height.value}"
+            if(card1.couleur==card2.couleur):
                 return f"{res}s"
             else:
                 return f"{res}o"
         else:
-            res=f"{carte1.hauteur.value}{carte2.hauteur.value}"
+            res=f"{card1.height.value}{card2.height.value}"
             return res
        
-    #renvoit la paire de cartes du joueur sous la forme "AsJh"
+    #renvoit la paire de cards du joueur sous la forme "AsJh"
     def toStringPaireLectureJson(self):
-        carte1=self.main[0]
-        carte2=self.main[1]
-        hauteur_correspondance = {hauteur: index for index, hauteur in enumerate(Cartes.Hauteur)}
+        card1=self.hand[0]
+        card2=self.hand[1]
+        cardHeight = {height: index for index, height in enumerate(Cartes.height)}
         #Modifier la comparaison qui ne marche pas bien
-        if(hauteur_correspondance[carte1.hauteur] > hauteur_correspondance[carte2.hauteur]):
-            res=f"{carte1}{carte2}"
+        if(cardHeight[card1.height] > cardHeight[card2.height]):
+            res=f"{card1}{card2}"
         else:
-            res=f"{carte2}{carte1}"
+            res=f"{card2}{card1}"
         return res
-            
-       
