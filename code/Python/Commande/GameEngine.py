@@ -7,19 +7,13 @@ class GameEngine:
 
     gameTree=None #contient l'arbre de jeu provenant du fichier json de sortie du solveur
 
-    """
-    Initializes the GameEngine with a game tree from a given file path and card value.
-    """
+
     def __init__(self,filePath,cardValue):
-        self.gameTree=self.gameTree.GameTree(filePath,cardValue)
+        self.gameTree=GameTree.GameTree(filePath,cardValue)
 
-    """
-    Executes the computer's play turn. If there are no moves to play, it returns False.
-    Otherwise, it calculates the probabilities of each action, chooses the action with the highest probability,
-    and plays that action. If the chosen action is "FOLD", it ends the game.
-    """
 
-    def computerPlay(self):
+
+    def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
 
         if (self.gameTree.isPlayable()==True): # Si il n'y a pas de coup a jouer, retourne 0
             return False
@@ -48,7 +42,7 @@ class GameEngine:
         self.gameTree.play(actions[computerAction])  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
         return True
         
-    def playerPlay(self):
+    def playerPlay(self):#Affiche les probas de chaque action possible pour le joueur
         if(self.gameTree.isPlayable()==True): 
             return self.gameTree.getPlayerPossiblities()
         else:

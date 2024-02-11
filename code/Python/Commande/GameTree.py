@@ -11,11 +11,11 @@ class GameTree:
         self.cardValue=cardValue
 
 
-    def play(self,todo): # modifie le chemin pour prendre en compte l'action réalisée par le joueur/Ordi
+    def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
         self.data=self.data["childrens"][todo]
         return True
 
-    def isPlayable(self):
+    def isPlayable(self): #verifie si il y a des actions possibles à jouer
         return (self.data.get("strategy", 0) == 0)
 
 

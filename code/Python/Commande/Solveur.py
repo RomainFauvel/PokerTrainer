@@ -1,4 +1,4 @@
-import Cartes
+import Cards
 import subprocess
 import Joueur
 
