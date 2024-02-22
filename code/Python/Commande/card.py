@@ -21,8 +21,17 @@ class card():
         print(parent_path)
 
         if (self.show):
-            #return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\back_card.png"), size=(100, 150))
-            return 0
+            return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\back_card.png"), size=(100, 150))
+            if(self.suit == "c"):
+                return 0
+            elif(self.suit == "d"):
+                return 0
+            elif(self.suit == "s"):
+                return 0
+            elif(self.suit == "h"):
+                return 0
+            else:
+                return 0
 
         else:
             # la ca serait complexe
