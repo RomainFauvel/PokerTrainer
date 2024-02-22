@@ -4,11 +4,14 @@ import customtkinter
 import os
 
 import card as card
+import GameTree as GameTree
 
-# import LectureFichierJson
 import home
 
 class Play(customtkinter.CTkFrame):
+
+    gameTree = GameTree.GameTree("Ressources\output_strategyTest.json","KsKh")#il faudra enlever les param
+
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
         self.master = master
@@ -17,6 +20,7 @@ class Play(customtkinter.CTkFrame):
 
         self.number_of_buttons = 4
         self.button_size=(height/(2*self.number_of_buttons),height/(2*self.number_of_buttons))
+        self.buttons=[]
         
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -39,34 +43,9 @@ class Play(customtkinter.CTkFrame):
         
         
         #create buttons
-        #bet 'x'
-        self.button_bet_x = customtkinter.CTkLabel(self, image=self.button_image, text="Bet\n 'x'",text_color="white")
-        self.button_bet_x.bind("<Button-1>", self.button_bet_x_event) 
-        # self.button_bet_x.grid(row=0, column=0, padx=15, pady=(15,15))
-        self.button_bet_x.place(relx=0.1, rely=1*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
-        
-        #bet 'y'
-        self.button_bet_y = customtkinter.CTkLabel(self, image=self.button_image, text="Bet\n 'y'",text_color="white")
-        self.button_bet_y.bind("<Button-1>", self.button_bet_y_event)
-        # self.button_bet_y.grid(row=1, column=0, padx=15, pady=(15,15))
-        self.button_bet_y.place(relx=0.1, rely=2*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
-        
-        #check
-        self.button_check = customtkinter.CTkLabel(self, image=self.button_image, text="Check",text_color="white")
-        self.button_check.bind("<Button-1>", self.button_check_event)
-        # self.button_check.grid(row=2, column=0, padx=15, pady=(15,15))
-        self.button_check.place(relx=0.1, rely=3*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
-        
-        #fold
-        self.button_fold = customtkinter.CTkLabel(self, image=self.button_image, text="Fold",text_color="white")
-        self.button_fold.bind("<Button-1>", self.button_fold_event)
-        # self.button_fold.grid(row=3, column=0, padx=15, pady=(15,15))
-        self.button_fold.place(relx=0.1, rely=4*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
+        self.create_buttons()
         
 
-
-
-        
         #home
         self.home_button = customtkinter.CTkButton(self, text="Home", command=self.home_event, width=150)
         # self.home_button.grid(row=0, column=0, padx=15, pady=(15,15))
@@ -116,6 +95,24 @@ class Play(customtkinter.CTkFrame):
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
         self.card7_label.place(relx=0.8, rely=0.4, anchor=tkinter.CENTER)
 
+    def create_buttons(self):
+        # if(self.gameTree.isPlayable()==True):
+        print("Creating buttons")
+        self.buttons = []
+
+        actions=self.gameTree.getActions()
+        self.number_of_buttons = 0
+        for i in range(len(actions)):
+            self.number_of_buttons+=1
+            button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],text_color="white")
+            fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
+            fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
+            button.bind("<Button-1>",fct ) 
+            button.place(relx=0.1, rely=1*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
+            self.buttons.append(button)
+        print("Buttons created")
+        print(self.buttons)
+
 
     def home_event(self):
         self.master.show_frame("Home")
@@ -127,9 +124,9 @@ class Play(customtkinter.CTkFrame):
         width=event.width
         height=event.height
         if((width != self.width or height != self.height) and self.master.frame == self):
-            print("Play resize")
-            print("New width: ", width)
-            print("New height: ", height)
+            # print("Play resize")
+            # print("New width: ", width)
+            # print("New height: ", height)
             self.width = width
             self.height = height
 
@@ -138,13 +135,15 @@ class Play(customtkinter.CTkFrame):
             self.bg_label.configure(image=self.bg_image)
 
             #resize buttons
-            self.button_size=(height/(2*self.number_of_buttons),height/(2*self.number_of_buttons))
-            self.button_image.configure(size=self.button_size)
+            # self.button_size=(height/(2*self.number_of_buttons),height/(2*self.number_of_buttons))
+            # self.button_image.configure(size=self.button_size)
 
-            self.button_bet_x.configure(image=self.button_image)
-            self.button_bet_y.configure(image=self.button_image)
-            self.button_check.configure(image=self.button_image)
-            self.button_fold.configure(image=self.button_image)
+            # self.button_bet_x.configure(image=self.button_image)
+            # self.button_bet_y.configure(image=self.button_image)
+            # self.button_check.configure(image=self.button_image)
+            # self.button_fold.configure(image=self.button_image)
+
+    
 
 
 
@@ -160,4 +159,9 @@ class Play(customtkinter.CTkFrame):
     def button_fold_event(self, event):
         print("Fold")
 
+    def button_bet_25_000000_event(self, event):
+        print("Bet 25")
+
+    def button_bet_200_000000_event(self, event):
+        print("Bet 200")
 

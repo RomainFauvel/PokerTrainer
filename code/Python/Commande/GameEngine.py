@@ -5,11 +5,10 @@ import utils
 
 class GameEngine:
 
-    gameTree=None #contient l'arbre de jeu provenant du fichier json de sortie du solveur
 
 
     def __init__(self,filePath,cardValue):
-        self.gameTree=GameTree.GameTree(filePath,cardValue)
+        GameTree.GameTree(filePath,cardValue)
 
 
 
