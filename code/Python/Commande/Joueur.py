@@ -26,7 +26,7 @@ class Joueur:
         else:
             return self.toStringPaireSolveur()
 
-    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cards en entrée (une hand)
+    #renvoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cards en entrée (une hand)
     #tri les cards et formate le string pour l'appel du solveur 
     def toStringPaireSolveur(self):
         card1=self.hand[0]
@@ -47,16 +47,5 @@ class Joueur:
             res=f"{card1.height.value}{card2.height.value}"
             return res
        
-    #renvoit la paire de cards du joueur sous la forme "AsJh"
-    def toStringPaireLectureJson(self):
-        card1=self.hand[0]
-        card2=self.hand[1]
-        cardHeight = {height: index for index, height in enumerate(Cards.height)}
-        #Modifier la comparaison qui ne marche pas bien
-        if(cardHeight[card1.height] > cardHeight[card2.height]):
-            res=f"{card1}{card2}"
-        else:
-            res=f"{card2}{card1}"
-        return res
-            
+    
        

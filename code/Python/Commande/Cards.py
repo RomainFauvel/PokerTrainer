@@ -50,6 +50,7 @@ class DeckOfCards:
         heights = list(Height)
         # Crée le jeu de cards sans doublons
         self.cards = [Card(suit, height) for suit in suits for height in heights]
+        self.hand = None
 
     #melange le jeu
     def shuffle(self):
@@ -69,7 +70,18 @@ class DeckOfCards:
         for card in cards:
             print(card)
 
-
+    #renvoie la paire de cards du joueur sous la forme "AsJh"
+    def toStringPaireLectureJson(self):
+        card1=self.hand[0]
+        card2=self.hand[1]
+        cardHeight = {height: index for index, height in enumerate(self.height)}
+        #Modifier la comparaison qui ne marche pas bien
+        if(cardHeight[card1.height] > cardHeight[card2.height]):
+            res=f"{card1}{card2}"
+        else:
+            res=f"{card2}{card1}"
+        return res
+            
 
 
 # créer un jeu et le mélange (utile en début de partie)
