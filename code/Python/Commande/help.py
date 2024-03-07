@@ -12,13 +12,6 @@ class Help(customtkinter.CTkFrame):
         self.master = master
         self.width = width
         self.height = height  
-
-        #Lecture du fichier qui permet de prendre le contenu pour écrire dans la page help
-        file_path = "help.txt"
-        text_content=self.read_text_from_file(file_path)
-        
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
         
         #filling the background
         current_path = os.path.dirname(os.path.realpath(__file__))
@@ -27,6 +20,13 @@ class Help(customtkinter.CTkFrame):
         #print(parent_path)
         self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\fond_vierge.png"),
                                                size=(self.width, self.height))
+        
+        #Lecture du fichier qui permet de prendre le contenu pour écrire dans la page help
+        file_path = "help.txt"
+        text_content=self.read_text_from_file(current_path + "\\" + file_path)
+        
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
         
         #label
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image,text="",font=("Arial",25))

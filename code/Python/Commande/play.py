@@ -57,43 +57,71 @@ class Play(customtkinter.CTkFrame):
 
 
 
-        #create cards
+        #create cards_________________________________________________________________________________________________________________
+
+        #Deck affichage (pour l'esthétique tout à droite, empilement de carte)
+        self.cardDeck1 = card.card(None,None,False)
+        self.cardDeck2 = card.card(None,None,False)
+        self.cardDeck3 = card.card(None,None,False)
+        self.cardDeck4 = card.card(None,None,False)
+
+        self.cardDeck1_label = customtkinter.CTkLabel(self, image=self.cardDeck1.image, text="")
+        self.cardDeck1_label.place(relx=0.90, rely=0.45, anchor=tkinter.CENTER)
+
+        self.cardDeck2_label = customtkinter.CTkLabel(self, image=self.cardDeck2.image, text="")
+        self.cardDeck2_label.place(relx=0.901, rely=0.451, anchor=tkinter.CENTER)
+
+        self.cardDeck3_label = customtkinter.CTkLabel(self, image=self.cardDeck3.image, text="")
+        self.cardDeck3_label.place(relx=0.902, rely=0.452, anchor=tkinter.CENTER)
+
+        self.cardDeck4_label = customtkinter.CTkLabel(self, image=self.cardDeck4.image, text="")
+        self.cardDeck4_label.place(relx=0.903, rely=0.453, anchor=tkinter.CENTER)
 
         #Player Hand
-        self.card1 = card.card("c","A",True)
+        self.card1 = card.card("c","10",True)
         self.card2 = card.card("c","A",True)
         
         self.card1_label = customtkinter.CTkLabel(self, image=self.card1.image, text="")
-        self.card1_label.place(relx=0.4, rely=0.8, anchor=tkinter.CENTER)
+        self.card1_label.place(relx=0.48, rely=0.8, anchor=tkinter.CENTER)
         
         self.card2_label = customtkinter.CTkLabel(self, image=self.card2.image, text="")
-        self.card2_label.place(relx=0.6, rely=0.8, anchor=tkinter.CENTER)
+        self.card2_label.place(relx=0.55, rely=0.8, anchor=tkinter.CENTER)
+
+        #Opponent hand
+        self.card1Op = card.card("c","10",False)
+        self.card2Op = card.card("c","A",False)
+        
+        self.card1Op_label = customtkinter.CTkLabel(self, image=self.card1Op.image, text="")
+        self.card1Op_label.place(relx=0.48, rely=0.15, anchor=tkinter.CENTER)
+        
+        self.card2Op_label = customtkinter.CTkLabel(self, image=self.card2Op.image, text="")
+        self.card2Op_label.place(relx=0.55, rely=0.15, anchor=tkinter.CENTER)
 
         #Flop
-        self.card3 = card.card("c","A",True)
-        self.card4 = card.card("c","A",True)
-        self.card5 = card.card("c","A",True)
+        self.card3 = card.card("c","A",False)
+        self.card4 = card.card("c","A",False)
+        self.card5 = card.card("c","A",False)
 
         self.card3_label = customtkinter.CTkLabel(self, image=self.card3.image, text="")
-        self.card3_label.place(relx=0.3, rely=0.4, anchor=tkinter.CENTER)
+        self.card3_label.place(relx=0.3, rely=0.45, anchor=tkinter.CENTER)
 
         self.card4_label = customtkinter.CTkLabel(self, image=self.card4.image, text="")
-        self.card4_label.place(relx=0.4, rely=0.4, anchor=tkinter.CENTER)
+        self.card4_label.place(relx=0.4, rely=0.45, anchor=tkinter.CENTER)
 
         self.card5_label = customtkinter.CTkLabel(self, image=self.card5.image, text="")
-        self.card5_label.place(relx=0.5, rely=0.4, anchor=tkinter.CENTER)
+        self.card5_label.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
         #Turn
-        self.card6 = card.card("c","A",True)
+        self.card6 = card.card("c","A",False)
 
         self.card6_label = customtkinter.CTkLabel(self, image=self.card6.image, text="")
-        self.card6_label.place(relx=0.7, rely=0.4, anchor=tkinter.CENTER)
+        self.card6_label.place(relx=0.6, rely=0.45, anchor=tkinter.CENTER)
 
         #River
-        self.card7 = card.card("c","A",True)
+        self.card7 = card.card("c","A",False)
 
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
-        self.card7_label.place(relx=0.8, rely=0.4, anchor=tkinter.CENTER)
+        self.card7_label.place(relx=0.7, rely=0.45, anchor=tkinter.CENTER)
 
     def create_buttons(self):
         # if(self.gameTree.isPlayable()==True):
