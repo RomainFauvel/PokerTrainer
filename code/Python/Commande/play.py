@@ -97,7 +97,8 @@ class Play(customtkinter.CTkFrame):
 
     def create_buttons(self):
         # if(self.gameTree.isPlayable()==True):
-        print("Creating buttons")
+        for button in self.buttons:
+            button.destroy()
         self.buttons = []
 
         actions=self.gameTree.getActions()
@@ -105,13 +106,13 @@ class Play(customtkinter.CTkFrame):
         for i in range(len(actions)):
             self.number_of_buttons+=1
             button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],text_color="white")
-            fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
-            fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
-            button.bind("<Button-1>",fct ) 
-            button.place(relx=0.1, rely=1*(1/(self.number_of_buttons+1)), anchor=tkinter.CENTER)
+            # fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
+            # fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
+            # button.bind("<Button-1>",fct )
+            button.bind("<Button-1>", lambda event, action=button._text: self.on_button_click(action))
+            button.place(relx=0.1, rely=(self.number_of_buttons)/(len(actions)+1), anchor=tkinter.CENTER)
             self.buttons.append(button)
-        print("Buttons created")
-        print(self.buttons)
+
 
 
     def home_event(self):
@@ -143,25 +144,21 @@ class Play(customtkinter.CTkFrame):
             # self.button_check.configure(image=self.button_image)
             # self.button_fold.configure(image=self.button_image)
 
-    
 
+    def on_button_click(self,action):
+        print("Player ",action)
+        self.gameTree.play(action)
+        self.create_buttons()
 
+    # def button_check_event(self, event):
+    #     print("Player Check")
 
-    def button_bet_x_event(self, event):
-        return [True]
-    
-    def button_bet_y_event(self, event):
-        print("Bet y")
+    # def button_fold_event(self, event):
+    #     print("Player Fold")
 
-    def button_check_event(self, event):
-        print("Check")
+    # def button_bet_25_000000_event(self, event):
+    #     print("Player Bet 25")
 
-    def button_fold_event(self, event):
-        print("Fold")
-
-    def button_bet_25_000000_event(self, event):
-        print("Bet 25")
-
-    def button_bet_200_000000_event(self, event):
-        print("Bet 200")
+    # def button_bet_200_000000_event(self, event):
+    #     print("Player Bet 200")
 
