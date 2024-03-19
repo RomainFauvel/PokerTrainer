@@ -9,8 +9,11 @@ import GameTree as GameTree
 import home
 
 class Play(customtkinter.CTkFrame):
+    current_path = os.path.dirname(os.path.realpath(__file__))
+    parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
+    fichierStrategy = parent_path + "\\Ressources\\output_strategyTest.json"
 
-    gameTree = GameTree.GameTree("Ressources\output_strategyTest.json","KsKh")#il faudra enlever les param
+    gameTree = GameTree.GameTree(fichierStrategy,"KsKh")#il faudra enlever les param
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
