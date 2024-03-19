@@ -6,17 +6,34 @@ import os
 import card as card
 import GameTree as GameTree
 
-import home
+import home as home
 
 class Play(customtkinter.CTkFrame):
 
-    gameTree = GameTree.GameTree("Ressources\output_strategyTest.json","KsKh")#il faudra enlever les param
+    
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
         self.master = master
         self.width = width
         self.height = height
+
+        # Créez une instance de la classe Home
+        self.home_instance = home.Home(master)
+
+        # Maintenant, vous pouvez appeler la méthode getPath () sur cette instance
+        self.path = self.home_instance.getPath()
+
+        if(self.path == None):
+            self.path = "output_strategyTest.json"
+        print(self.path)
+
+        
+        self.gameTree = GameTree.GameTree("PokerTrainer/Ressources/" + self.path,"KsKh")#il faudra enlever les param
+        
+
+
+
 
         self.number_of_buttons = 4
         self.button_size=(height/(2*self.number_of_buttons),height/(2*self.number_of_buttons))
