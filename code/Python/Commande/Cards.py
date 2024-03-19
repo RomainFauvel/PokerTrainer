@@ -81,6 +81,15 @@ class Card:
         return self.flip
     
 
+    #méthode qui permet de passer de cette écriture: cA     à une écriture séparée: c A     et met les éléments dans une liste
+    #permet de réutiliser cette écriture pour la création des cartes (utilsé dans le play.py)
+    def splitIn2(textCard):
+        card = []
+        card.append(textCard[:1])
+        card.append(textCard[1:])
+        return card
+    
+
 
 
 class DeckOfCards:

@@ -30,12 +30,11 @@ class GameTree:
             print("GameTree initialized")
             self.compteur = 0
 
+
+
     def rolloutToInit(self,file,val):
         self.__initialized = False
         self.__init__(file,val)
-
-        
-        
 
     def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
         self.data=self.data["childrens"][todo]

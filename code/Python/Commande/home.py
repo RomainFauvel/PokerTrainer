@@ -7,6 +7,7 @@ import os
 from PIL import Image
 import re
 import GameTree as GameTree
+import Scenario
 
 import Partie
 
@@ -81,6 +82,7 @@ class Home(customtkinter.CTkFrame):
         if(self.path == None):
             self.path = "output_strategyTest.json"
         print(self.path)
+        #self.scenario = Scenario()
         self.gameTree = GameTree.GameTree("PokerTrainer/Ressources/" + self.path,"KsKh")
         self.gameTree.rolloutToInit("PokerTrainer/Ressources/" + self.path,"KsKh")
         self.master.frames["Play"].create_buttons()
