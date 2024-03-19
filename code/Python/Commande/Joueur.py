@@ -1,4 +1,4 @@
-import Cartes
+import Cards
 
 
 class Joueur:
@@ -10,7 +10,8 @@ class Joueur:
     #permet de piocher 2 cards dans le paquet
     def pick2Cards(self,deck):
         self.hand=deck.dealCards(2)
-  
+
+    
     def toStringIp(self):
         ip="AA,KK,QQ,JJ,TT,99:0.75,88:0.75,77:0.5,66:0.25,55:0.25,AK,AQs,AQo:0.75,AJs,AJo:0.5,ATs:0.75,A6s:0.25,A5s:0.75,A4s:0.75,A3s:0.5,A2s:0.5,KQs,KQo:0.5,KJs,KTs:0.75,K5s:0.25,K4s:0.25,QJs:0.75,QTs:0.75,Q9s:0.5,JTs:0.75,J9s:0.75,J8s:0.75,T9s:0.75,T8s:0.75,T7s:0.75,98s:0.75,97s:0.75,96s:0.5,87s:0.75,86s:0.5,85s:0.5,76s:0.75,75s:0.5,65s:0.75,64s:0.5,54s:0.75,53s:0.5,43s:0.5"
         if(self.position==1):
@@ -25,12 +26,12 @@ class Joueur:
         else:
             return self.toStringPaireSolveur()
 
-    # revoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cards en entrée (une hand)
+    #renvoie un String correspondant à ceux utilisés par le solveur en prenant une liste de 2 cards en entrée (une hand)
     #tri les cards et formate le string pour l'appel du solveur 
     def toStringPaireSolveur(self):
         card1=self.hand[0]
         card2=self.hand[1]
-        cardHeight = {height: index for index, height in enumerate(Cartes.height)}
+        cardHeight = {height: index for index, height in enumerate(Cards.height)}
         res=f"{card1.height.value}{card2.height.value}"
         if(card1.height.value!=card2.height.value):
             #Modifier la comparaison qui ne marche pas bien
@@ -46,14 +47,5 @@ class Joueur:
             res=f"{card1.height.value}{card2.height.value}"
             return res
        
-    #renvoit la paire de cards du joueur sous la forme "AsJh"
-    def toStringPaireLectureJson(self):
-        card1=self.hand[0]
-        card2=self.hand[1]
-        cardHeight = {height: index for index, height in enumerate(Cartes.height)}
-        #Modifier la comparaison qui ne marche pas bien
-        if(cardHeight[card1.height] > cardHeight[card2.height]):
-            res=f"{card1}{card2}"
-        else:
-            res=f"{card2}{card1}"
-        return res
+    
+       

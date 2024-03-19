@@ -13,7 +13,7 @@ def get_display_size():
     return height, width
 
 
-def getIndexMax(self,tab):  # Fonction pour récupérer l'indice de la valeur max dans un tableau
+def getIndexMax(tab):  # Fonction pour récupérer l'indice de la valeur max dans un tableau
         res=0
         max=tab[0]
         for i in range(len(tab)):
