@@ -11,7 +11,7 @@ import home
 class Play(customtkinter.CTkFrame):
     current_path = os.path.dirname(os.path.realpath(__file__))
     parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
-    fichierStrategy = parent_path + "\/Ressources\/output_strategyTest.json"
+    fichierStrategy = parent_path + "/Ressources/output_strategyTest.json"
 
     gameTree = GameTree.GameTree(fichierStrategy,"KsKh")#il faudra enlever les param
 
@@ -33,9 +33,9 @@ class Play(customtkinter.CTkFrame):
         #print(current_path)
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
         #print(parent_path)
-        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/fond_vierge.png"),
                                                size=(self.width, self.height))
-        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\bouton.png"),
+        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/bouton.png"),
                                                    size=self.button_size)
         
         
