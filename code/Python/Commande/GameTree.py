@@ -3,7 +3,10 @@ import json
 
 class GameTree:
     data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
-    cardValue=None #valeur de la carte du joueur/ordi
+    playerHand=None #valeur de la carte du joueur/ordi
+    flop=None
+    river=None
+    turn=None
 
     _instance = None
 
@@ -13,14 +16,16 @@ class GameTree:
             cls._instance.__initialized = False
         return cls._instance
 
-    def __init__(self,filePath=None,cardValue=None): #initialisation de la classe
+    def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None): #initialisation de la classe
         if self.__initialized: return
 
-
-        if(not(filePath==None and cardValue==None)):
+        if(not(filePath==None and playerHand==None)):
             with open(filePath,'r') as json_file:
                 self.data=json.load(json_file)
-            self.cardValue=cardValue 
+            self.playerHand=playerHand
+            self.flop=flop
+            self.river=river
+            self.turn=turn
             self.__initialized = True
             print("GameTree initialized")
         
@@ -44,7 +49,7 @@ class GameTree:
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés 
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
-            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.cardValue][i]*100,3)})
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.playerHand][i]*100,3)})
         return dicoProba
 
     

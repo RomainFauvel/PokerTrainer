@@ -50,7 +50,6 @@ class DeckOfCards:
         heights = list(Height)
         # Crée le jeu de cards sans doublons
         self.cards = [Card(suit, height) for suit in suits for height in heights]
-        self.hand = None
 
     #melange le jeu
     def shuffle(self):
@@ -65,6 +64,10 @@ class DeckOfCards:
         self.cards = self.cards[number_of_cards:]
         return hand
 
+    def deleteFlopFromDeck(self,flop):
+        self.cards.remove(flop[0])
+        self.cards.remove(flop[1])
+        self.cards.remove(flop[2])
     #affiche le jeu de cards
     def displayCards(self, cards):
         for card in cards:
