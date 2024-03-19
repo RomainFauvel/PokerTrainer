@@ -32,7 +32,7 @@ class Home(customtkinter.CTkFrame):
         #print(current_path)
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
         #print(parent_path)
-        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\home_fond.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/img\/home_fond.png"),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
         self.bg_image_label.grid(row=0, column=0)

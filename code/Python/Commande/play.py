@@ -11,7 +11,7 @@ import home
 class Play(customtkinter.CTkFrame):
     current_path = os.path.dirname(os.path.realpath(__file__))
     parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
-    fichierStrategy = parent_path + "\\Ressources\\output_strategyTest.json"
+    fichierStrategy = parent_path + "\/Ressources\/output_strategyTest.json"
 
     gameTree = GameTree.GameTree(fichierStrategy,"KsKh")#il faudra enlever les param
 

@@ -24,19 +24,19 @@ class card(tk.CTkCanvas):
 
         if (self.flip):
             if(self.suit == "c"):
-                return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\Flat Playing Cards Set\\Clubs\\" + self.rank + ".png"), size=(100, 150))
+                return customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/Flat Playing Cards Set\/Clubs\/" + self.rank + ".png"), size=(100, 150))
             elif(self.suit == "d"):
-                return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\Flat Playing Cards Set\\Diamonds\\" + self.rank + ".png"), size=(100, 150))
+                return customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/Flat Playing Cards Set\/Diamonds\/" + self.rank + ".png"), size=(100, 150))
             elif(self.suit == "s"):
-                return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\Flat Playing Cards Set\\Spades\\" + self.rank + ".png"), size=(100, 150))
+                return customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/Flat Playing Cards Set\/Spades\/" + self.rank + ".png"), size=(100, 150))
             elif(self.suit == "h"):
-                return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\Flat Playing Cards Set\\Hearts\\" + self.rank + ".png"), size=(100, 150))
+                return customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/Flat Playing Cards Set\/Hearts\/" + self.rank + ".png"), size=(100, 150))
             else:
                 return "ERREUR"
 
         else:
             #Dans le cas où flip est false, on laisse la carte face cachée
-            return customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\back_card.png"), size=(100, 150))    #carte face cachée
+            return customtkinter.CTkImage(Image.open(parent_path + "\/Ressources\/img\/back_card.png"), size=(100, 150))    #carte face cachée
         
     #Setter de flip
     def setFlip(self,bool):
