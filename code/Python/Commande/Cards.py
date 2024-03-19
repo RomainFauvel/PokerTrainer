@@ -77,6 +77,8 @@ class Card:
     def setFlip(self,bool):
         self.flip = bool
         self.get_image()
+    def getFlip(self):
+        return self.flip
     
 
 
