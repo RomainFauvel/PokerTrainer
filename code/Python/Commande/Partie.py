@@ -1,15 +1,19 @@
 import Joueur
 import GameEngine
+import GameTree
+
 
 
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
+        self.tree=GameTree.GameTree(nomJsonAOuvrir,ValeurCarte)
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
         self.fichier=GameEngine.GameEngine(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
-    def demanderActionJoueur(self,actionsjoueur): #prend en paramètre les différentes actions que le joueur peut faire
+    def demanderActionJoueur(self): #prend en paramètre les différentes actions que le joueur peut faire
         
+        actionsjoueur = self.tree.getActions()
         for i in range(len(actionsjoueur)):
             print("Pour faire "+actionsjoueur[i]+" tapez "+str(i))
         
@@ -18,23 +22,24 @@ class Partie:
         
     def tour(self):
         if(self.position==0):
-            if(self.fichier.faireJouerJoueur()==False): #Permet de tester si on doit ou pas tourner une carte
+            if(self.fichier.playerPlay()==False): #Permet de tester si on doit ou pas tourner une carte
                 return "Piocher une carte"
             
-            actionsjoueur=self.fichier.recupActions() #récupère les différentes actions que le joueur peut faire
+            actionsjoueur=self.tree.getActions() #récupère les différentes actions que le joueur peut faire
 
-            indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
+            indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
             print("<--------------------------------->")
-            print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+            print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
 
             if(actionsjoueur[int(indiceaction)]=="FOLD"): #car fin de partie quand fold
                 return "Fin de partie"
             
-            self.fichier.setData(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
+            self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 
-            actionOrdi=self.fichier.faireJouerOrdi()
+            actionOrdi=self.fichier.computerPlay()
+            print(actionOrdi)
 
             if(actionOrdi==False):
                 return "Piocher une carte"
@@ -45,7 +50,7 @@ class Partie:
 
         elif(self.position==1):
 
-            actionOrdi=self.fichier.faireJouerOrdi()
+            actionOrdi=self.fichier.computerPlay()
             
             if(actionOrdi==False): 
                 return "Piocher une carte"
@@ -53,21 +58,21 @@ class Partie:
                 return "Fin de partie"
         
             
-            if(self.fichier.faireJouerJoueur()==False):
+            if(self.fichier.playerPlay()==False):
                 return "Piocher une carte"
             
-            actionsjoueur=self.fichier.recupActions() #récupère les différentes actions que le joueur peut faire
+            actionsjoueur=self.tree.getAction() #récupère les différentes actions que le joueur peut faire
 
-            indiceaction = self.demanderActionJoueur(actionsjoueur) #demande au joueur quelle action il veut faire
+            indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
             print("<--------------------------------->")
-            print(self.fichier.faireJouerJoueur()) #Cela recupère les probas pour chaque actions et les affiche
+            print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
 
             if(actionsjoueur[int(indiceaction)]=="FOLD"):
                 return "Fin de partie"
             
-            self.fichier.setData(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
+            self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
             
             return "Fin du tour"
     
@@ -80,13 +85,14 @@ class Partie:
             Etat="Fin du tour"
             while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
                 Etat=self.tour()
+                print(Etat)
                 if(Etat=="Fin de partie"):
                     print("<--------------------------------->")
                     print("Fin de partie")
                     print("<--------------------------------->\n")
                     return 0       
             if(nbCarte==1):
-                self.fichier.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
+                self.tree.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 nbCarte+=1
                 print("\nLa river card est : \n")
                 print("┌───────┐")
@@ -97,7 +103,7 @@ class Partie:
                 print("│     2 │")
                 print("└───────┘\n")
             else:
-                self.fichier.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
+                self.tree.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
 
                 print("\nLa turn card est : \n")
                 print("┌───────┐")
@@ -113,7 +119,7 @@ class Partie:
 
 if __name__ == "__main__":
             
-    partie1=Partie("Ressources\output_strategyTest.json","KsKh")
+    partie1=Partie("Ressources/output_strategyTest.json","KsKh")
     print("\nVotre main est : \n")
 
     print("┌───────┐ ┌───────┐")

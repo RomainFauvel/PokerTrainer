@@ -35,7 +35,10 @@ class GameTree:
         return True
 
     def isPlayable(self): #verifie si il y a des actions possibles à jouer
-        return (self.data.get("strategy", 0) == 0)
+        return (self.data.get("strategy", 0) != 0)
+    
+    def dealcards(self,cartepiochee):
+        self.data=self.data["dealcards"][cartepiochee]
 
 
     #getters

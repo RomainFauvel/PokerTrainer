@@ -8,13 +8,13 @@ class GameEngine:
 
 
     def __init__(self,filePath,cardValue):
-        GameTree.GameTree(filePath,cardValue)
+        self.gameTree =GameTree.GameTree(filePath,cardValue)
 
 
 
     def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
 
-        if (self.gameTree.isPlayable()==True): # Si il n'y a pas de coup a jouer, retourne 0
+        if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
             return False
 
         actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
@@ -48,8 +48,3 @@ class GameEngine:
             return False # Si il n'y a pas de coup a jouer, retourne False
 
 
-
-    
-
-    # def dealcards(self,cartepiochee):
-    #     self.data=self.data["dealcards"][cartepiochee]
