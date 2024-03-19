@@ -3,7 +3,7 @@ import tkinter
 import customtkinter
 import os
 
-import card as card
+import Cards as Cards
 import GameTree as GameTree
 
 import home
@@ -63,10 +63,10 @@ class Play(customtkinter.CTkFrame):
         #create cards_________________________________________________________________________________________________________________
 
         #Deck affichage (pour l'esthétique tout à droite, empilement de carte)
-        self.cardDeck1 = card.card(None,None,False)
-        self.cardDeck2 = card.card(None,None,False)
-        self.cardDeck3 = card.card(None,None,False)
-        self.cardDeck4 = card.card(None,None,False)
+        self.cardDeck1 = Cards.Card(None,None,False)
+        self.cardDeck2 = Cards.Card(None,None,False)
+        self.cardDeck3 = Cards.Card(None,None,False)
+        self.cardDeck4 = Cards.Card(None,None,False)
 
         self.cardDeck1_label = customtkinter.CTkLabel(self, image=self.cardDeck1.image, text="")
         self.cardDeck1_label.place(relx=0.90, rely=0.45, anchor=tkinter.CENTER)
@@ -81,8 +81,8 @@ class Play(customtkinter.CTkFrame):
         self.cardDeck4_label.place(relx=0.903, rely=0.453, anchor=tkinter.CENTER)
 
         #Player Hand
-        self.card1 = card.card("c","10",True)
-        self.card2 = card.card("c","A",True)
+        self.card1 = Cards.Card("c","10",True)
+        self.card2 = Cards.Card("c","A",True)
         
         self.card1_label = customtkinter.CTkLabel(self, image=self.card1.image, text="")
         self.card1_label.place(relx=0.48, rely=0.8, anchor=tkinter.CENTER)
@@ -91,8 +91,8 @@ class Play(customtkinter.CTkFrame):
         self.card2_label.place(relx=0.55, rely=0.8, anchor=tkinter.CENTER)
 
         #Opponent hand
-        self.card1Op = card.card("c","10",False)
-        self.card2Op = card.card("c","A",False)
+        self.card1Op = Cards.Card("c","10",False)
+        self.card2Op = Cards.Card("c","A",False)
         
         self.card1Op_label = customtkinter.CTkLabel(self, image=self.card1Op.image, text="")
         self.card1Op_label.place(relx=0.48, rely=0.15, anchor=tkinter.CENTER)
@@ -101,9 +101,9 @@ class Play(customtkinter.CTkFrame):
         self.card2Op_label.place(relx=0.55, rely=0.15, anchor=tkinter.CENTER)
 
         #Flop
-        self.card3 = card.card("c","A",False)
-        self.card4 = card.card("c","A",False)
-        self.card5 = card.card("c","A",False)
+        self.card3 = Cards.Card("c","A",False)
+        self.card4 = Cards.Card("c","A",False)
+        self.card5 = Cards.Card("c","A",False)
 
         self.card3_label = customtkinter.CTkLabel(self, image=self.card3.image, text="")
         self.card3_label.place(relx=0.3, rely=0.45, anchor=tkinter.CENTER)
@@ -115,13 +115,13 @@ class Play(customtkinter.CTkFrame):
         self.card5_label.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
         #Turn
-        self.card6 = card.card("c","A",False)
+        self.card6 = Cards.Card("c","A",False)
 
         self.card6_label = customtkinter.CTkLabel(self, image=self.card6.image, text="")
         self.card6_label.place(relx=0.6, rely=0.45, anchor=tkinter.CENTER)
 
         #River
-        self.card7 = card.card("c","A",False)
+        self.card7 = Cards.Card("c","A",False)
 
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
         self.card7_label.place(relx=0.7, rely=0.45, anchor=tkinter.CENTER)

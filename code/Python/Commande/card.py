@@ -5,7 +5,7 @@ from PIL import Image
 
 
 class card(tk.CTkCanvas):
-    def __init__(self, suit, rank, flip):
+    def __init__(self, suit, rank, flip=False):
         self.suit = suit #Couleur de la carte (carreau,pique....)
         self.rank = rank #Hauteur de la carte (1,2,...)
         self.flip = flip #Carte face cachée si false et retournée si true
