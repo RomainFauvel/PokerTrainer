@@ -7,7 +7,7 @@ import GameTree
 class Scenario:
     def __init__(self):
         # recuperation d'un fichier Json aléatoirement
-        folder = "./fichiersJson"
+        folder = "Ressources/fichiersJson"
         self.nameFile = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
         #initialisation du scenario que l'on stock ensuite dans le GameTree
         # creation du flop a partir du titre du fichier json

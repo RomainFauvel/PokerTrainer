@@ -23,9 +23,9 @@ class GameTree:
             with open(filePath,'r') as json_file:
                 self.data=json.load(json_file)
             self.playerHand=playerHand
-            self.flop=flop
-            self.river=river
-            self.turn=turn
+            self.flop=flop #liste de 3 cartes
+            self.river=river #une carte
+            self.turn=turn #une carte
             self.__initialized = True
             print("GameTree initialized")
         
