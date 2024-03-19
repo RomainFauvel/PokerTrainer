@@ -43,6 +43,9 @@ class card(tk.CTkCanvas):
         self.flip = bool
         self.get_image()
 
+    def getFlip(self):
+        return self.flip
+
 """""
     def setShow(self,bool):
         self.show = bool

@@ -6,20 +6,34 @@ import os
 import Cards as Cards
 import GameTree as GameTree
 
-import home
+import home as home
 
 class Play(customtkinter.CTkFrame):
-    current_path = os.path.dirname(os.path.realpath(__file__))
-    parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
-    fichierStrategy = parent_path + "/Ressources/output_strategyTest.json"
 
-    gameTree = GameTree.GameTree(fichierStrategy,"KsKh")#il faudra enlever les param
+    
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
         self.master = master
         self.width = width
         self.height = height
+
+        # Créez une instance de la classe Home
+        self.home_instance = home.Home(master)
+
+        # Maintenant, vous pouvez appeler la méthode getPath () sur cette instance
+        self.path = self.home_instance.getPath()
+
+        if(self.path == None):
+            self.path = "output_strategyTest.json"
+        print(self.path)
+
+        
+        self.gameTree = GameTree.GameTree("PokerTrainer/Ressources/" + self.path,"KsKh")#il faudra enlever les param
+        
+
+
+
 
         self.number_of_buttons = 4
         self.button_size=(height/(2*self.number_of_buttons),height/(2*self.number_of_buttons))
@@ -33,9 +47,9 @@ class Play(customtkinter.CTkFrame):
         #print(current_path)
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
         #print(parent_path)
-        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\fond_vierge.png"),
                                                size=(self.width, self.height))
-        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/bouton.png"),
+        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\bouton.png"),
                                                    size=self.button_size)
         
         
@@ -146,7 +160,23 @@ class Play(customtkinter.CTkFrame):
 
 
 
+    def reset_game(self):
+        #self.gameTree.rolloutToInit()
+        self.reset_display()
+
+    def reset_display(self):
+        self.card3.setFlip(False)
+        self.card4.setFlip(False)
+        self.card5.setFlip(False)
+        self.card6.setFlip(False)
+        self.card7.setFlip(False)
+        self.update_card_images()
+
+        #self.create_buttons()
+
+
     def home_event(self):
+        self.reset_game()
         self.master.show_frame("Home")
 
     def exit_event(self):
@@ -180,6 +210,28 @@ class Play(customtkinter.CTkFrame):
         print("Player ",action)
         self.gameTree.play(action)
         self.create_buttons()
+        print(self.gameTree.getRound())
+        if(self.gameTree.getRound() == 1):
+            self.card3.setFlip(True)
+            self.card4.setFlip(True)
+            self.card5.setFlip(True)
+        elif(self.gameTree.getRound() == 2):
+            self.card6.setFlip(True)
+        else:
+            self.card7.setFlip(True)
+            
+        self.update_card_images()
+        
+        
+
+    
+    def update_card_images(self):
+        self.card3_label.configure(image=self.card3.image if not self.card3.getFlip() else self.card3.get_image())
+        self.card4_label.configure(image=self.card4.image if not self.card4.getFlip() else self.card4.get_image())
+        self.card5_label.configure(image=self.card5.image if not self.card5.getFlip() else self.card5.get_image())
+        self.card6_label.configure(image=self.card6.image if not self.card6.getFlip() else self.card6.get_image())
+        self.card7_label.configure(image=self.card7.image if not self.card7.getFlip() else self.card7.get_image())
+
 
     # def button_check_event(self, event):
     #     print("Player Check")
@@ -187,9 +239,7 @@ class Play(customtkinter.CTkFrame):
     # def button_fold_event(self, event):
     #     print("Player Fold")
 
-    # def button_bet_25_000000_event(self, event):
-    #     print("Player Bet 25")
 
-    # def button_bet_200_000000_event(self, event):
-    #     print("Player Bet 200")
+    def button_fold_event(self, event):
+        print("Fold")
 
