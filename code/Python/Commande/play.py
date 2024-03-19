@@ -9,8 +9,15 @@ import GameTree as GameTree
 import home as home
 
 class Play(customtkinter.CTkFrame):
+    current_path = os.path.dirname(os.path.realpath(__file__))
+    parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
+    fichierStrategy = parent_path + "/Ressources/output_strategyTest.json"
 
+<<<<<<< HEAD
     
+=======
+    gameTree = GameTree.GameTree(fichierStrategy,"KsKh")#il faudra enlever les param
+>>>>>>> 838138c584910b215fab12e3ba7778e71472eef3
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
@@ -47,9 +54,9 @@ class Play(customtkinter.CTkFrame):
         #print(current_path)
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
         #print(parent_path)
-        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\fond_vierge.png"),
+        self.bg_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/fond_vierge.png"),
                                                size=(self.width, self.height))
-        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "\\Ressources\\img\\bouton.png"),
+        self.button_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/bouton.png"),
                                                    size=self.button_size)
         
         
