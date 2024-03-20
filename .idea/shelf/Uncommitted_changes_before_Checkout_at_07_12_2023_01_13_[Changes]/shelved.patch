@@ -1,0 +1,74 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"40b15ff6-ea12-4e9e-9439-d7e220eecd90\" name=\"Changes\" comment=\"modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie\">\n      <change afterPath=\"$PROJECT_DIR$/code/Joueur.py\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/code/Partie.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/code/Carte\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/code/Carte.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/code/PaquetDeCartes\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/code/PaquetDeCartes.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/code/Scenario\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/code/Scenario.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"7c9da43ff8919b8bc03f511af0cd627dbe9e64d1\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;theohebert&quot;\n  }\n}</component>\n  <component name=\"GithubPullRequestsUISettings\">\n    <option name=\"selectedUrlAndAccountId\">\n      <UrlAndAccount>\n        <option name=\"accountId\" value=\"7f4ce265-20c8-4164-90e4-a65e72ff4dbc\" />\n        <option name=\"url\" value=\"https://github.com/RomainFauvel/PokerTrainer.git\" />\n      </UrlAndAccount>\n    </option>\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 6\n}</component>\n  <component name=\"ProjectId\" id=\"2ZB4T3v6uIayCYtzN0OkE6ydu3C\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Python.Partie.executor&quot;: &quot;Run&quot;,\n    &quot;Python.mainWindow.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;1c2bf006&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/home/theohebert/PycharmProjects/PokerTrainer&quot;\n  }\n}</component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-67fca87a943a-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.11799.259\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"40b15ff6-ea12-4e9e-9439-d7e220eecd90\" name=\"Changes\" comment=\"\" />\n      <created>1701882142962</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1701882142962</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"modif Carte\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1701882275158</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1701882275158</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1701889591539</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1701889591539</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"modif Carte\" />\n    <MESSAGE value=\"modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie\" />\n  </component>\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,13 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="40b15ff6-ea12-4e9e-9439-d7e220eecd90" name="Changes" comment="modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie">
+-      <change afterPath="$PROJECT_DIR$/code/Joueur.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/code/Partie.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/code/Carte" beforeDir="false" afterPath="$PROJECT_DIR$/code/Carte.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/code/PaquetDeCartes" beforeDir="false" afterPath="$PROJECT_DIR$/code/PaquetDeCartes.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/code/Scenario" beforeDir="false" afterPath="$PROJECT_DIR$/code/Scenario.py" afterDir="false" />
+-    </list>
++    <list default="true" id="40b15ff6-ea12-4e9e-9439-d7e220eecd90" name="Changes" comment="modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -56,16 +50,16 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Python.Partie.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.mainWindow.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;1c2bf006&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;/home/theohebert/PycharmProjects/PokerTrainer&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "Python.Partie.executor": "Run",
++    "Python.mainWindow.executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "bf851b62",
++    "last_opened_file_path": "/home/theohebert/PycharmProjects/PokerTrainer"
+   }
+-}</component>
++}]]></component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -98,7 +92,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1701889591539</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie">
++      <option name="closed" value="true" />
++      <created>1701907780906</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1701907780906</updated>
++    </task>
++    <task id="LOCAL-00004" summary="modif scenario avec choix aléatoire d'un scenario dans la liste des fichiers du dossier &quot;StockageJson&quot; avec adaptation de la classe partie">
++      <option name="closed" value="true" />
++      <created>1701907803714</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1701907803714</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="VcsManagerConfiguration">

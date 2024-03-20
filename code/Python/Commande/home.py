@@ -6,9 +6,11 @@ import customtkinter
 import os
 from PIL import Image
 import re
+import GameTree as GameTree
+import Scenario
 
 import Partie
-import play
+
 
 #a basic frame with a label
 
@@ -17,7 +19,9 @@ class Home(customtkinter.CTkFrame):
         super().__init__(master, width, height)
         self.master = master
         self.width = width
-        self.height = height        
+        self.height = height   
+
+        self.path = None  
         
 
         self.grid_columnconfigure(0, weight=1)
@@ -39,11 +43,11 @@ class Home(customtkinter.CTkFrame):
 
 
         #Etiquette pour afficher le chemin du fichier choisi
-        self.etiquette_chemin = customtkinter.CTkLabel(self.bg_image_label,text="Fichier choisi :\n")   #Texte par défaut
-        self.etiquette_chemin.grid(row=0, column=0, padx=15, pady=(15, 15))
+        self.file_path = customtkinter.CTkLabel(self.bg_image_label,text="Fichier choisi :\n")   #Texte par défaut
+        self.file_path.grid(row=0, column=0, padx=15, pady=(15, 15))
 
         #Position au-dessus du bouton "Select Configuration"
-        self.etiquette_chemin.place(relx=0.93, rely=0.45, anchor=tkinter.CENTER)
+        self.file_path.place(relx=0.93, rely=0.45, anchor=tkinter.CENTER)
 
 
         
@@ -75,7 +79,13 @@ class Home(customtkinter.CTkFrame):
         
         
     def play_event(self):
-
+        if(self.path == None):
+            self.path = "output_strategyTest.json"
+        print(self.path)
+        #self.scenario = Scenario()
+        self.gameTree = GameTree.GameTree("PokerTrainer/Ressources/" + self.path,"KsKh")
+        self.gameTree.rolloutToInit("PokerTrainer/Ressources/" + self.path,"KsKh")
+        self.master.frames["Play"].create_buttons()
         self.master.show_frame("Play")
 
     def home_event(self):
@@ -94,13 +104,16 @@ class Home(customtkinter.CTkFrame):
         #Mettre à jour la variable de classe avec le chemin du fichier choisi
         self.var_fichier = fichier
         #Expression régulière
-        result=re.search(r"(/[^/]+\.[^/]+)$",fichier)
+        #Pour récupérer le premier "/", il faut le mettre dans au tout début des parenthèses mais dans notre cas on le veut pas
+        result=re.search(r"/([^/]+\.[^/]+)$",fichier)
+        #print(result.group(1))
         if(result!=None):
 
 
 
             #Mettre à jour l'étiquette avec le chemin du fichier choisi
-            self.etiquette_chemin.configure(text=f"Fichier choisi :\n{result.group(1)}")
+            self.file_path.configure(text=f"Fichier choisi :\n{result.group(1)}")
+            self.path = result.group(1)
 
 
         
@@ -120,6 +133,9 @@ class Home(customtkinter.CTkFrame):
             
             #resize buttons
             self.play_button.configure(width=self.width/10)
+
+    def getPath(self):
+        return self.path
             
 
 

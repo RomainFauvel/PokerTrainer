@@ -1,6 +1,10 @@
 import random
 from enum import Enum
 from itertools import product
+import os
+import customtkinter as tk
+import customtkinter
+from PIL import Image
 
 
 
@@ -30,9 +34,13 @@ class Height(Enum):
 
 class Card:
     #attributs de la classe
-    def __init__(self, suit, height):
+    def __init__(self, suit, height,flip=False):
         self.suit = suit
         self.height = height
+        self.flip = flip #Carte face cachée si false et retournée si true
+        #self.show = show #Afficher ou cache la carte (True->affiche,False->cache)      <-------------- Tentative de faire un attribut pour afficher et caché la carte mais c'est assez galère donc on verra si on en a vraiment besoin
+        self.image = self.get_image()
+        #self.setShow(self.show)
     
     def randomCard(self):
         self.suit=random.choice(list(Suit))
@@ -40,6 +48,46 @@ class Card:
 
     def __str__(self):
         return f"{self.height.value}{self.suit.value}"
+    
+    def get_image(self):
+
+        #Chemin vers le bon dossier, ici, on revient en arrière vers le dossier PokerTrainer (la racine)
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        print(current_path)
+        parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
+        print(parent_path)
+
+        if (self.flip):
+            if(self.suit == "c"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Clubs/" + self.height + ".png"), size=(100, 150))
+            elif(self.suit == "d"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Diamonds/" + self.height + ".png"), size=(100, 150))
+            elif(self.suit == "s"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Spades/" + self.height + ".png"), size=(100, 150))
+            elif(self.suit == "h"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Hearts/" + self.height + ".png"), size=(100, 150))
+            else:
+                return "ERREUR"
+
+        else:
+            #Dans le cas où flip est false, on laisse la carte face cachée
+            return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/back_card.png"), size=(100, 150))    #carte face cachée
+        
+    #Setter de flip
+    def setFlip(self,bool):
+        self.flip = bool
+        self.get_image()
+    def getFlip(self):
+        return self.flip
+    
+
+    #méthode qui permet de passer de cette écriture: cA     à une écriture séparée: c A     et met les éléments dans une liste
+    #permet de réutiliser cette écriture pour la création des cartes (utilsé dans le play.py)
+    def splitIn2(textCard):
+        card = []
+        card.append(textCard[:1])
+        card.append(textCard[1:])
+        return card
     
 
 
