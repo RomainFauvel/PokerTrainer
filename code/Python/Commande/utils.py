@@ -1,6 +1,7 @@
 import customtkinter
 import tkinter
 import os
+import random
 
 def get_display_size():
     root = tkinter.Tk()
@@ -21,3 +22,20 @@ def getIndexMax(tab):  # Fonction pour récupérer l'indice de la valeur max dan
                 res=i
                 max=tab[i]
         return res
+
+def getActionAleatoire(actions,tabProbabilites):
+        sommeProba=0
+        for number in tabProbabilites:
+            sommeProba+=number
+
+        probabilites={}
+        for i in range(len(tabProbabilites)):
+            probabilites[actions[i]]=tabProbabilites[i]/sommeProba
+            print(tabProbabilites[i]/sommeProba)
+
+        choix = random.uniform(0, 1)
+        total_probabilites = 0
+        for action, prob in probabilites.items():
+            total_probabilites += prob
+            if choix <= total_probabilites:
+                return action
