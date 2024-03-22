@@ -53,9 +53,7 @@ class Card:
 
         #Chemin vers le bon dossier, ici, on revient en arrière vers le dossier PokerTrainer (la racine)
         current_path = os.path.dirname(os.path.realpath(__file__))
-        print(current_path)
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
-        print(parent_path)
 
         if (self.flip):
             if(self.suit == "c"):

@@ -32,6 +32,7 @@ class GameTree:
         cls._instance.setFlop(flop)
         cls._instance.setRiver(river)
         cls._instance.setTurn(turn)
+        cls._instance.compteur=0
 
 
 
