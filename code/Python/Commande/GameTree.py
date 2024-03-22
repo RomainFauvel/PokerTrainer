@@ -33,6 +33,8 @@ class GameTree:
         cls._instance.setRiver(river)
         cls._instance.setTurn(turn)
 
+
+
     def rolloutToInit(self,file,val):
         self.__init__(file,val)
 

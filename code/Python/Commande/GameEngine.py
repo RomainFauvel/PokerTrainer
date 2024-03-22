@@ -1,7 +1,7 @@
 
 import GameTree
 import utils
-
+import random
 
 class GameEngine:
 
@@ -30,15 +30,16 @@ class GameEngine:
         print("Le nombre de combinaisons possibles pour l'ordinateur ")
         print(tab)
         print("<--------------------------------->\n")"""
-        computerAction = utils.getIndexMax(tab)  # On récupère l'indice de l'action à jouer
+        print(tab)
+        computerAction = utils.getActionAleatoire(actions,tab)
         print("<--------------------------------->")
-        print("l'ordinateur joue : "+actions[computerAction]) #affiche l'action que joue l'ordinateur
+        print("l'ordinateur joue : "+computerAction) #affiche l'action que joue l'ordinateur
         print("<--------------------------------->\n")
 
-        if(actions[computerAction]=="FOLD"):
+        if(computerAction=="FOLD"):
             return "Fin de partie"
         
-        self.gameTree.play(actions[computerAction])  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
+        self.gameTree.play(computerAction)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
         return True
         
     def playerPlay(self):#Affiche les probas de chaque action possible pour le joueur
@@ -46,5 +47,7 @@ class GameEngine:
             return self.gameTree.getPlayerPossiblities()
         else:
             return False # Si il n'y a pas de coup a jouer, retourne False
+        
+    
 
 
