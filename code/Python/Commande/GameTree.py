@@ -15,10 +15,11 @@ class GameTree:
             cls._instance = super().__new__(cls)
         return cls._instance
 
+    #Initialisation de la classe avec les valeurs si elles sont donnees sinon, on donne juste la reference de la classe
     def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None): #initialisation de la classe
 
         if(not(filePath==None and playerHand==None and flop==None and river==None and turn==None)):
-            self.initialise(filePath,playerHand,flop,river,turn)
+            self.initialise(filePath,playerHand,flop,river,turn) 
     
     #Peux etre acceder depuis l exterieur sans initialiser un objet (exemple: GameTree.initialise(filePath,playerHand,flop,river,turn))
     @classmethod
@@ -33,7 +34,6 @@ class GameTree:
         cls._instance.setTurn(turn)
 
     def rolloutToInit(self,file,val):
-        self.__initialized = False
         self.__init__(file,val)
 
         
