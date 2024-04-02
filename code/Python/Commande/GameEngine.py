@@ -26,11 +26,11 @@ class GameEngine:
             for tabProba in strategies.values():
                 tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
 
-        """print("<--------------------------------->")
+        print("<--------------------------------->")
         print("Le nombre de combinaisons possibles pour l'ordinateur ")
         print(tab)
-        print("<--------------------------------->\n")"""
-        print(tab)
+        print("<--------------------------------->\n")
+
         computerAction = utils.getActionAleatoire(actions,tab)
         print("<--------------------------------->")
         print("l'ordinateur joue : "+computerAction) #affiche l'action que joue l'ordinateur
