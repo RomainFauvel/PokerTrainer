@@ -97,7 +97,12 @@ class GameTree:
     def to_string(self):
         return "GameTree: playerHand: " + str(self.playerHand) + " flop: " + str(self.flop) + " river: " + str(self.river) + " turn: " + str(self.turn)
 
-
+    def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
+        dicoProba={}
+        for i in range(len(self.data["strategy"]["actions"])):
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.playerHand][i]*100,3)})
+        return dicoProba
+    
 if(__name__=="__main__"):
     gt0=GameTree()
     gt1=GameTree(filePath="Ressources/output_strategyTest.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
