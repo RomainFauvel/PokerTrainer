@@ -1,13 +1,13 @@
 import Joueur
 import GameEngine
 import GameTree
-
+import Solveur
 
 
 class Partie:
 
     def __init__(self,nomJsonAOuvrir,ValeurCarte):
-        self.tree=GameTree.GameTree(nomJsonAOuvrir,ValeurCarte)
+        self.tree=GameTree.GameTree(filePath=nomJsonAOuvrir,playerHand=ValeurCarte,flop="QsJh2h",river="2s",turn="2c")
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
         self.fichier=GameEngine.GameEngine(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
@@ -103,8 +103,9 @@ class Partie:
                 print("│     2 │")
                 print("└───────┘\n")
             else:
+                Solveur.solveurRiver()
                 self.tree.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
-
+                
                 print("\nLa turn card est : \n")
                 print("┌───────┐")
                 print("│ 2     │")
