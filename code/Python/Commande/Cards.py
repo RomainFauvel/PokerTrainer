@@ -78,6 +78,11 @@ class Card:
     def getFlip(self):
         return self.flip
     
+    def getSuit(self):
+        return self.suit
+    
+    def getHeight(self):
+        return self.height
 
     #méthode qui permet de passer de cette écriture: cA     à une écriture séparée: c A     et met les éléments dans une liste
     #permet de réutiliser cette écriture pour la création des cartes (utilsé dans le play.py)
@@ -115,9 +120,9 @@ class DeckOfCards:
         # print(self.cards)
         for f in flop:
             for c in self.cards:
-                if f==c:
-                    self.cards.remove(f)
-                    print("removed",f)
+                if f.getHeight() == c.getHeight() and f.getSuit() == c.getSuit():
+                    self.cards.remove(c)
+                    print("removed",c)
     #affiche le jeu de cards
     def displayCards(self, cards):
         for card in cards:
