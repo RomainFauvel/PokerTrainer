@@ -11,9 +11,9 @@ class Scenario:
         self.nameFile = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
         #initialisation du scenario que l'on stock ensuite dans le GameTree
         # creation du flop a partir du titre du fichier json
-        carte1 = CardsFromScenario(self.nameFile[:2])
-        carte2 = CardsFromScenario(self.nameFile[2:4])
-        carte3 = CardsFromScenario(self.nameFile[4:6])
+        carte1 = CardsFromScenario(self.nameFile[0][:2])
+        carte2 = CardsFromScenario(self.nameFile[0][2:4])
+        carte3 = CardsFromScenario(self.nameFile[0][4:6]) # mettre le 1er indice en random
         self.flop = [carte1, carte2, carte3]
         self.deck=Cards.DeckOfCards()
         self.deck.deleteFlopFromDeck(self.flop)
@@ -27,5 +27,5 @@ class Scenario:
 # methode utile pour obtenir les 3 cartes du flop a partir du name du fichier Json
 def CardsFromScenario(name):
     correspondingSuit = next(c for c in Cards.Suit if c.value == name[0])
-    correspondingHigh = next(h for h in Cards.High if h.value == name[1])
+    correspondingHigh = next(h for h in Cards.Height if h.value == name[1])
     return Cards.Card(correspondingSuit, correspondingHigh)

@@ -2,14 +2,14 @@ import Joueur
 import GameEngine
 import GameTree
 import Solveur
+import Scenario
 
 
 class Partie:
 
-    def __init__(self,nomJsonAOuvrir,ValeurCarte):
-        self.tree=GameTree.GameTree(filePath=nomJsonAOuvrir,playerHand=ValeurCarte,flop="QsJh2h",river="2s",turn="2c")
+    def __init__(self):
+        self.scenario=Scenario.Scenario()
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
-        self.fichier=GameEngine.GameEngine(nomJsonAOuvrir,ValeurCarte) #Ouvre le fichier Json après l'appel au solveur
 
     def demanderActionJoueur(self): #prend en paramètre les différentes actions que le joueur peut faire
         
@@ -120,7 +120,7 @@ class Partie:
 
 if __name__ == "__main__":
             
-    partie1=Partie("Ressources/output_strategyTest.json","KsKh")
+    partie1=Partie()
     print("\nVotre main est : \n")
 
     print("┌───────┐ ┌───────┐")
