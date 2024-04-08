@@ -1,6 +1,6 @@
 #!/bin/bash
-cd code/Solveur/
-./console_solver -i resources/text/commandline_sample_input.txt 
+cd code/Solveur/resources/
+./console_solver -i text/commandline_sample_input.txt 
 
 
 

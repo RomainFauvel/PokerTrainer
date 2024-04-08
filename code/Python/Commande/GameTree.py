@@ -34,7 +34,7 @@ class GameTree:
         filePath=os.path.join(parent_path,filePath)
         print(filePath)
         with open(filePath) as f:
-            cls._instance.data = json.load(f)
+            cls._instance.setData(json.load(f))
         cls._instance.setPlayerHand(playerHand)
         cls._instance.setFlop(flop)
         cls._instance.setRiver(river)
@@ -89,6 +89,9 @@ class GameTree:
     
     # setters
 
+    def setData(self,data):
+        self.data=data
+
     def setPlayerHand(self, playerHand):
         self.playerHand = playerHand
 
@@ -107,7 +110,8 @@ class GameTree:
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
-            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][self.playerHand][i]*100,3)})
+            hand = "AcKc"
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][hand][i]*100,3)})
         return dicoProba
     
 if(__name__=="__main__"):

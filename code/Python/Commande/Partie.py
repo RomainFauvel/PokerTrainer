@@ -10,6 +10,8 @@ class Partie:
     def __init__(self):
         self.scenario=Scenario.Scenario()
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
+        self.tree=GameTree.GameTree()
+        self.fichier=GameEngine.GameEngine()
 
     def demanderActionJoueur(self): #prend en paramètre les différentes actions que le joueur peut faire
         
@@ -104,6 +106,7 @@ class Partie:
                 print("└───────┘\n")
             else:
                 Solveur.solveurRiver()
+                GameTree.GameTree(filePath="code/Solveur/resources/outputs/outputs_strategy.json")
                 self.tree.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 
                 print("\nLa turn card est : \n")

@@ -30,7 +30,7 @@ def ecritureEntreeTurn():
 
 #lance le solveur (version Linux pour le moment)
 def lancerSolveur():
-    script = "code/scriptLancement.sh"
+    script = "code/Solveur/scriptLancement.sh"
     subprocess.run([script])
 
 
