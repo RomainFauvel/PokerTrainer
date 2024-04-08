@@ -5,8 +5,10 @@ import os
 
 import Cards as Cards
 import GameTree as GameTree
+import Scenario as Scenario
 
 import home as home
+
 
 class Play(customtkinter.CTkFrame):
 
@@ -22,11 +24,20 @@ class Play(customtkinter.CTkFrame):
         self.home = home.Home(master)
         self.path = self.home.getPath()
 
+        self.scenario = Scenario.Scenario()
+        self.gameTree = GameTree.GameTree()
+
+        self.playerHand = self.gameTree.getPlayerHand()
+        self.flop = self.gameTree.getFlop()
+        self.turn = self.gameTree.getTurn()
+        self.river = self.gameTree.getRiver()
+
+    
+
 
         if(self.path == None):
             self.path = "output_strategyTest.json"
-        #self.scenario = Scenario()
-        self.gameTree = GameTree.GameTree()
+
         
 
 
@@ -92,8 +103,10 @@ class Play(customtkinter.CTkFrame):
         self.cardDeck4_label.place(relx=0.903, rely=0.453, anchor=tkinter.CENTER)
 
         #Player Hand
-        self.card1 = Cards.Card("c","10",True)
-        self.card2 = Cards.Card("c","A",True)
+        self.carte = Cards.Card.splitIn2(self.playerHand[0]) #Liste sour forme ['c','A']
+        self.card1 = Cards.Card(self.carte[0],self.carte[1],True)
+        self.carte = Cards.Card.splitIn2(self.playerHand[1]) #Liste sour forme ['c','A']
+        self.card2 = Cards.Card(self.carte[0],self.carte[1],True)
         
         self.card1_label = customtkinter.CTkLabel(self, image=self.card1.image, text="")
         self.card1_label.place(relx=0.48, rely=0.8, anchor=tkinter.CENTER)
@@ -102,8 +115,8 @@ class Play(customtkinter.CTkFrame):
         self.card2_label.place(relx=0.55, rely=0.8, anchor=tkinter.CENTER)
 
         #Opponent hand
-        self.card1Op = Cards.Card("c","10",False)
-        self.card2Op = Cards.Card("c","A",False)
+        self.card1Op = Cards.Card(None,None,False)
+        self.card2Op = Cards.Card(None,None,False)
         
         self.card1Op_label = customtkinter.CTkLabel(self, image=self.card1Op.image, text="")
         self.card1Op_label.place(relx=0.48, rely=0.15, anchor=tkinter.CENTER)
@@ -112,15 +125,14 @@ class Play(customtkinter.CTkFrame):
         self.card2Op_label.place(relx=0.55, rely=0.15, anchor=tkinter.CENTER)
 
         #Flop
-        self.flop = GameTree.GameTree.flop
         #récupération de chaque carte dans une variable distincte
-        #c1 = Cards.Card.splitIn2(self.flop[1])
-        #c2 = Cards.Card.splitIn2(self.flop[2])
-        #c3 = Cards.Card.splitIn2(self.flop[3])
-        #self.card3 = Cards.Card(c1[1],c1[2],False) à compléter
-        self.card3 = Cards.Card("c","A",False)
-        self.card4 = Cards.Card("c","A",False)
-        self.card5 = Cards.Card("c","A",False)
+        self.carte = Cards.Card.splitIn2(self.flop[0]) #Liste sour forme ['c','A']
+        self.card3 = Cards.Card(self.carte[0],self.carte[1],False)
+        self.carte = Cards.Card.splitIn2(self.flop[1]) #Liste sour forme ['c','A']
+        self.card4 = Cards.Card(self.carte[0],self.carte[1],False)
+        self.carte = Cards.Card.splitIn2(self.flop[2]) #Liste sour forme ['c','A']
+        self.card5 = Cards.Card(self.carte[0],self.carte[1],False)
+
 
         self.card3_label = customtkinter.CTkLabel(self, image=self.card3.image, text="")
         self.card3_label.place(relx=0.3, rely=0.45, anchor=tkinter.CENTER)
@@ -132,15 +144,15 @@ class Play(customtkinter.CTkFrame):
         self.card5_label.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
         #Turn
-        self.turn = GameTree.GameTree.turn
-        self.card6 = Cards.Card("c","A",False)
+        self.carte = Cards.Card.splitIn2(self.turn[0]) #Liste sour forme ['c','A']
+        self.card6 = Cards.Card(self.carte[0],self.carte[1],False)
 
         self.card6_label = customtkinter.CTkLabel(self, image=self.card6.image, text="")
         self.card6_label.place(relx=0.6, rely=0.45, anchor=tkinter.CENTER)
 
         #River
-        self.river = GameTree.GameTree.river
-        self.card7 = Cards.Card("c","A",False)
+        self.carte = Cards.Card.splitIn2(self.river[0]) #Liste sour forme ['c','A']
+        self.card7 = Cards.Card(self.carte[0],self.carte[1],False)
 
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
         self.card7_label.place(relx=0.7, rely=0.45, anchor=tkinter.CENTER)

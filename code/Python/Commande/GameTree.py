@@ -2,6 +2,7 @@
 import json
 import os
 
+
 class GameTree:
     data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
     playerHand=None #valeur de la carte du joueur/ordi
@@ -111,20 +112,23 @@ class GameTree:
         return dicoProba
     
 if(__name__=="__main__"):
+    
     gt0=GameTree()
-    gt1=GameTree(filePath="Ressources/output_strategyTest.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
+    gt1=GameTree(filePath="fichiersJson/sQhJh2.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
     print(gt0.to_string())
     print(gt1.to_string())
-    GameTree.initialise("Ressources/output_strategyTest.json","","","Corentin","")
+    GameTree.initialise("fichiersJson/sQhJh2.json","","","Corentin","")
     print(gt0.to_string())
     print(gt1.to_string())
-    gt2=GameTree(filePath="Ressources/output_strategyTest.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
+    gt2=GameTree(filePath="fichiersJson/sQhJh2.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
     gt3=GameTree()
     print(gt0.to_string())
     print(gt1.to_string())
     print(gt2.to_string())
     print(gt3.to_string())
-    filepath="Ressources/output_strategyTest.json"
+    filepath="fichiersJson/sQhJh2.json"
     # filepath2="PokerTrainer/Ressources/output_strategyTest.json"
     GameTree.initialise(filepath,"playerHand","flop","river","turn")
+    print(gt3.to_string())
+    print(gt3.getFlop())
     

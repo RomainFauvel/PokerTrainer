@@ -88,8 +88,9 @@ class Card:
     #permet de réutiliser cette écriture pour la création des cartes (utilsé dans le play.py)
     def splitIn2(textCard):
         card = []
-        card.append(textCard[:1])
-        card.append(textCard[1:])
+        card.append(textCard.getSuit().value)
+        card.append(textCard.getHeight().value)
+        print(card)
         return card
     
 

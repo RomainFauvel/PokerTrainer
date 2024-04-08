@@ -3,9 +3,11 @@ import random
 import Cards
 import GameTree
 import random
+import play
 
 
 class Scenario:
+
     def __init__(self):
         # recuperation d'un fichier Json aléatoirement
         folder = "./fichiersJson"
@@ -26,6 +28,7 @@ class Scenario:
         #on crée le GameTree avec tous les elements de la partie
         self.tree = GameTree.GameTree("fichiersJson/"+self.nameFile[i],self.playerHand,self.flop,self.river,self.turn)
 
+
 # methode utile pour obtenir les 3 cartes du flop a partir du name du fichier Json
 def CardsFromScenario(name):
     correspondingSuit = next(c for c in Cards.Suit if c.value == name[0])
@@ -38,3 +41,6 @@ if(__name__=="__main__"):
     # print(scenario.tree.data)
     # print(scenario.tree.getActions())
     # print(scenario.tree.getStrategies()
+    gameTree = GameTree.GameTree()
+    print(gameTree.getFlop())
+    print(gameTree.getFlop()[1])
