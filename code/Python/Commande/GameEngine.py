@@ -8,7 +8,7 @@ class GameEngine:
 
 
     def __init__(self,filePath,cardValue):
-        self.gameTree =GameTree.GameTree(filePath,cardValue)
+        self.gameTree =GameTree.GameTree()
 
 
 

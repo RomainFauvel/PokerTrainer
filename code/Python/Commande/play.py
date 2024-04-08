@@ -26,7 +26,7 @@ class Play(customtkinter.CTkFrame):
         if(self.path == None):
             self.path = "output_strategyTest.json"
         #self.scenario = Scenario()
-        self.gameTree = GameTree.GameTree("PokerTrainer/Ressources/" + self.path,"KsKh")
+        self.gameTree = GameTree.GameTree()
         
 
 
@@ -57,7 +57,7 @@ class Play(customtkinter.CTkFrame):
         
         
         #create buttons
-        self.create_buttons()
+        # self.create_buttons()
         
 
         #home

@@ -111,9 +111,13 @@ class DeckOfCards:
         return hand
 
     def deleteFlopFromDeck(self,flop):
-        self.cards.remove(flop[0])
-        self.cards.remove(flop[1])
-        self.cards.remove(flop[2])
+        print(flop[0])
+        # print(self.cards)
+        for f in flop:
+            for c in self.cards:
+                if f==c:
+                    self.cards.remove(f)
+                    print("removed",f)
     #affiche le jeu de cards
     def displayCards(self, cards):
         for card in cards:

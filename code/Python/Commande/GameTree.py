@@ -1,5 +1,6 @@
 
 import json
+import os
 
 class GameTree:
     data=None  #contient sous forme de dico les données du fichier json qui va être modifié selon les actions du joueur et de l'ordi
@@ -26,6 +27,12 @@ class GameTree:
     def initialise(cls,filePath,playerHand,flop,river,turn):
         if(cls._instance is None):
             cls._instance = cls()
+
+        
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
+        filePath=os.path.join(parent_path,filePath)
+        print(filePath)
         with open(filePath) as f:
             cls._instance.data = json.load(f)
         cls._instance.setPlayerHand(playerHand)
@@ -117,3 +124,7 @@ if(__name__=="__main__"):
     print(gt1.to_string())
     print(gt2.to_string())
     print(gt3.to_string())
+    filepath="Ressources/output_strategyTest.json"
+    # filepath2="PokerTrainer/Ressources/output_strategyTest.json"
+    GameTree.initialise(filepath,"playerHand","flop","river","turn")
+    
