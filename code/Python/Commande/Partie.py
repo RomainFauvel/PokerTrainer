@@ -106,7 +106,7 @@ class Partie:
                 print("└───────┘\n")
             else:
                 Solveur.solveurRiver()
-                GameTree.GameTree(filePath="code/Solveur/resources/outputs/outputs_strategy.json")
+                GameTree.GameTree(filePath="output_result.json")
                 #self.tree.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 
                 print("\nLa river card est : \n")
