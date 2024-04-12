@@ -1,6 +1,7 @@
 
 import json
 import os
+import Cards
 
 
 class GameTree:
@@ -57,9 +58,8 @@ class GameTree:
     def isPlayable(self): #verifie si il y a des actions possibles à jouer
         return (self.data.get("strategy", 0) != 0)
     
-    def dealcards(self,cartepiochee):
-        self.data=self.data["dealcards"][cartepiochee]
-
+    def dealcards(self,card):
+        self.data=self.data["dealcards"][card]
 
     #getters
 
