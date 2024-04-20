@@ -12,7 +12,7 @@ class GameEngine:
 
 
 
-    def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
+    def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
 
         if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
             return False
@@ -35,6 +35,10 @@ class GameEngine:
         print("<--------------------------------->")
         print("l'ordinateur joue : "+computerAction) #affiche l'action que joue l'ordinateur
         print("<--------------------------------->\n")
+
+        for i in range(len(actions)):
+            if actions[i]==computerAction:
+                self.gameTree.updateRange(position,i)
 
         if(computerAction=="FOLD"):
             return "Fin de partie"

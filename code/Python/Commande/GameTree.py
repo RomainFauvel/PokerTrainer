@@ -11,6 +11,9 @@ class GameTree:
     river=None
     turn=None
 
+    rangeOOP={}
+    rangeIP={}
+
     _instance = None
 
     def __new__(cls, *args, **kwargs): #Creation d'un singleton pour avoir une seule sdd partagee entre les classes
@@ -19,7 +22,7 @@ class GameTree:
         return cls._instance
 
     #Initialisation de la classe avec les valeurs si elles sont donnees sinon, on donne juste la reference de la classe
-    def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None): #initialisation de la classe
+    def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None,rangeOOP=None,rangeIP=None): #initialisation de la classe
         if(filePath!=None):
             self.filePath=filePath
         if(playerHand!=None):
@@ -123,6 +126,17 @@ class GameTree:
         for i in range(len(self.data["strategy"]["actions"])):
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
+    
+    def updateRange(self,position,action):
+        strategies=self.getStrategies()
+        if(position==0):
+            self.rangeIP={} #faut la remettre à 0 pour éviter d'avoir des cartes inutiles qu'on aurait déjà mis dans les tours d'avant 
+            for pairCards in strategies.keys():
+                self.rangeIP[pairCards]=strategies[pairCards][action]
+        else:
+            self.rangeOOP={}
+            for pairCards in strategies.keys():
+                self.rangeOOP[pairCards]=strategies[pairCards][action]
     
 if(__name__=="__main__"):
     

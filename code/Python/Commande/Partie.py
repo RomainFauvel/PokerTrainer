@@ -12,6 +12,7 @@ class Partie:
         self.position = int(input ("\nChoisissez la position 0 ou 1 \n"))
         self.tree=GameTree.GameTree()
         self.fichier=GameEngine.GameEngine()
+        self.numTour=0
 
     def demanderActionJoueur(self): #prend en paramètre les différentes actions que le joueur peut faire
         
@@ -31,6 +32,10 @@ class Partie:
 
             indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
+            print("rangeIP")
+            self.tree.updateRange(0,int(indiceaction))
+            print(self.tree.rangeIP)
+
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
@@ -40,7 +45,7 @@ class Partie:
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 
-            actionOrdi=self.fichier.computerPlay()
+            actionOrdi=self.fichier.computerPlay(1)
             print(actionOrdi)
 
             if(actionOrdi==False):
@@ -52,7 +57,7 @@ class Partie:
 
         elif(self.position==1):
 
-            actionOrdi=self.fichier.computerPlay()
+            actionOrdi=self.fichier.computerPlay(0)
             
             if(actionOrdi==False): 
                 return "Piocher une carte"
@@ -66,6 +71,10 @@ class Partie:
             actionsjoueur=self.tree.getAction() #récupère les différentes actions que le joueur peut faire
 
             indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
+
+            print("la rangeOOP")
+            self.tree.updateRange(1,int(indiceaction))
+            print(self.tree.rangeOOP)
 
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
@@ -82,7 +91,7 @@ class Partie:
 
     def jouerUnePartie(self):
         arret=False
-        nbCarte=1
+        self.numTour=1
         while(arret!=True): #condition d'arret ligne 50
             Etat="Fin du tour"
             while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
@@ -93,9 +102,9 @@ class Partie:
                     print("Fin de partie")
                     print("<--------------------------------->\n")
                     return 0       
-            if(nbCarte==1):
+            if(self.numTour==1):
                 self.tree.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
-                nbCarte+=1
+                self.numTour+=1
                 print("\nLa turn card est : \n")
                 print("┌───────┐")
                 print("│ 2     │")
