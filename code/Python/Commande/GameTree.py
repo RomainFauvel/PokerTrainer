@@ -20,9 +20,18 @@ class GameTree:
 
     #Initialisation de la classe avec les valeurs si elles sont donnees sinon, on donne juste la reference de la classe
     def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None): #initialisation de la classe
-
+        if(filePath!=None):
+            self.filePath=filePath
+        if(playerHand!=None):
+            self.playerHand=playerHand
+        if(flop!=None):
+            self.flop=flop
+        if(river!=None):
+            self.river=river
+        if(turn!=None):
+            self.turn=turn
         if(not(filePath==None and playerHand==None and flop==None and river==None and turn==None)):
-            self.initialise(filePath,playerHand,flop,river,turn) 
+            self.initialise(self.filePath,self.playerHand,self.flop,self.river,self.turn) 
     
     #Peux etre acceder depuis l exterieur sans initialiser un objet (exemple: GameTree.initialise(filePath,playerHand,flop,river,turn))
     @classmethod
@@ -110,9 +119,9 @@ class GameTree:
 
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
+        print(str(self.playerHand[0])+str(self.playerHand[1]))
         for i in range(len(self.data["strategy"]["actions"])):
-            hand = "AcKc"
-            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][hand][i]*100,3)})
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
     
 if(__name__=="__main__"):
