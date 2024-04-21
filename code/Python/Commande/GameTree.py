@@ -137,6 +137,24 @@ class GameTree:
             self.rangeOOP={}
             for pairCards in strategies.keys():
                 self.rangeOOP[pairCards]=strategies[pairCards][action]
+
+    def formattedRange(self,position):
+        formatted_string = ""
+        if(position==0):
+            for index, (key, value) in enumerate(self.rangeIP.items()):
+                pair = ''.join(key)
+                rounded_value = round(value, 2)
+                formatted_string += f"{pair}:{rounded_value}"
+                if index != len(self.rangeIP) - 1:
+                    formatted_string += ","
+        else:
+            for index, (key, value) in enumerate(self.rangeOOP.items()):
+                pair = ''.join(key)
+                rounded_value = round(value, 2)
+                formatted_string += f"{pair}:{rounded_value}"
+                if index != len(self.rangeOOP) - 1:
+                    formatted_string += ","
+        return formatted_string
     
 if(__name__=="__main__"):
     
