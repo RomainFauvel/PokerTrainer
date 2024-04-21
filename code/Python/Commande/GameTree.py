@@ -127,30 +127,40 @@ class GameTree:
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
     
+    def categorize_pair(self,pair):
+        card1, card2 = pair[0:2], pair[2:4]  # Extrait les deux cartes du format "2d3c"
+        if card1[1] == card2[1]:  # Vérifie si les cartes ont la même forme (suites)
+            return card1[0] + card2[0] + 's'
+        else:  # Sinon, les cartes sont de formes différentes (offsuites)
+            return card1[0] + card2[0] + 'o'
+
+    
     def updateRange(self,position,action):
         strategies=self.getStrategies()
         if(position==0):
             self.rangeIP={} #faut la remettre à 0 pour éviter d'avoir des cartes inutiles qu'on aurait déjà mis dans les tours d'avant 
             for pairCards in strategies.keys():
-                self.rangeIP[pairCards]=strategies[pairCards][action]
+                pairCategorized=self.categorize_pair(pairCards)
+                self.rangeIP[pairCategorized]=strategies[pairCards][action]
         else:
             self.rangeOOP={}
             for pairCards in strategies.keys():
-                self.rangeOOP[pairCards]=strategies[pairCards][action]
+                pairCategorized=self.categorize_pair(pairCards)
+                self.rangeOOP[pairCategorized]=strategies[pairCards][action]
 
     def formattedRange(self,position):
         formatted_string = ""
         if(position==0):
             for index, (key, value) in enumerate(self.rangeIP.items()):
                 pair = ''.join(key)
-                rounded_value = round(value, 2)
+                rounded_value = round(value, 10)
                 formatted_string += f"{pair}:{rounded_value}"
                 if index != len(self.rangeIP) - 1:
                     formatted_string += ","
         else:
             for index, (key, value) in enumerate(self.rangeOOP.items()):
                 pair = ''.join(key)
-                rounded_value = round(value, 2)
+                rounded_value = round(value, 10)
                 formatted_string += f"{pair}:{rounded_value}"
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
