@@ -25,6 +25,11 @@ class Partie:
         
     def tour(self):
         if(self.position==0):
+            if(self.numTour==0):
+                self.tree.setRandomPlayerHandFromRange()
+                self.numTour+=1
+                print(str(self.tree.playerHand[0:2])+str(self.tree.playerHand[2:4]))
+
             if(self.fichier.playerPlay()==False): #Permet de tester si on doit ou pas tourner une carte
                 return "Piocher une carte"
             
@@ -32,9 +37,7 @@ class Partie:
 
             indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
-            print("rangeIP")
             self.tree.updateRange(0,int(indiceaction))
-            print(self.tree.rangeIP)
 
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
@@ -63,18 +66,20 @@ class Partie:
                 return "Piocher une carte"
             if(actionOrdi=="Fin de partie"):
                 return "Fin de partie"
-        
             
+            if(self.numTour==0):
+                self.tree.setRandomPlayerHandFromRange()
+                self.numTour+=1
+                print(str(self.tree.playerHand[0:2])+str(self.tree.playerHand[2:4]))
+
             if(self.fichier.playerPlay()==False):
                 return "Piocher une carte"
             
-            actionsjoueur=self.tree.getAction() #récupère les différentes actions que le joueur peut faire
+            actionsjoueur=self.tree.getActions() #récupère les différentes actions que le joueur peut faire
 
             indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
-            print("la rangeOOP")
             self.tree.updateRange(1,int(indiceaction))
-            print(self.tree.rangeOOP)
 
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
@@ -91,7 +96,6 @@ class Partie:
 
     def jouerUnePartie(self):
         arret=False
-        self.numTour=1
         while(arret!=True): #condition d'arret ligne 50
             Etat="Fin du tour"
             while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
@@ -105,27 +109,11 @@ class Partie:
             if(self.numTour==1):
                 self.tree.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 self.numTour+=1
-                print("\nLa turn card est : \n")
-                print("┌───────┐")
-                print("│ 2     │")
-                print("│       │")
-                print("│   ♦   │")
-                print("│       │")
-                print("│     2 │")
-                print("└───────┘\n")
             else:
                 Solveur.solveurRiver()
                 GameTree.GameTree(filePath="output_result.json")
                 #self.tree.dealcards("2s") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
-                
-                print("\nLa river card est : \n")
-                print("┌───────┐")
-                print("│ 2     │")
-                print("│       │")
-                print("│   ♠   │")
-                print("│       │")
-                print("│     2 │")
-                print("└───────┘\n")
+    
 
 
 
@@ -133,23 +121,4 @@ class Partie:
 if __name__ == "__main__":
             
     partie1=Partie()
-    print("\nVotre main est : \n")
-
-    print("┌───────┐ ┌───────┐")
-    print("│ K     │ │ K     │")
-    print("│       │ │       │")
-    print("│   ♠   │ │   ♥   │")
-    print("│       │ │       │")
-    print("│     K │ │     K │")
-    print("└───────┘ └───────┘\n")
-
-    print("\nLes cartes du board sont : \n")
-
-    print("┌───────┐ ┌───────┐ ┌───────┐")
-    print("│ Q     │ │ J     │ │ 2     │")
-    print("│       │ │       │ │       │")
-    print("│   ♠   │ │   ♥   │ │   ♥   │")
-    print("│       │ │       │ │       │")
-    print("│     Q │ │     J │ │     2 │")
-    print("└───────┘ └───────┘ └───────┘\n")
     partie1.jouerUnePartie()

@@ -2,6 +2,7 @@
 import json
 import os
 import Cards
+import random
 
 
 class GameTree:
@@ -100,6 +101,9 @@ class GameTree:
     def getTurn(self):
         return self.turn
     
+    def getRange(self):
+        return list(self.data["strategy"]["strategy"])
+    
     # setters
 
     def setData(self,data):
@@ -117,14 +121,18 @@ class GameTree:
     def setTurn(self, turn):
         self.turn = turn
 
+    def setRandomPlayerHandFromRange(self):
+        range=self.getRange()
+        randomNomber=random.randint(0,len(range))
+        self.setPlayerHand(range[randomNomber])
+
     def to_string(self):
         return "GameTree: playerHand: " + str(self.playerHand) + " flop: " + str(self.flop) + " river: " + str(self.river) + " turn: " + str(self.turn)
 
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
-        print(str(self.playerHand[0])+str(self.playerHand[1]))
         for i in range(len(self.data["strategy"]["actions"])):
-            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0:2])+str(self.playerHand[2:4])][i]*100,3)})
         return dicoProba
     
     def categorize_pair(self,pair):
@@ -137,7 +145,7 @@ class GameTree:
     
     def updateRange(self,position,action):
         strategies=self.getStrategies()
-        if(position==0):
+        if(position==1):
             self.rangeIP={} #faut la remettre à 0 pour éviter d'avoir des cartes inutiles qu'on aurait déjà mis dans les tours d'avant 
             for pairCards in strategies.keys():
                 pairCategorized=self.categorize_pair(pairCards)
@@ -165,6 +173,7 @@ class GameTree:
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
         return formatted_string
+    
     
 if(__name__=="__main__"):
     

@@ -22,7 +22,7 @@ class Scenario:
         self.deck=Cards.DeckOfCards()
         self.deck.deleteFlopFromDeck(self.flop)
         self.deck.shuffle()
-        self.playerHand=self.deck.dealCards(2)
+        self.playerHand=None #self.deck.dealCards(2) j'ai mis en commentaire car je gère le piochage de la main après dans la gameTree pour être sûr que la paire du joueur soit possible 
         self.river=self.deck.dealCards(1)
         self.turn=self.deck.dealCards(1)
         #on crée le GameTree avec tous les elements de la partie
