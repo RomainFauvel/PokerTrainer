@@ -55,6 +55,7 @@ class GameTree:
         cls._instance.setRiver(river)
         cls._instance.setTurn(turn)
         cls._instance.compteur=0
+        cls._instance.setRandomPlayerHandFromRange()
 
 
 
@@ -124,7 +125,13 @@ class GameTree:
     def setRandomPlayerHandFromRange(self):
         range=self.getRange()
         randomNomber=random.randint(0,len(range))
-        self.setPlayerHand(range[randomNomber])
+        hand = range[randomNomber]
+        string_card1 = hand[:2]
+        string_card2 = hand[2:]
+        card1 = Cards.Card(Cards.get_suit_from_value(string_card1[1]),Cards.get_height_from_value(string_card1[0]),True)
+        card2 = Cards.Card(Cards.get_suit_from_value(string_card2[1]),Cards.get_height_from_value(string_card2[0]),True)
+        playerhand = [card1,card2]
+        self.setPlayerHand(playerhand)
 
     def to_string(self):
         return "GameTree: playerHand: " + str(self.playerHand) + " flop: " + str(self.flop) + " river: " + str(self.river) + " turn: " + str(self.turn)
@@ -132,7 +139,7 @@ class GameTree:
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
-            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0:2])+str(self.playerHand[2:4])][i]*100,3)})
+            dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
     
     def categorize_pair(self,pair):

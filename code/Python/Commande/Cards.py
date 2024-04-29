@@ -23,13 +23,23 @@ class Height(Enum):
     SEVEN="7"
     EIGHT="8"
     NINE="9"
-    TEN="T"
+    TEN="10"
     JACK="J"
     QUEEN="Q"
     KING="K"
     ACE="A"
 
+def get_suit_from_value(value):
+    for suit in Suit:
+        if suit.value == value:
+            return suit
+    return None  # Retourne None si la valeur n'est pas trouvée dans l'énumération
 
+def get_height_from_value(value):
+    for height in Height:
+        if height.value == value:
+            return height
+    return None  # Retourne None si la valeur n'est pas trouvée dans l'énumération
 
 
 class Card:
@@ -49,6 +59,9 @@ class Card:
     def __str__(self):
         return f"{self.height.value}{self.suit.value}"
     
+    def __repr__(self):
+        return f"{self.height.value}{self.suit.value}"
+    
     def get_image(self):
 
         #Chemin vers le bon dossier, ici, on revient en arrière vers le dossier PokerTrainer (la racine)
@@ -56,14 +69,14 @@ class Card:
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
 
         if (self.flip):
-            if(self.suit == "c"):
-                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Clubs/" + self.height + ".png"), size=(100, 150))
-            elif(self.suit == "d"):
-                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Diamonds/" + self.height + ".png"), size=(100, 150))
-            elif(self.suit == "s"):
-                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Spades/" + self.height + ".png"), size=(100, 150))
-            elif(self.suit == "h"):
-                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Hearts/" + self.height + ".png"), size=(100, 150))
+            if(self.suit.value == "c"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Clubs/" + self.height.value + ".png"), size=(100, 150))
+            elif(self.suit.value == "d"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Diamonds/" + self.height.value + ".png"), size=(100, 150))
+            elif(self.suit.value == "s"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Spades/" + self.height.value + ".png"), size=(100, 150))
+            elif(self.suit.value == "h"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Hearts/" + self.height.value + ".png"), size=(100, 150))
             else:
                 return "ERREUR"
 

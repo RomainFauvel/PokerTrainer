@@ -103,10 +103,8 @@ class Play(customtkinter.CTkFrame):
         self.cardDeck4_label.place(relx=0.903, rely=0.453, anchor=tkinter.CENTER)
 
         #Player Hand
-        self.carte = Cards.Card.splitIn2(self.playerHand[0]) #Liste sour forme ['c','A']
-        self.card1 = Cards.Card(self.carte[0],self.carte[1],True)
-        self.carte = Cards.Card.splitIn2(self.playerHand[1]) #Liste sour forme ['c','A']
-        self.card2 = Cards.Card(self.carte[0],self.carte[1],True)
+        self.card1 = self.playerHand[0]
+        self.card2 = self.playerHand[1]
         
         self.card1_label = customtkinter.CTkLabel(self, image=self.card1.image, text="")
         self.card1_label.place(relx=0.48, rely=0.8, anchor=tkinter.CENTER)
@@ -126,12 +124,9 @@ class Play(customtkinter.CTkFrame):
 
         #Flop
         #récupération de chaque carte dans une variable distincte
-        self.carte = Cards.Card.splitIn2(self.flop[0]) #Liste sour forme ['c','A']
-        self.card3 = Cards.Card(self.carte[0],self.carte[1],False)
-        self.carte = Cards.Card.splitIn2(self.flop[1]) #Liste sour forme ['c','A']
-        self.card4 = Cards.Card(self.carte[0],self.carte[1],False)
-        self.carte = Cards.Card.splitIn2(self.flop[2]) #Liste sour forme ['c','A']
-        self.card5 = Cards.Card(self.carte[0],self.carte[1],False)
+        self.card3 = self.flop[0]
+        self.card4 = self.flop[1]
+        self.card5 = self.flop[2]
 
 
         self.card3_label = customtkinter.CTkLabel(self, image=self.card3.image, text="")
@@ -144,15 +139,13 @@ class Play(customtkinter.CTkFrame):
         self.card5_label.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
         #Turn
-        self.carte = Cards.Card.splitIn2(self.turn[0]) #Liste sour forme ['c','A']
-        self.card6 = Cards.Card(self.carte[0],self.carte[1],False)
+        self.card6 = self.turn[0]
 
         self.card6_label = customtkinter.CTkLabel(self, image=self.card6.image, text="")
         self.card6_label.place(relx=0.6, rely=0.45, anchor=tkinter.CENTER)
 
         #River
-        self.carte = Cards.Card.splitIn2(self.river[0]) #Liste sour forme ['c','A']
-        self.card7 = Cards.Card(self.carte[0],self.carte[1],False)
+        self.card7 = self.river[0]
 
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
         self.card7_label.place(relx=0.7, rely=0.45, anchor=tkinter.CENTER)
@@ -243,11 +236,11 @@ class Play(customtkinter.CTkFrame):
 
     
     def update_card_images(self):
-        self.card3_label.configure(image=self.card3.image if not self.card3.getFlip() else self.card3.get_image())
-        self.card4_label.configure(image=self.card4.image if not self.card4.getFlip() else self.card4.get_image())
-        self.card5_label.configure(image=self.card5.image if not self.card5.getFlip() else self.card5.get_image())
-        self.card6_label.configure(image=self.card6.image if not self.card6.getFlip() else self.card6.get_image())
-        self.card7_label.configure(image=self.card7.image if not self.card7.getFlip() else self.card7.get_image())
+        self.card3_label.configure(image=self.card3.get_image())
+        self.card4_label.configure(image=self.card4.get_image())
+        self.card5_label.configure(image=self.card5.get_image())
+        self.card6_label.configure(image=self.card6.get_image())
+        self.card7_label.configure(image=self.card7.get_image())
 
 
     # def button_check_event(self, event):

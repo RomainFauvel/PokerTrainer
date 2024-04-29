@@ -28,7 +28,7 @@ class Partie:
             if(self.numTour==0):
                 self.tree.setRandomPlayerHandFromRange()
                 self.numTour+=1
-                print(str(self.tree.playerHand[0:2])+str(self.tree.playerHand[2:4]))
+                print(str(self.tree.playerHand[0])+str(self.tree.playerHand[1]))
 
             if(self.fichier.playerPlay()==False): #Permet de tester si on doit ou pas tourner une carte
                 return "Piocher une carte"
@@ -70,7 +70,7 @@ class Partie:
             if(self.numTour==0):
                 self.tree.setRandomPlayerHandFromRange()
                 self.numTour+=1
-                print(str(self.tree.playerHand[0:2])+str(self.tree.playerHand[2:4]))
+                print(str(self.tree.playerHand[0])+str(self.tree.playerHand[1]))
 
             if(self.fichier.playerPlay()==False):
                 return "Piocher une carte"
