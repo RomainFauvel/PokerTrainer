@@ -139,8 +139,11 @@ class GameTree:
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
+            print(str(self.playerHand[0]))
+            print(str(self.playerHand[1]))
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
+
     
     def categorize_pair(self,pair):
         card1, card2 = pair[0:2], pair[2:4]  # Extrait les deux cartes du format "2d3c"

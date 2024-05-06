@@ -9,6 +9,8 @@ import Scenario as Scenario
 
 import home as home
 
+import time
+
 
 class Play(customtkinter.CTkFrame):
 
@@ -31,7 +33,6 @@ class Play(customtkinter.CTkFrame):
         self.flop = self.gameTree.getFlop()
         self.turn = self.gameTree.getTurn()
         self.river = self.gameTree.getRiver()
-
     
 
 
@@ -40,7 +41,8 @@ class Play(customtkinter.CTkFrame):
 
         
 
-
+        self.worstAct = None
+        self.bestAct = None
 
 
         self.number_of_buttons = 4
@@ -217,20 +219,62 @@ class Play(customtkinter.CTkFrame):
 
 
     def on_button_click(self,action):
+        #self.possibilities = self.gameTree.getPlayerPossiblities()
+        #self.worstAct = self.worstAction(self.possibilities)
+        print("pire action",self.worstAct)
+        #self.bestAct = self.bestAction(self.possibilities)
+        print("meilleure action",self.bestAct)
+
+
+        for button in self.buttons:
+            if(button._text == self.worstAct):
+                button.configure(self,text_color="red")
+                print("rouge")
+            elif(button._text == self.bestAct):
+                button.configure(self,text_color="green")
+                print("vert")
+            else:
+                print(button._text_color)
+                button.configure(self,text_color="blue")
+                print(button._text_color)
+                print("bleu")
+
+
+        time.sleep(1)
+
         print("Player ",action)
-        self.gameTree.play(action)
+        self.gameTree.play(action) 
         self.create_buttons()
-        print(self.gameTree.getRound())
-        if(self.gameTree.getRound() == 1):
+        self.round = self.gameTree.getRound()
+        print(self.round)
+        if(self.round == 1):
             self.card3.setFlip(True)
             self.card4.setFlip(True)
             self.card5.setFlip(True)
-        elif(self.gameTree.getRound() == 2):
+        elif(self.round == 2):
             self.card6.setFlip(True)
         else:
             self.card7.setFlip(True)
             
         self.update_card_images()
+
+    def bestAction(self, possibilities):
+        max_prob = 0
+        max_key = None
+        for key, prob in possibilities.items():
+            if prob > max_prob:
+                max_prob = prob
+                max_key = key
+        return max_key
+    
+    def worstAction(self, possibilities):
+        min_prob = 1000
+        min_key = None
+        for key, prob in possibilities.items():
+            if prob < min_prob:
+                min_prob = prob
+                min_key = key
+        return min_key
         
         
 
