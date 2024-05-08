@@ -219,28 +219,27 @@ class Play(customtkinter.CTkFrame):
 
 
     def on_button_click(self,action):
-        #self.possibilities = self.gameTree.getPlayerPossiblities()
-        #self.worstAct = self.worstAction(self.possibilities)
+        self.possibilities = self.gameTree.getPlayerPossiblities()
+        self.worstAct = self.worstAction(self.possibilities)
         print("pire action",self.worstAct)
-        #self.bestAct = self.bestAction(self.possibilities)
+        self.bestAct = self.bestAction(self.possibilities)
         print("meilleure action",self.bestAct)
 
 
+        
+        
         for button in self.buttons:
             if(button._text == self.worstAct):
                 button.configure(self,text_color="red")
-                print("rouge")
             elif(button._text == self.bestAct):
                 button.configure(self,text_color="green")
-                print("vert")
             else:
                 print(button._text_color)
                 button.configure(self,text_color="blue")
                 print(button._text_color)
-                print("bleu")
 
-
-        time.sleep(1)
+        self.update_idletasks()
+        
 
         print("Player ",action)
         self.gameTree.play(action) 
@@ -257,6 +256,7 @@ class Play(customtkinter.CTkFrame):
             self.card7.setFlip(True)
             
         self.update_card_images()
+        time.sleep(1)
 
     def bestAction(self, possibilities):
         max_prob = 0
@@ -285,17 +285,6 @@ class Play(customtkinter.CTkFrame):
         self.card5_label.configure(image=self.card5.get_image())
         self.card6_label.configure(image=self.card6.get_image())
         self.card7_label.configure(image=self.card7.get_image())
-
-
-    # def button_check_event(self, event):
-    #     print("Player Check")
-
-    # def button_fold_event(self, event):
-    #     print("Player Fold")
-
-
-    def button_fold_event(self, event):
-        print("Fold")
 
 
 

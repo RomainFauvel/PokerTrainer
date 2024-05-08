@@ -47,7 +47,6 @@ class GameTree:
         current_path = os.path.dirname(os.path.realpath(__file__))
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
         filePath=os.path.join(parent_path,filePath)
-        print(filePath)
         with open(filePath) as f:
             cls._instance.setData(json.load(f))
         cls._instance.setPlayerHand(playerHand)
@@ -139,8 +138,6 @@ class GameTree:
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
-            print(str(self.playerHand[0]))
-            print(str(self.playerHand[1]))
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
 
