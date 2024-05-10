@@ -10,8 +10,6 @@ class GameEngine:
     def __init__(self):
         self.gameTree =GameTree.GameTree()
 
-
-
     def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
 
         if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
@@ -41,10 +39,10 @@ class GameEngine:
                 self.gameTree.updateRange(position,i)
 
         if(computerAction=="FOLD"):
-            return "Fin de partie"
+            print("Fin de partie")
         
         self.gameTree.play(computerAction)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
-        return True
+        return computerAction
         
     def playerPlay(self):#Affiche les probas de chaque action possible pour le joueur
         if(self.gameTree.isPlayable()==True): 

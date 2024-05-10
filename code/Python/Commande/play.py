@@ -6,6 +6,7 @@ import os
 import Cards as Cards
 import GameTree as GameTree
 import Scenario as Scenario
+import GameEngine as GameEngine
 
 import home as home
 
@@ -28,6 +29,7 @@ class Play(customtkinter.CTkFrame):
 
         self.scenario = Scenario.Scenario()
         self.gameTree = GameTree.GameTree()
+        self.gameEngine = GameEngine.GameEngine()
 
         self.playerHand = self.gameTree.getPlayerHand()
         self.flop = self.gameTree.getFlop()
@@ -82,6 +84,9 @@ class Play(customtkinter.CTkFrame):
         # self.exit_button.grid(row=0, column=0, padx=15, pady=(15,15))
         self.exit_button.place(relx=0.05,rely=0.97,anchor=tkinter.CENTER)
 
+        #Computer Action Label
+        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white")
+        self.computer_action_label.place(relx=0.515, rely=0.25, anchor=tkinter.CENTER)
 
 
         #create cards_________________________________________________________________________________________________________________
@@ -219,38 +224,35 @@ class Play(customtkinter.CTkFrame):
 
 
     def on_button_click(self,action):
-        self.possibilities = self.gameTree.getPlayerPossiblities()
-        self.worstAct = self.worstAction(self.possibilities)
+        self.worstAct = self.gameTree.getWorstAction()
         print("pire action",self.worstAct)
-        self.bestAct = self.bestAction(self.possibilities)
+        self.bestAct = self.gameTree.getBestAction()
         print("meilleure action",self.bestAct)
-
-
-        
-        
+  
         for button in self.buttons:
             if(button._text == self.worstAct):
                 button.configure(self,text_color="red")
             elif(button._text == self.bestAct):
                 button.configure(self,text_color="green")
             else:
-                print(button._text_color)
                 button.configure(self,text_color="blue")
-                print(button._text_color)
 
         self.update_idletasks()
         
 
         print("Player ",action)
-        self.gameTree.play(action) 
+        self.gameTree.play(action)
+        computerAction=self.gameEngine.computerPlay(self.gameTree.getRound()%2)
+        self.computer_action_label.configure(text=computerAction)
+        self.update_card_images()   
+
         self.create_buttons()
         self.round = self.gameTree.getRound()
-        print(self.round)
-        if(self.round == 1):
+        if(self.round == 2):
             self.card3.setFlip(True)
             self.card4.setFlip(True)
             self.card5.setFlip(True)
-        elif(self.round == 2):
+        elif(self.round == 4):
             self.card6.setFlip(True)
         else:
             self.card7.setFlip(True)
@@ -258,23 +260,6 @@ class Play(customtkinter.CTkFrame):
         self.update_card_images()
         time.sleep(1)
 
-    def bestAction(self, possibilities):
-        max_prob = 0
-        max_key = None
-        for key, prob in possibilities.items():
-            if prob > max_prob:
-                max_prob = prob
-                max_key = key
-        return max_key
-    
-    def worstAction(self, possibilities):
-        min_prob = 1000
-        min_key = None
-        for key, prob in possibilities.items():
-            if prob < min_prob:
-                min_prob = prob
-                min_key = key
-        return min_key
         
         
 

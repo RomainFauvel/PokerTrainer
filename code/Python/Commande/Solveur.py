@@ -10,7 +10,7 @@ import platform
 gameTree=GameTree.GameTree()
 
 def solveurRiver():
-    print(gameTree.to_string())
+    print(gameTree)
     ecritureEntreeRiver()
     print("le script est lancé")
     run_script()

@@ -10,7 +10,6 @@ import utils as utils
 import help as help
 
 # import files of Commande
-
 import Partie
 
 class App(customtkinter.CTk):

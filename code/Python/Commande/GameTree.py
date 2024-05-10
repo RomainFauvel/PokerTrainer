@@ -12,6 +12,11 @@ class GameTree:
     river=None
     turn=None
 
+    bestAction=None
+    WorstAction=None
+
+    playerTurn=True
+
     rangeOOP={}
     rangeIP={}
 
@@ -56,23 +61,8 @@ class GameTree:
         cls._instance.compteur=0
         cls._instance.setRandomPlayerHandFromRange()
 
-
-
-    def rolloutToInit(self,file,val):
-        self.__init__(file,val)
-
-        
-
-    def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
-        self.data=self.data["childrens"][todo]
-        self.compteur += 1
-        return True
-
-    def isPlayable(self): #verifie si il y a des actions possibles à jouer
-        return (self.data.get("strategy", 0) != 0)
-    
-    def dealcards(self,card):
-        self.data=self.data["dealcards"][card]
+    def __str__(self):
+        return "GameTree: playerHand: " + str(self.playerHand) + " flop: " + str(self.flop) + " river: " + str(self.river) + " turn: " + str(self.turn)
 
     #getters
 
@@ -121,6 +111,28 @@ class GameTree:
     def setTurn(self, turn):
         self.turn = turn
 
+    #fonctions utiles
+
+    def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
+        self.data=self.data["childrens"][todo]
+        self.compteur += 1
+        self.playerTurn = not self.playerTurn
+        if(self.playerTurn):
+            print("C'est au tour du joueur")
+        else:
+            print("C'est au tour de l'ordinateur")
+
+        #On remet les actions à None car on doit les recalculer
+        self.bestAction=None
+        self.worstAction=None
+        return True
+
+    def isPlayable(self): #verifie si il y a des actions possibles à jouer
+        return (self.data.get("strategy", 0) != 0)
+    
+    def dealcards(self,card):
+        self.data=self.data["dealcards"][card]
+
     def setRandomPlayerHandFromRange(self):
         range=self.getRange()
         randomNomber=random.randint(0,len(range))
@@ -132,14 +144,56 @@ class GameTree:
         playerhand = [card1,card2]
         self.setPlayerHand(playerhand)
 
-    def to_string(self):
-        return "GameTree: playerHand: " + str(self.playerHand) + " flop: " + str(self.flop) + " river: " + str(self.river) + " turn: " + str(self.turn)
-
     def getPlayerPossiblities(self): # renvoie les proba de chaque actions possibles sous forme de dictionnaire avec les actions pour clés, utile pour la classe Partie
         dicoProba={}
         for i in range(len(self.data["strategy"]["actions"])):
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
+
+    def getBestAction(self):
+        '''Renvoie la meilleure action possible pour l'ordinateur Check/Bet...'''
+        if(self.bestAction!=None):
+            return self.bestAction
+        
+        if(self.playerTurn==0):#Tour de l ordinateur
+            actions=self.getActions() # Pour récupérer le contenu des actions, renvoie une liste
+            strategies=self.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
+
+            tab = [0]*len(actions) # tableau de la somme des probas de chaque action
+
+            for i in range(len(actions)):
+                for tabProba in strategies.values():
+                    tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
+                    
+            self.bestAction = actions[tab.index(max(tab))]
+            return self.bestAction
+        
+        if(self.playerTurn==1):#Tour du joueur
+            self.bestAction=max(self.getPlayerPossiblities(), key=self.getPlayerPossiblities().get)
+            return self.bestAction
+    
+    def getWorstAction(self):
+        '''Renvoie la pire action possible pour l'odinateur Check/Bet...'''
+
+        if(self.WorstAction!=None):
+            return self.WorstAction
+        
+        if(self.playerTurn==0):#Tour de l ordinateur
+            actions=self.getActions() # Pour récupérer le contenu des actions, renvoie une liste
+            strategies=self.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
+
+            tab = [0]*len(actions) # tableau de la somme des probas de chaque action
+
+            for i in range(len(actions)):
+                for tabProba in strategies.values():
+                    tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
+                    
+            self.worstAction = actions[tab.index(min(tab))]
+            return self.worstAction
+        
+        if(self.playerTurn==1):#Tour du joueur
+            self.worstAction=min(self.getPlayerPossiblities(), key=self.getPlayerPossiblities().get)
+            return self.worstAction
 
     
     def categorize_pair(self,pair):
@@ -186,20 +240,20 @@ if(__name__=="__main__"):
     
     gt0=GameTree()
     gt1=GameTree(filePath="fichiersJson/sQhJh2.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
-    print(gt0.to_string())
-    print(gt1.to_string())
+    print(gt0)
+    print(gt1)
     GameTree.initialise("fichiersJson/sQhJh2.json","","","Corentin","")
-    print(gt0.to_string())
-    print(gt1.to_string())
+    print(gt0)
+    print(gt1)
     gt2=GameTree(filePath="fichiersJson/sQhJh2.json",playerHand="playerHand",flop="Theo",river="river",turn="turn")
     gt3=GameTree()
-    print(gt0.to_string())
-    print(gt1.to_string())
-    print(gt2.to_string())
-    print(gt3.to_string())
+    print(gt0)
+    print(gt1)
+    print(gt2)
+    print(gt3)
     filepath="fichiersJson/sQhJh2.json"
     # filepath2="PokerTrainer/Ressources/output_strategyTest.json"
     GameTree.initialise(filepath,"playerHand","flop","river","turn")
-    print(gt3.to_string())
+    print(gt3)
     print(gt3.getFlop())
     
