@@ -43,7 +43,7 @@ class Partie:
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
 
-            if(actionsjoueur[int(indiceaction)]=="FOLD"): #car fin de partie quand fold
+            if(self.fichier.isEndOfGame(actionsjoueur[int(indiceaction)])==True):
                 return "Fin de partie"
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
@@ -85,7 +85,7 @@ class Partie:
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
 
-            if(actionsjoueur[int(indiceaction)]=="FOLD"):
+            if(self.fichier.isEndOfGame(actionsjoueur[int(indiceaction)])==True):
                 return "Fin de partie"
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur

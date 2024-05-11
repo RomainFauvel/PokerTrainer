@@ -173,7 +173,7 @@ class GameTree:
             return self.bestAction
     
     def getWorstAction(self):
-        '''Renvoie la pire action possible pour l'odinateur Check/Bet...'''
+        '''Renvoie la pire action possible pour l'ordinateur Check/Bet...'''
 
         if(self.WorstAction!=None):
             return self.WorstAction
@@ -233,7 +233,7 @@ class GameTree:
                 formatted_string += f"{pair}:{rounded_value}"
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
-        return formatted_string
+        return formatted_string   
     
     
 if(__name__=="__main__"):

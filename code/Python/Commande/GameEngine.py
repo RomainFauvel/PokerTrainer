@@ -50,6 +50,15 @@ class GameEngine:
         else:
             return False # Si il n'y a pas de coup a jouer, retourne False
         
+    def isEndOfGame(self,action): #Prend l'action effectuée et regarde si elle est présente dans childrens, si c'est le cas la partie continue sinon elle s'arrête
+        actions=self.gameTree.getActions()
+        if "childrens" in self.gameTree.data:
+            actionsInChildrens=list(self.gameTree.data["childrens"].keys())
+            print(actionsInChildrens)
+            if action in actionsInChildrens:
+                return False
+        return True
+        
     
 
 
