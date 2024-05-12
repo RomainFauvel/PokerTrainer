@@ -31,7 +31,6 @@ def getActionAleatoire(actions,tabProbabilites):
         probabilites={}
         for i in range(len(tabProbabilites)):
             probabilites[actions[i]]=tabProbabilites[i]/sommeProba
-            print(tabProbabilites[i]/sommeProba)
 
         choix = random.uniform(0, 1)
         total_probabilites = 0

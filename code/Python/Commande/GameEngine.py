@@ -38,26 +38,35 @@ class GameEngine:
             if actions[i]==computerAction:
                 self.gameTree.updateRange(position,i)
 
-        if(computerAction=="FOLD"):
-            print("Fin de partie")
-        
-        self.gameTree.play(computerAction)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
         return computerAction
         
     def playerPlay(self):#Affiche les probas de chaque action possible pour le joueur
         if(self.gameTree.isPlayable()==True): 
             return self.gameTree.getPlayerPossiblities()
         else:
-            return False # Si il n'y a pas de coup a jouer, retourne False
+            return False # S'il n'y a pas de coup à jouer, retourne False
         
     def isEndOfGame(self,action): #Prend l'action effectuée et regarde si elle est présente dans childrens, si c'est le cas la partie continue sinon elle s'arrête
-        actions=self.gameTree.getActions()
         if "childrens" in self.gameTree.data:
             actionsInChildrens=list(self.gameTree.data["childrens"].keys())
             print(actionsInChildrens)
             if action in actionsInChildrens:
+                action_parts = action.split()
+                if self.gameTree.actionBefore!=None:
+                    action_before_parts=self.gameTree.actionBefore.split()
+                    if len(action_before_parts)>1:
+                        amountCalled=int(action_before_parts[1].split(',')[0])
+                        if action_parts[0]=="CALL" and amountCalled>self.gameTree.stack: 
+                            return True
                 return False
+            return True
         return True
+    
+    def isEndOfRound(self,action):
+        action_parts = action.split()
+        if action_parts[0] in ["CHECK","CALL"] and self.gameTree.actionBefore!=None:
+            return True
+        return False
         
     
 

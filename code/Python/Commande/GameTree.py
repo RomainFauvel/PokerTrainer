@@ -12,7 +12,8 @@ class GameTree:
     river=None
     turn=None
 
-    #attributs pour gérer l'effective stack pour l'appel au solveur
+    #attributs pour gérer l'effective stack pour l'appel au solveur et la fin d'une partie
+    initialStack=200
     stack=200
     actionBefore=None
 
@@ -134,7 +135,7 @@ class GameTree:
         self.worstAction=None
         return True
 
-    def isPlayable(self): #verifie si il y a des actions possibles à jouer
+    def isPlayable(self): #verifie s'il y a des actions possibles à jouer
         return (self.data.get("strategy", 0) != 0)
     
     def dealcards(self,card):
