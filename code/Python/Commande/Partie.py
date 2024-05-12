@@ -39,6 +39,8 @@ class Partie:
 
             self.tree.updateRange(0,int(indiceaction))
 
+            self.tree.updateStack(actionsjoueur[int(indiceaction)])
+
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
@@ -49,12 +51,15 @@ class Partie:
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 
             actionOrdi=self.fichier.computerPlay(1)
+
             print(actionOrdi)
 
             if(actionOrdi==False):
                 return "Piocher une carte"
             if(actionOrdi=="Fin de partie"):
                 return "Fin de partie"
+
+            self.tree.updateStack(actionOrdi)
 
             return "Fin du tour"
 
@@ -66,6 +71,8 @@ class Partie:
                 return "Piocher une carte"
             if(actionOrdi=="Fin de partie"):
                 return "Fin de partie"
+            
+            self.tree.updateStack(actionOrdi)
             
             if(self.numTour==0):
                 self.tree.setRandomPlayerHandFromRange()
@@ -80,6 +87,8 @@ class Partie:
             indiceaction = self.demanderActionJoueur() #demande au joueur quelle action il veut faire
 
             self.tree.updateRange(1,int(indiceaction))
+
+            self.tree.updateStack(actionsjoueur[int(indiceaction)])
 
             print("<--------------------------------->")
             print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
@@ -100,12 +109,12 @@ class Partie:
             Etat="Fin du tour"
             while(Etat=="Fin du tour"): #tant qu'on ne doit pas de piocher de carte on continue à jouer dans le même tour
                 Etat=self.tour()
-                print(Etat)
+                print("Etat = "+Etat)
                 if(Etat=="Fin de partie"):
                     print("<--------------------------------->")
                     print("Fin de partie")
                     print("<--------------------------------->\n")
-                    return 0       
+                    return
             if(self.numTour==1):
                 self.tree.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 self.numTour+=1

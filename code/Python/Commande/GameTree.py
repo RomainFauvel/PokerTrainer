@@ -12,6 +12,11 @@ class GameTree:
     river=None
     turn=None
 
+    #attributs pour gérer l'effective stack pour l'appel au solveur
+    stack=200
+    actionBefore=None
+
+
     bestAction=None
     WorstAction=None
 
@@ -28,7 +33,7 @@ class GameTree:
         return cls._instance
 
     #Initialisation de la classe avec les valeurs si elles sont donnees sinon, on donne juste la reference de la classe
-    def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None,rangeOOP=None,rangeIP=None): #initialisation de la classe
+    def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None,rangeOOP=None,rangeIP=None,stack=200): #initialisation de la classe
         if(filePath!=None):
             self.filePath=filePath
         if(playerHand!=None):
@@ -39,6 +44,8 @@ class GameTree:
             self.river=river
         if(turn!=None):
             self.turn=turn
+        if(stack!=200):
+            self.stack=stack
         if(not(filePath==None and playerHand==None and flop==None and river==None and turn==None)):
             self.initialise(self.filePath,self.playerHand,self.flop,self.river,self.turn) 
     
@@ -235,6 +242,23 @@ class GameTree:
                     formatted_string += ","
         return formatted_string   
     
+    def updateStack(self,action):#prend l'action sous forme de string et met à jour l'effective stack pour ensuite appeler le solveur avec la bonne valeur
+        # Décodage de l'action
+        action_parts = action.split()
+        if len(action_parts) > 1: # On vérifie si l'action est bien un BET ou RAISE, et on diminue le montant de la stack
+            if action_parts[0]=="BET":
+                amount_str = action_parts[1].split(',')[0]  # Récupérer la partie avant la virgule
+                amount = int(amount_str)
+                self.stack -= amount
+            if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE
+                amount_str_current_action=action_parts[1].split(',')[0]
+                amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
+                amount=int(amount_str_current_action)-int(amount_str_action_before)
+                self.stack-=amount
+        self.actionBefore=action
+        print(self.actionBefore)
+        print(self.stack)
+
     
 if(__name__=="__main__"):
     
