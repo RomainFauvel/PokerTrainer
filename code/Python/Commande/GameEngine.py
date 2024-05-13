@@ -56,7 +56,7 @@ class GameEngine:
                     action_before_parts=self.gameTree.actionBefore.split()
                     if len(action_before_parts)>1:
                         amountCalled=int(action_before_parts[1].split(',')[0])
-                        if action_parts[0]=="CALL" and amountCalled>self.gameTree.stack: 
+                        if action_parts[0]=="CALL" and self.gameTree.stack==0: 
                             return True
                 return False
             return True

@@ -69,6 +69,7 @@ class Partie:
                 return 0
             
             if(self.fichier.isEndOfRound(actionOrdi)==True):
+                self.gameTree.actionBefore=None
                 self.arretTour=True
 
             self.tree.updateStack(actionOrdi)
