@@ -53,7 +53,7 @@ class Partie:
             if(self.fichier.isEndOfRound(actionsjoueur[int(indiceaction)])==True):
                 self.arretTour=True
             
-            self.tree.updateStack(actionsjoueur[int(indiceaction)])
+            self.tree.updateStackAndPot(actionsjoueur[int(indiceaction)])
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 
@@ -72,7 +72,7 @@ class Partie:
             if(self.fichier.isEndOfRound(actionOrdi)==True):
                 self.arretTour=True
 
-            self.tree.updateStack(actionOrdi)
+            self.tree.updateStackAndPot(actionOrdi)
 
             self.tree.play(actionOrdi)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
 
@@ -99,7 +99,7 @@ class Partie:
                 self.gameTree.actionBefore=None
                 self.arretTour=True
 
-            self.tree.updateStack(actionOrdi)
+            self.tree.updateStackAndPot(actionOrdi)
 
             self.tree.play(actionOrdi)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
 
@@ -127,7 +127,7 @@ class Partie:
             if(self.fichier.isEndOfRound(actionsjoueur[int(indiceaction)])==True):
                 self.arretTour=True
             
-            self.tree.updateStack(actionsjoueur[int(indiceaction)])
+            self.tree.updateStackAndPot(actionsjoueur[int(indiceaction)])
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 

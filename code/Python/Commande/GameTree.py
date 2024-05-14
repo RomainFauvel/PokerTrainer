@@ -13,9 +13,13 @@ class GameTree:
     turn=None
 
     #attributs pour gérer l'effective stack pour l'appel au solveur et la fin d'une partie
-    initialStack=200
+    initialStack=200 # Paramètre par défaut dans le solveur, amélioration possible 
     stack=200
     actionBefore=None
+
+    #attributs pour gérer le pot
+    initialPot=50 # Paramètre par défaut dans le solveur, amélioration possible 
+    pot=50
 
 
     bestAction=None
@@ -246,7 +250,7 @@ class GameTree:
                     formatted_string += ","
         return formatted_string   
     
-    def updateStack(self,action):#prend l'action sous forme de string et met à jour l'effective stack pour ensuite appeler le solveur avec la bonne valeur
+    def updateStackAndPot(self,action):#prend l'action sous forme de string et met à jour l'effective stack pour ensuite appeler le solveur avec la bonne valeur
         # Décodage de l'action
         action_parts = action.split()
         if len(action_parts) > 1: # On vérifie si l'action est bien un BET ou RAISE, et on diminue le montant de la stack
@@ -255,16 +259,27 @@ class GameTree:
                 amount_str_without_point=amount_str.split('.')[0] # Permet de gérer le cas si c'est un point et non une virgule dans le montant.
                 amount = int(amount_str_without_point)
                 self.stack -= amount
-            if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE
+
+                #On multiplie directement par 2 car :
+                #Le joueur suivant: fold => fin de partie
+                #Le joueur suivant: call => 2 fois la mise du BET dans le pot
+                #Le joueur suivant: raise => scénario géré par la condition suivante
+                self.pot +=2*amount 
+
+            if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE et augmenter le pot que 2 fois le montant du RAISE
                 amount_str_current_action=action_parts[1].split(',')[0]
                 amount_str_current_action_without_point=amount_str_current_action.split('.')[0]
                 amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
                 amount_str_action_before_without_point=amount_str_action_before.split('.')[0]
-                amount=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
-                self.stack-=amount
+                amount_stack=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
+                self.stack-=amount_stack
+
+                amount_bet=2*int(amount_str_current_action_without_point)-2*int(amount_str_action_before_without_point)
+                self.pot+=amount_bet
+
         self.actionBefore=action
-        print(self.actionBefore)
-        print(self.stack)
+        print("Stack ="+str(self.stack))
+        print("Pot ="+str(self.pot))
 
     
 if(__name__=="__main__"):
