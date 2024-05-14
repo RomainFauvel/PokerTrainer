@@ -119,6 +119,9 @@ class GameTree:
     def setTurn(self, turn):
         self.turn = turn
 
+    def setActionBeforeToNone(self):
+        self.actionBefore=None
+
     #fonctions utiles
 
     def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
@@ -248,13 +251,16 @@ class GameTree:
         action_parts = action.split()
         if len(action_parts) > 1: # On vérifie si l'action est bien un BET ou RAISE, et on diminue le montant de la stack
             if action_parts[0]=="BET":
-                amount_str = action_parts[1].split(',')[0]  # Récupérer la partie avant la virgule
-                amount = int(amount_str)
+                amount_str = action_parts[1].split(',')[0]  # Récupérer la partie avant la virgule.
+                amount_str_without_point=amount_str.split('.')[0] # Permet de gérer le cas si c'est un point et non une virgule dans le montant.
+                amount = int(amount_str_without_point)
                 self.stack -= amount
             if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE
                 amount_str_current_action=action_parts[1].split(',')[0]
+                amount_str_current_action_without_point=amount_str_current_action.split('.')[0]
                 amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
-                amount=int(amount_str_current_action)-int(amount_str_action_before)
+                amount_str_action_before_without_point=amount_str_action_before.split('.')[0]
+                amount=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
                 self.stack-=amount
         self.actionBefore=action
         print(self.actionBefore)

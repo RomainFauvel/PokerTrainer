@@ -55,7 +55,6 @@ class GameEngine:
                 if self.gameTree.actionBefore!=None:
                     action_before_parts=self.gameTree.actionBefore.split()
                     if len(action_before_parts)>1:
-                        amountCalled=int(action_before_parts[1].split(',')[0])
                         if action_parts[0]=="CALL" and self.gameTree.stack==0: 
                             return True
                 return False
@@ -64,7 +63,9 @@ class GameEngine:
     
     def isEndOfRound(self,action):
         action_parts = action.split()
+        print("action before = "+str(self.gameTree.actionBefore))
         if action_parts[0] in ["CHECK","CALL"] and self.gameTree.actionBefore!=None:
+            print("action before in if = "+str(self.gameTree.actionBefore))
             return True
         return False
         

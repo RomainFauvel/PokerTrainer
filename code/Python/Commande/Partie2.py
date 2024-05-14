@@ -58,12 +58,39 @@ class Partie:
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
 
             if(self.arretTour==True):
+                self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
                 return 0
             
             ##############################################################
 
             actionOrdi=self.fichier.computerPlay(1)
 
+            if(self.fichier.isEndOfGame(actionOrdi)==True):
+                self.arretPartie=True
+                return 0
+            
+            if(self.fichier.isEndOfRound(actionOrdi)==True):
+                self.arretTour=True
+
+            self.tree.updateStack(actionOrdi)
+
+            self.tree.play(actionOrdi)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
+
+            if(self.arretTour==True):
+                self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+                return 0
+
+        elif(self.position==1):
+
+            if(self.numTour==0):
+                self.tree.setRandomPlayerHandFromRange()
+                self.numTour+=1
+
+                print("main du joueur\n")
+                print(str(self.tree.playerHand[0])+str(self.tree.playerHand[1])+"\n")
+
+            actionOrdi=self.fichier.computerPlay(0)
+            
             if(self.fichier.isEndOfGame(actionOrdi)==True):
                 self.arretPartie=True
                 return 0
@@ -77,26 +104,11 @@ class Partie:
             self.tree.play(actionOrdi)  # on modifie le chemin en passant par children et l'action que doit effectuer l'ordi
 
             if(self.arretTour==True):
+                self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
                 return 0
-
-        elif(self.position==1):
-
-            actionOrdi=self.fichier.computerPlay(0)
             
-            if(actionOrdi==False): 
-                return "Piocher une carte"
-            if(actionOrdi=="Fin de partie"):
-                return "Fin de partie"
-            
-            self.tree.updateStack(actionOrdi)
-            
-            if(self.numTour==0):
-                self.tree.setRandomPlayerHandFromRange()
-                self.numTour+=1
-                print(str(self.tree.playerHand[0])+str(self.tree.playerHand[1]))
+            ####################################
 
-            if(self.fichier.playerPlay()==False):
-                return "Piocher une carte"
             
             actionsjoueur=self.tree.getActions() #récupère les différentes actions que le joueur peut faire
 
@@ -104,18 +116,24 @@ class Partie:
 
             self.tree.updateRange(1,int(indiceaction))
 
-            self.tree.updateStack(actionsjoueur[int(indiceaction)])
-
             print("<--------------------------------->")
-            print(self.fichier.playerPlay()) #Cela recupère les probas pour chaque actions et les affiche
+            print(self.tree.getPlayerPossiblities()) #Cela recupère les probas pour chaque actions et les affiche
             print("<--------------------------------->\n")
 
             if(self.fichier.isEndOfGame(actionsjoueur[int(indiceaction)])==True):
-                return "Fin de partie"
+                self.arretPartie=True
+                return 0
+            
+            if(self.fichier.isEndOfRound(actionsjoueur[int(indiceaction)])==True):
+                self.arretTour=True
+            
+            self.tree.updateStack(actionsjoueur[int(indiceaction)])
             
             self.tree.play(actionsjoueur[int(indiceaction)]) #Permet de modifier le chemin selon l'action du joueur
-            
-            return "Fin du tour"
+
+            if(self.arretTour==True):
+                self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+                return 0
     
         print("erreur")
 
