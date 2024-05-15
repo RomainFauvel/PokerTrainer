@@ -216,7 +216,11 @@ class GameTree:
         if card1[1] == card2[1]:  # Vérifie si les cartes ont la même forme (suites)
             return card1[0] + card2[0] + 's'
         else:  # Sinon, les cartes sont de formes différentes (offsuites)
-            return card1[0] + card2[0] + 'o'
+            height1,heigth2=card1[0:1],card2[0:1]
+            if(height1[0]==heigth2[0]):
+                return card1[0]+card2[0]
+            else:
+                return card1[0] + card2[0] + 'o'
 
     
     def updateRange(self,position,action):
@@ -225,12 +229,18 @@ class GameTree:
             self.rangeIP={} #faut la remettre à 0 pour éviter d'avoir des cartes inutiles qu'on aurait déjà mis dans les tours d'avant 
             for pairCards in strategies.keys():
                 pairCategorized=self.categorize_pair(pairCards)
-                self.rangeIP[pairCategorized]=strategies[pairCards][action]
+                if(pairCategorized in self.rangeIP):
+                    self.rangeIP[pairCategorized]*=strategies[pairCards][action]
+                else:
+                    self.rangeIP[pairCategorized]=strategies[pairCards][action]
         else:
             self.rangeOOP={}
             for pairCards in strategies.keys():
                 pairCategorized=self.categorize_pair(pairCards)
-                self.rangeOOP[pairCategorized]=strategies[pairCards][action]
+                if(pairCategorized in self.rangeOOP):
+                    self.rangeOOP[pairCategorized]*=strategies[pairCards][action]
+                else:
+                    self.rangeOOP[pairCategorized]=strategies[pairCards][action]
 
     def formattedRange(self,position):
         formatted_string = ""
