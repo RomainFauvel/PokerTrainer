@@ -145,7 +145,7 @@ class Partie:
                 print("Arret Tour = "+str(self.arretTour))
                 print("Arret Partie = "+str(self.arretPartie))
             if(self.numTour==1 and self.arretPartie!=True):
-                self.tree.dealcards("2c") #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
+                self.tree.dealcards(str(self.tree.turn[0])) #permet de piocher une carte pour la turn ou la river à modifier pour pas avoir tjrs la même carte
                 self.numTour+=1
             elif(self.arretPartie!=True):
                 Solveur.solveurRiver()
