@@ -225,6 +225,8 @@ class GameTree:
     
     def updateRange(self,position,action):
         strategies=self.getStrategies()
+        print("strategies\n")
+        print(strategies)
         if(position==1):
             self.rangeIP={} #faut la remettre à 0 pour éviter d'avoir des cartes inutiles qu'on aurait déjà mis dans les tours d'avant 
             for pairCards in strategies.keys():
@@ -233,6 +235,8 @@ class GameTree:
                     self.rangeIP[pairCategorized]*=strategies[pairCards][action]
                 else:
                     self.rangeIP[pairCategorized]=strategies[pairCards][action]
+            print("range IP \n")
+            print(self.rangeIP)
         else:
             self.rangeOOP={}
             for pairCards in strategies.keys():
@@ -241,21 +245,21 @@ class GameTree:
                     self.rangeOOP[pairCategorized]*=strategies[pairCards][action]
                 else:
                     self.rangeOOP[pairCategorized]=strategies[pairCards][action]
+            print("range OOP\n")
+            print(self.rangeOOP)
 
     def formattedRange(self,position):
         formatted_string = ""
         if(position==0):
             for index, (key, value) in enumerate(self.rangeIP.items()):
                 pair = ''.join(key)
-                rounded_value = round(value, 10)
-                formatted_string += f"{pair}:{rounded_value}"
+                formatted_string += f"{pair}:{value}"
                 if index != len(self.rangeIP) - 1:
                     formatted_string += ","
         else:
             for index, (key, value) in enumerate(self.rangeOOP.items()):
                 pair = ''.join(key)
-                rounded_value = round(value, 10)
-                formatted_string += f"{pair}:{rounded_value}"
+                formatted_string += f"{pair}:{value}"
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
         return formatted_string   
