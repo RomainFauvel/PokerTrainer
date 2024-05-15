@@ -63,6 +63,10 @@ class Play(customtkinter.CTkFrame):
                                                size=(self.width, self.height))
         self.button_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/bouton.png"),
                                                    size=self.button_size)
+        self.button_green_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/boutonVert.png"),
+                                                   size=self.button_size)
+        self.button_red_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/boutonRouge.png"),
+                                                   size=self.button_size)
         
         
         #background  
@@ -223,6 +227,7 @@ class Play(customtkinter.CTkFrame):
             # self.button_fold.configure(image=self.button_image)
 
 
+
     def on_button_click(self,action):
         self.worstAct = self.gameTree.getWorstAction()
         print("pire action",self.worstAct)
@@ -231,9 +236,9 @@ class Play(customtkinter.CTkFrame):
   
         for button in self.buttons:
             if(button._text == self.worstAct):
-                button.configure(self,text_color="red")
+                button.configure(self,text_color="red", image=self.button_red_image)
             elif(button._text == self.bestAct):
-                button.configure(self,text_color="green")
+                button.configure(self,text_color="green", image=self.button_green_image)
             else:
                 button.configure(self,text_color="blue")
 
