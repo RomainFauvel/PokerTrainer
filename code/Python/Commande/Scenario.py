@@ -27,6 +27,7 @@ class Scenario:
         self.turn=self.deck.dealCards(1)
         #on crée le GameTree avec tous les elements de la partie
         self.tree = GameTree.GameTree("fichiersJson/"+self.nameFile[i],self.playerHand,self.flop,self.river,self.turn)
+        self.deck.deleteHandFromDeck(self.tree.playerHand)
 
 
 # methode utile pour obtenir les 3 cartes du flop a partir du name du fichier Json

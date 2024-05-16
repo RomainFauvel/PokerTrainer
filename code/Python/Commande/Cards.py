@@ -146,6 +146,13 @@ class DeckOfCards:
                 if f.getHeight() == c.getHeight() and f.getSuit() == c.getSuit():
                     self.cards.remove(c)
                     print("removed",c)
+
+    def deleteHandFromDeck(self,hand):
+        for h in hand:
+            for c in self.cards:
+                if h.getHeight() == c.getHeight() and h.getSuit() == c.getSuit():
+                    self.cards.remove(c)
+
     #affiche le jeu de cards
     def displayCards(self, cards):
         for card in cards:
