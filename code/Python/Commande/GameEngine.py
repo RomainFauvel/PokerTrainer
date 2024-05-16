@@ -13,8 +13,28 @@ class GameEngine:
         self.endOfTheGame=False
         self.endOfTheRound=False
 
+        self.computerLastAction="Computer Action"
+
         self.numRound=1
-        self.position=0 #0 player IP, 1 computer OOP | (IP -> l'ordi commence, OOP -> le joueur commence)
+        self.position=1 #0 player IP, 1 computer OOP | (IP -> l'ordi commence, OOP -> le joueur commence)
+
+    def getNumRound(self):
+        return self.numRound
+    
+    def getPosition(self):
+        return self.position
+    
+    def getComputerLastAction(self):
+        return self.computerLastAction
+    
+    def getEndOfTheGame(self):
+        return self.endOfTheGame
+    
+    def getEndOfTheRound(self):
+        return self.endOfTheRound
+    
+    def setPosition(self,position):
+        self.position=position
 
 
     # def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
@@ -63,11 +83,19 @@ class GameEngine:
         
         self.gameTree.updateStackAndPot(action)
         
-        self.GameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
+        self.gameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
 
         if(self.endOfTheRound==True):
-            self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+            self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
             self.numRound+=1
+
+        if(self.endOfTheGame==False and self.endOfTheRound==False): # Si la partie n'est pas finie et que le tour n'est pas fini L'ordinateur joue
+            self.computerPlay()
+
+        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
+            self.endOfTheRound=False
+            self.computerPlay()
+        return True
 
     def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
 
@@ -77,14 +105,7 @@ class GameEngine:
         if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
                 return False
 
-        actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
-        strategies=self.gameTree.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
-
-        tab = [0]*len(actions) # tableau de la somme des probas de chaque action
-
-        for i in range(len(actions)):
-            for tabProba in strategies.values():
-                tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
+        actions,tab=self.gameTree.getComputerActionProba()
 
         print("<--------------------------------->")
         print("Le nombre de combinaisons possibles pour l'ordinateur ")
@@ -98,7 +119,7 @@ class GameEngine:
 
         for i in range(len(actions)):
             if actions[i]==action:
-                self.gameTree.updateRange(position,i)
+                self.gameTree.updateRange(self.position,i)
 
         if(self.isEndOfGame(action)==True):
                 self.endOfTheGame=True
@@ -108,11 +129,18 @@ class GameEngine:
         
         self.gameTree.updateStackAndPot(action)
         
-        self.GameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
+        self.gameTree.play(action) #Permet de modifier le chemin selon l'action
 
         if(self.endOfTheRound==True):
-            self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+            self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
             self.numRound+=1
+
+        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
+            self.endOfTheRound=False
+            self.computerPlay()
+        
+        self.computerLastAction=action
+        return action
 
         
     def isEndOfGame(self,action): #Prend l'action effectuée et regarde si elle est présente dans childrens, si c'est le cas la partie continue sinon elle s'arrête

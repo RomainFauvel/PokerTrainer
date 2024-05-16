@@ -7,6 +7,7 @@ import Cards as Cards
 import GameTree as GameTree
 import Scenario as Scenario
 import GameEngine as GameEngine
+import Solveur as Solveur
 
 import home as home
 
@@ -41,10 +42,13 @@ class Play(customtkinter.CTkFrame):
         if(self.path == None):
             self.path = "output_strategyTest.json"
 
-        
 
         self.worstAct = None
         self.bestAct = None
+
+        self.round = 0
+        self.round2Cond = False
+        self.round3Cond = False
 
 
         self.number_of_buttons = 4
@@ -138,15 +142,17 @@ class Play(customtkinter.CTkFrame):
         self.card3 = self.flop[0]
         self.card4 = self.flop[1]
         self.card5 = self.flop[2]
+        self.card3.setFlip(True)
+        self.card4.setFlip(True)
+        self.card5.setFlip(True)
 
-
-        self.card3_label = customtkinter.CTkLabel(self, image=self.card3.image, text="")
+        self.card3_label = customtkinter.CTkLabel(self, image=self.card3.get_image(), text="")
         self.card3_label.place(relx=0.3, rely=0.45, anchor=tkinter.CENTER)
 
-        self.card4_label = customtkinter.CTkLabel(self, image=self.card4.image, text="")
+        self.card4_label = customtkinter.CTkLabel(self, image=self.card4.get_image(), text="")
         self.card4_label.place(relx=0.4, rely=0.45, anchor=tkinter.CENTER)
 
-        self.card5_label = customtkinter.CTkLabel(self, image=self.card5.image, text="")
+        self.card5_label = customtkinter.CTkLabel(self, image=self.card5.get_image(), text="")
         self.card5_label.place(relx=0.5, rely=0.45, anchor=tkinter.CENTER)
 
         #Turn
@@ -229,9 +235,9 @@ class Play(customtkinter.CTkFrame):
 
 
     def on_button_click(self,action):
-        self.worstAct = self.gameTree.getWorstAction()
+        self.worstAct = self.gameTree.getPlayerWorstAction()
         print("pire action",self.worstAct)
-        self.bestAct = self.gameTree.getBestAction()
+        self.bestAct = self.gameTree.getPlayerBestAction()
         print("meilleure action",self.bestAct)
   
         for button in self.buttons:
@@ -246,28 +252,34 @@ class Play(customtkinter.CTkFrame):
         
 
         print("Player ",action)
-        self.gameTree.play(action)
-        computerAction=self.gameEngine.computerPlay(self.gameTree.getRound()%2)
+        self.gameEngine.playerPlay(action)
+        self.round = self.gameEngine.getNumRound()
+        print("Round ",self.round)
+
+        if(self.gameEngine.getEndOfTheGame()==True):
+            Solveur.solveurRiver()
+            GameTree(filePath="output_result.json")
+            self.gameEngine.endOfTheGame=False
+
+        computerAction = self.gameEngine.getComputerLastAction()
         self.computer_action_label.configure(text=computerAction)
-        self.update_card_images()   
+
+        if(self.round == 2 and self.round2Cond==False):#Turn
+
+            self.gameTree.dealcards(str(self.gameTree.getTurn()[0]))
+            self.card6.setFlip(True)
+            self.gameEngine.endOfTheRound=False
+            self.round2Cond=True
+
+        elif(self.round == 3 and self.round3Cond==False):#River
+            self.card7.setFlip(True)
+            self.round3Cond=True
 
         self.create_buttons()
-        self.round = self.gameTree.getRound()
-        if(self.round == ):
-            self.card3.setFlip(True)
-            self.card4.setFlip(True)
-            self.card5.setFlip(True)
-        elif(self.round == ):
-            self.card6.setFlip(True)
-        else:
-            self.card7.setFlip(True)
-            
         self.update_card_images()
         time.sleep(1)
 
         
-        
-
     
     def update_card_images(self):
         self.card3_label.configure(image=self.card3.get_image())
