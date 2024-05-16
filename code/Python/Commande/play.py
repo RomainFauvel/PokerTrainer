@@ -253,11 +253,11 @@ class Play(customtkinter.CTkFrame):
 
         self.create_buttons()
         self.round = self.gameTree.getRound()
-        if(self.round == 2):
+        if(self.round == ):
             self.card3.setFlip(True)
             self.card4.setFlip(True)
             self.card5.setFlip(True)
-        elif(self.round == 4):
+        elif(self.round == ):
             self.card6.setFlip(True)
         else:
             self.card7.setFlip(True)

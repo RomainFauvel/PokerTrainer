@@ -23,7 +23,7 @@ class Height(Enum):
     SEVEN="7"
     EIGHT="8"
     NINE="9"
-    TEN="10"
+    TEN="T"
     JACK="J"
     QUEEN="Q"
     KING="K"
@@ -68,7 +68,7 @@ class Card:
         current_path = os.path.dirname(os.path.realpath(__file__))
         parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
 
-        if (self.flip):
+        if (self.flip and self.height.value !="T"):
             if(self.suit.value == "c"):
                 return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Clubs/" + self.height.value + ".png"), size=(100, 150))
             elif(self.suit.value == "d"):
@@ -79,6 +79,15 @@ class Card:
                 return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Hearts/" + self.height.value + ".png"), size=(100, 150))
             else:
                 return "ERREUR"
+        elif(self.flip and self.height.value =="T"):
+            if(self.suit.value == "c"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Clubs/" + "10" + ".png"), size=(100, 150))
+            elif(self.suit.value == "d"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Diamonds/" + "10" + ".png"), size=(100, 150))
+            elif(self.suit.value == "s"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Spades/" + "10" + ".png"), size=(100, 150))
+            elif(self.suit.value == "h"):
+                return customtkinter.CTkImage(Image.open(parent_path + "/Ressources/Flat Playing Cards Set/Hearts/" + "10" + ".png"), size=(100, 150))
 
         else:
             #Dans le cas où flip est false, on laisse la carte face cachée

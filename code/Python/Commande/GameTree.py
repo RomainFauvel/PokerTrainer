@@ -21,12 +21,6 @@ class GameTree:
     initialPot=50 # Paramètre par défaut dans le solveur, amélioration possible 
     pot=50
 
-
-    bestAction=None
-    WorstAction=None
-
-    playerTurn=True
-
     rangeOOP={}
     rangeIP={}
 
@@ -128,19 +122,28 @@ class GameTree:
 
     #fonctions utiles
 
-    def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
-        self.data=self.data["childrens"][todo]
-        self.compteur += 1
-        self.playerTurn = not self.playerTurn
-        if(self.playerTurn):
-            print("C'est au tour du joueur")
-        else:
-            print("C'est au tour de l'ordinateur")
+    # def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi
+    #     if(self.isPlayable()==False):
+    #         print("Il n'y a pas d'action possible à jouer")
+    #         return False
+    #     self.data=self.data["childrens"][todo]
+    #     self.compteur += 1
+    #     self.playerTurn = not self.playerTurn
+    #     if(self.playerTurn):
+    #         print("C'est au tour du joueur")
+    #     else:
+    #         print("C'est au tour de l'ordinateur")
 
-        #On remet les actions à None car on doit les recalculer
-        self.bestAction=None
-        self.worstAction=None
-        return True
+    #     #On remet les actions à None car on doit les recalculer
+    #     self.bestAction=None
+    #     self.worstAction=None
+    #     return True
+
+    def play(self,action):
+        if(self.isPlayable()==False):
+            print("Il n'y a pas d'action possible à jouer")
+            return False
+        self.data=self.data["childrens"][action]
 
     def isPlayable(self): #verifie s'il y a des actions possibles à jouer
         return (self.data.get("strategy", 0) != 0)
@@ -152,6 +155,7 @@ class GameTree:
         range=self.getRange()
         randomNomber=random.randint(0,len(range))
         hand = range[randomNomber]
+
         string_card1 = hand[:2]
         string_card2 = hand[2:]
         card1 = Cards.Card(Cards.get_suit_from_value(string_card1[1]),Cards.get_height_from_value(string_card1[0]),True)
@@ -165,8 +169,8 @@ class GameTree:
             dicoProba.update({self.data["strategy"]["actions"][i]:round(self.data["strategy"]["strategy"][str(self.playerHand[0])+str(self.playerHand[1])][i]*100,3)})
         return dicoProba
 
-    def getBestAction(self):
-        '''Renvoie la meilleure action possible pour l'ordinateur Check/Bet...'''
+    def getPlayerBestAction(self):
+        '''Renvoie la meilleure action possible pour le joueur Check/Bet...'''
         if(self.bestAction!=None):
             return self.bestAction
         
@@ -187,8 +191,8 @@ class GameTree:
             self.bestAction=max(self.getPlayerPossiblities(), key=self.getPlayerPossiblities().get)
             return self.bestAction
     
-    def getWorstAction(self):
-        '''Renvoie la pire action possible pour l'ordinateur Check/Bet...'''
+    def getPlayerWorstAction(self):
+        '''Renvoie la pire action possible pour le joueur Check/Bet...'''
 
         if(self.WorstAction!=None):
             return self.WorstAction

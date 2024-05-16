@@ -10,10 +10,72 @@ class GameEngine:
     def __init__(self):
         self.gameTree =GameTree.GameTree()
 
-    def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
+        self.endOfTheGame=False
+        self.endOfTheRound=False
 
+        self.numRound=1
+        self.position=0 #0 player IP, 1 computer OOP | (IP -> l'ordi commence, OOP -> le joueur commence)
+
+
+    # def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
+
+    #     if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
+    #         return False
+
+    #     actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
+    #     strategies=self.gameTree.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
+
+    #     tab = [0]*len(actions) # tableau de la somme des probas de chaque action
+
+    #     for i in range(len(actions)):
+    #         for tabProba in strategies.values():
+    #             tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
+
+    #     print("<--------------------------------->")
+    #     print("Le nombre de combinaisons possibles pour l'ordinateur ")
+    #     print(tab)
+    #     print("<--------------------------------->\n")
+
+    #     action = utils.getActionAleatoire(actions,tab)
+    #     print("<--------------------------------->")
+    #     print("l'ordinateur joue : "+action) #affiche l'action que joue l'ordinateur
+    #     print("<--------------------------------->\n")
+
+    #     for i in range(len(actions)):
+    #         if actions[i]==action:
+    #             self.gameTree.updateRange(position,i)
+
+    #     return action
+        
+    def playerPlay(self,action):
+
+        if(self.endOfTheGame==True or self.endOfTheRound==True):
+            return False
+        
         if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
             return False
+        
+        if(self.isEndOfGame(action)==True): # C'est le dernier coup de la partie
+            self.endOfTheGame=True
+            
+        if(self.isEndOfRound(action)==True): # C'est le dernier coup du tour
+            self.endOfTheRound=True
+        
+        self.gameTree.updateStackAndPot(action)
+        
+        self.GameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
+
+        if(self.endOfTheRound==True):
+            self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+            self.numRound+=1
+
+    def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
+
+        if(self.endOfTheGame==True or self.endOfTheRound==True):
+                return False
+
+        if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
+                return False
 
         actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
         strategies=self.gameTree.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
@@ -29,22 +91,29 @@ class GameEngine:
         print(tab)
         print("<--------------------------------->\n")
 
-        computerAction = utils.getActionAleatoire(actions,tab)
+        action = utils.getActionAleatoire(actions,tab)
         print("<--------------------------------->")
-        print("l'ordinateur joue : "+computerAction) #affiche l'action que joue l'ordinateur
+        print("l'ordinateur joue : "+action) #affiche l'action que joue l'ordinateur
         print("<--------------------------------->\n")
 
         for i in range(len(actions)):
-            if actions[i]==computerAction:
+            if actions[i]==action:
                 self.gameTree.updateRange(position,i)
 
-        return computerAction
+        if(self.isEndOfGame(action)==True):
+                self.endOfTheGame=True
+                
+        if(self.isEndOfRound(action)==True):
+            self.endOfTheRound=True
         
-    def playerPlay(self):#Affiche les probas de chaque action possible pour le joueur
-        if(self.gameTree.isPlayable()==True): 
-            return self.gameTree.getPlayerPossiblities()
-        else:
-            return False # S'il n'y a pas de coup à jouer, retourne False
+        self.gameTree.updateStackAndPot(action)
+        
+        self.GameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
+
+        if(self.endOfTheRound==True):
+            self.tree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
+            self.numRound+=1
+
         
     def isEndOfGame(self,action): #Prend l'action effectuée et regarde si elle est présente dans childrens, si c'est le cas la partie continue sinon elle s'arrête
         if "childrens" in self.gameTree.data:
