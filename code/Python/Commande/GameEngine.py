@@ -73,14 +73,17 @@ class GameEngine:
         if(self.endOfTheGame==True or self.endOfTheRound==True):
             return False
         
-        if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
-            return False
+        # if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
+        #     return False
         
         if(self.isEndOfGame(action)==True): # C'est le dernier coup de la partie
             self.endOfTheGame=True
             
         if(self.isEndOfRound(action)==True): # C'est le dernier coup du tour
             self.endOfTheRound=True
+
+        idAction = self.gameTree.getActions().index(action)
+        self.gameTree.updateRange(self.position,idAction)
         
         self.gameTree.updateStackAndPot(action)
         
@@ -88,7 +91,7 @@ class GameEngine:
 
         if(self.numRound==2 and self.getEndOfTheRound()==True):
             Solveur.solveurRiver()
-            GameTree(filePath="output_result.json")
+            GameTree.GameTree(filePath="output_result.json")
 
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
@@ -110,8 +113,8 @@ class GameEngine:
         if(self.endOfTheGame==True or self.endOfTheRound==True):
                 return False
 
-        if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
-                return False
+        # if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
+        #         return False
 
         actions,tab=self.gameTree.getComputerActionProba()
 
@@ -127,10 +130,11 @@ class GameEngine:
 
         for i in range(len(actions)):
             if actions[i]==action:
-                self.gameTree.updateRange(self.position,i)
+                self.gameTree.updateRange(not self.position,i)
 
         if(self.isEndOfGame(action)==True):
                 self.endOfTheGame=True
+                exit()
                 
         if(self.isEndOfRound(action)==True):
             self.endOfTheRound=True
@@ -141,7 +145,7 @@ class GameEngine:
 
         if(self.numRound==2 and self.getEndOfTheRound()==True):
             Solveur.solveurRiver()
-            GameTree(filePath="output_result.json")
+            GameTree.GameTree(filePath="output_result.json")
 
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour

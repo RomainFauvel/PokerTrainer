@@ -82,7 +82,7 @@ class Home(customtkinter.CTkFrame):
         if(self.path == None):
             self.path = "output_strategyTest.json"
         print(self.path)
-        self.scenario = Scenario.Scenario()
+        # self.scenario = Scenario.Scenario()
         self.master.frames["Play"].create_buttons()
         self.master.show_frame("Play")
 
