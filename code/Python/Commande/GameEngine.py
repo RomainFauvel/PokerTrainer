@@ -2,6 +2,7 @@
 import GameTree
 import utils
 import random
+import Solveur as Solveur
 
 class GameEngine:
 
@@ -16,7 +17,7 @@ class GameEngine:
         self.computerLastAction="Computer Action"
 
         self.numRound=1
-        self.position=1 #0 player IP, 1 computer OOP | (IP -> l'ordi commence, OOP -> le joueur commence)
+        self.position=0 #0 player OOP, 1 player IP | (IP -> l'ordi commence, OOP -> le joueur commence)
 
     def getNumRound(self):
         return self.numRound
@@ -85,6 +86,10 @@ class GameEngine:
         
         self.gameTree.play(action) #Permet de modifier le chemin selon l'action du joueur
 
+        if(self.numRound==2 and self.getEndOfTheRound()==True):
+            Solveur.solveurRiver()
+            GameTree(filePath="output_result.json")
+
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
             self.numRound+=1
@@ -92,9 +97,12 @@ class GameEngine:
         if(self.endOfTheGame==False and self.endOfTheRound==False): # Si la partie n'est pas finie et que le tour n'est pas fini L'ordinateur joue
             self.computerPlay()
 
-        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
+        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==1): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
             self.endOfTheRound=False
             self.computerPlay()
+
+        
+
         return True
 
     def computerPlay(self):#joue la meilleure action possible pour l'ordinateur
@@ -131,11 +139,15 @@ class GameEngine:
         
         self.gameTree.play(action) #Permet de modifier le chemin selon l'action
 
+        if(self.numRound==2 and self.getEndOfTheRound()==True):
+            Solveur.solveurRiver()
+            GameTree(filePath="output_result.json")
+
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
             self.numRound+=1
 
-        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
+        if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==1): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
             self.endOfTheRound=False
             self.computerPlay()
         

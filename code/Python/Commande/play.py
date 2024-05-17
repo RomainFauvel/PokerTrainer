@@ -192,9 +192,10 @@ class Play(customtkinter.CTkFrame):
         self.reset_display()
 
     def reset_display(self):
-        self.card3.setFlip(False)
-        self.card4.setFlip(False)
-        self.card5.setFlip(False)
+        Scenario.Scenario()
+        self.card3.setFlip(True)
+        self.card4.setFlip(True)
+        self.card5.setFlip(True)
         self.card6.setFlip(False)
         self.card7.setFlip(False)
         self.update_card_images()
@@ -255,11 +256,7 @@ class Play(customtkinter.CTkFrame):
         self.gameEngine.playerPlay(action)
         self.round = self.gameEngine.getNumRound()
         print("Round ",self.round)
-
-        if(self.gameEngine.getEndOfTheGame()==True):
-            Solveur.solveurRiver()
-            GameTree(filePath="output_result.json")
-            self.gameEngine.endOfTheGame=False
+            
 
         computerAction = self.gameEngine.getComputerLastAction()
         self.computer_action_label.configure(text=computerAction)
@@ -270,6 +267,8 @@ class Play(customtkinter.CTkFrame):
             self.card6.setFlip(True)
             self.gameEngine.endOfTheRound=False
             self.round2Cond=True
+
+        
 
         elif(self.round == 3 and self.round3Cond==False):#River
             self.card7.setFlip(True)
