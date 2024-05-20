@@ -35,6 +35,11 @@ class GameTree:
     def __init__(self,filePath=None,playerHand=None,flop=None,river=None,turn=None,rangeOOP=None,rangeIP=None,stack=200): #initialisation de la classe
         if(filePath!=None):
             self.filePath=filePath
+            current_path = os.path.dirname(os.path.realpath(__file__))
+            parent_path = os.path.abspath(os.path.join(current_path,"..","..",".."))
+            filePath=os.path.join(parent_path,filePath)
+            with open(filePath) as f:
+                self.setData(json.load(f))
         if(playerHand!=None):
             self.playerHand=playerHand
         if(flop!=None):
@@ -45,7 +50,8 @@ class GameTree:
             self.turn=turn
         if(stack!=200):
             self.stack=stack
-        if(not(filePath==None and playerHand==None and flop==None and river==None and turn==None)):
+
+        if(not(filePath==None or flop==None or river==None or turn==None)):
             self.initialise(self.filePath,self.playerHand,self.flop,self.river,self.turn) 
     
     #Peux etre acceder depuis l exterieur sans initialiser un objet (exemple: GameTree.initialise(filePath,playerHand,flop,river,turn))
@@ -53,6 +59,16 @@ class GameTree:
     def initialise(cls,filePath,playerHand,flop,river,turn):
         if(cls._instance is None):
             cls._instance = cls()
+
+        #attributs pour gérer l'effective stack pour l'appel au solveur et la fin d'une partie
+        cls.stack=200
+        cls.actionBefore=None
+
+        #attributs pour gérer le pot
+        cls.pot=50
+        
+        cls._instance.rangeOOP={}
+        cls._instance.rangeIP={}
 
         
         current_path = os.path.dirname(os.path.realpath(__file__))

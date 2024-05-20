@@ -202,18 +202,14 @@ class Play(customtkinter.CTkFrame):
             self.buttons.append(button)
 
 
-
-    def reset_game(self):
-        #self.gameTree.rolloutToInit()
-        self.reset_display()
-
     def reset_display(self):
-        Scenario.Scenario()
         self.card3.setFlip(True)
         self.card4.setFlip(True)
         self.card5.setFlip(True)
         self.card6.setFlip(False)
         self.card7.setFlip(False)
+        computerAction = self.gameEngine.getComputerLastAction()
+        self.computer_action_label.configure(text=computerAction)
         self.update_card_images()
 
         #self.create_buttons()
@@ -306,9 +302,10 @@ class Play(customtkinter.CTkFrame):
 
 
     def reset_game(self):
-        self.reset_display()
         self.gameEngine = GameEngine.GameEngine()
         Scenario.Scenario()
+        self.gameTree.setRandomPlayerHandFromRange()
+        self.reset_display()
         self.create_cards()
         self.create_buttons()
         self.update_card_images()
