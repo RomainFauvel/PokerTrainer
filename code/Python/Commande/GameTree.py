@@ -153,7 +153,7 @@ class GameTree:
 
     def setRandomPlayerHandFromRange(self):
         range=self.getRange()
-        randomNomber=random.randint(0,len(range))
+        randomNomber=random.randint(0,len(range)-1)
         hand = range[randomNomber]
 
         string_card1 = hand[:2]

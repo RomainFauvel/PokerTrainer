@@ -17,8 +17,6 @@ class App(customtkinter.CTk):
         super().__init__()
         self.height=height
         self.width=width
-
-        # self.game=Partie.Partie(0,"\\Users\\buche\\OneDrive\\Documents\\GitHub\\PokerTrainer\\code\\Solveur\\resources\\output_result.json","KdJd")
        
         # configure window
         self.title("Poker Trainer")

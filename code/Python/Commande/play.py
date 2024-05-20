@@ -8,6 +8,7 @@ import GameTree as GameTree
 import Scenario as Scenario
 import GameEngine as GameEngine
 import Solveur as Solveur
+import TopLevelWindow as TopLevelWindow
 
 import home as home
 
@@ -36,6 +37,9 @@ class Play(customtkinter.CTkFrame):
         self.flop = self.gameTree.getFlop()
         self.turn = self.gameTree.getTurn()
         self.river = self.gameTree.getRiver()
+
+        self.cards = None
+        self.cards_labels = None
     
 
 
@@ -77,11 +81,7 @@ class Play(customtkinter.CTkFrame):
         self.bg_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
         self.bg_label.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
-        
-        
         #create buttons
-        # self.create_buttons()
-        
 
         #home
         self.home_button = customtkinter.CTkButton(self, text="Home", command=self.home_event, width=150)
@@ -94,10 +94,20 @@ class Play(customtkinter.CTkFrame):
 
         #Computer Action Label
         self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white")
-        self.computer_action_label.place(relx=0.515, rely=0.25, anchor=tkinter.CENTER)
+        self.computer_action_label.place(relx=0.515, rely=0.25, anchor=tkinter.CENTER)  
 
 
         #create cards_________________________________________________________________________________________________________________
+
+    def create_cards(self):
+
+        #Supprime les cartes déjà affichées
+        if(self.cards != None):
+            for card in self.cards:
+                card=None
+        if(self.cards_labels != None):
+            for card_label in self.cards_labels:
+                card_label.destroy()
 
         #Deck affichage (pour l'esthétique tout à droite, empilement de carte)
         self.cardDeck1 = Cards.Card(None,None,False)
@@ -166,6 +176,12 @@ class Play(customtkinter.CTkFrame):
 
         self.card7_label = customtkinter.CTkLabel(self, image=self.card7.image, text="")
         self.card7_label.place(relx=0.7, rely=0.45, anchor=tkinter.CENTER)
+
+        #Stock tout les cartes dans cards
+        self.cards = [self.cardDeck1, self.cardDeck2, self.cardDeck3, self.cardDeck4, self.card1, self.card2, self.card1Op, self.card2Op, self.card3, self.card4, self.card5, self.card6, self.card7]
+
+        #Stock tout les labels dans cards
+        self.cards_labels = [self.cardDeck1_label, self.cardDeck2_label, self.cardDeck3_label, self.cardDeck4_label, self.card1_label, self.card2_label, self.card1Op_label, self.card2Op_label, self.card3_label, self.card4_label, self.card5_label, self.card6_label, self.card7_label]
 
     def create_buttons(self):
         # if(self.gameTree.isPlayable()==True):
@@ -268,17 +284,35 @@ class Play(customtkinter.CTkFrame):
             self.gameEngine.endOfTheRound=False
             self.round2Cond=True
 
-        
-
         elif(self.round == 3 and self.round3Cond==False):#River
             self.card7.setFlip(True)
             self.round3Cond=True
+
+        if(self.gameEngine.getEndOfTheGame()==True):
+            self.endOfTheGame()
 
         self.create_buttons()
         self.update_card_images()
         time.sleep(1)
 
-        
+    
+    def endOfTheGame(self):
+        self.master.attributes('-topmost', False)
+        self.popUp = TopLevelWindow.EndOfTheGame()
+        self.popUp.focus()
+        self.popUp.wait_window()
+        self.master.attributes('-topmost', True)
+        self.reset_game()
+
+
+    def reset_game(self):
+        self.reset_display()
+        self.gameEngine = GameEngine.GameEngine()
+        Scenario.Scenario()
+        self.create_cards()
+        self.create_buttons()
+        self.update_card_images()
+        self.update_idletasks()
     
     def update_card_images(self):
         self.card3_label.configure(image=self.card3.get_image())

@@ -36,40 +36,14 @@ class GameEngine:
     
     def setPosition(self,position):
         self.position=position
-
-
-    # def computerPlay(self,position):#joue la meilleure action possible pour l'ordinateur
-
-    #     if (self.gameTree.isPlayable()==False): # Si il n'y a pas de coup a jouer, retourne 0
-    #         return False
-
-    #     actions=self.gameTree.getActions() # Pour récupérer le contenu des actions, renvoie une liste
-    #     strategies=self.gameTree.getStrategies() # Pour récupérer le contenu de toutes les paires possibles de l'ordi, renvoie un dico
-
-    #     tab = [0]*len(actions) # tableau de la somme des probas de chaque action
-
-    #     for i in range(len(actions)):
-    #         for tabProba in strategies.values():
-    #             tab[i] += tabProba[i]  # On fait la somme de toutes les probas de l'action i pour chaque paire de carte
-
-    #     print("<--------------------------------->")
-    #     print("Le nombre de combinaisons possibles pour l'ordinateur ")
-    #     print(tab)
-    #     print("<--------------------------------->\n")
-
-    #     action = utils.getActionAleatoire(actions,tab)
-    #     print("<--------------------------------->")
-    #     print("l'ordinateur joue : "+action) #affiche l'action que joue l'ordinateur
-    #     print("<--------------------------------->\n")
-
-    #     for i in range(len(actions)):
-    #         if actions[i]==action:
-    #             self.gameTree.updateRange(position,i)
-
-    #     return action
         
     def playerPlay(self,action):
 
+
+        if(action=="FOLD"):
+            self.endOfTheGame=True
+            self.endOfTheRound=True
+            return False
         if(self.endOfTheGame==True or self.endOfTheRound==True):
             return False
         
@@ -78,6 +52,7 @@ class GameEngine:
         
         if(self.isEndOfGame(action)==True): # C'est le dernier coup de la partie
             self.endOfTheGame=True
+            return True
             
         if(self.isEndOfRound(action)==True): # C'est le dernier coup du tour
             self.endOfTheRound=True
@@ -103,6 +78,8 @@ class GameEngine:
         if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==1): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
             self.endOfTheRound=False
             self.computerPlay()
+        elif(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en OOP le joueur commence le nouveau tour
+            self.endOfTheRound=False
 
         
 
@@ -128,13 +105,18 @@ class GameEngine:
         print("l'ordinateur joue : "+action) #affiche l'action que joue l'ordinateur
         print("<--------------------------------->\n")
 
+        if(action=="FOLD"):
+            self.endOfTheGame=True
+            self.endOfTheRound=True
+            return action
+
         for i in range(len(actions)):
             if actions[i]==action:
                 self.gameTree.updateRange(not self.position,i)
 
         if(self.isEndOfGame(action)==True):
                 self.endOfTheGame=True
-                exit()
+                return action
                 
         if(self.isEndOfRound(action)==True):
             self.endOfTheRound=True
@@ -154,6 +136,8 @@ class GameEngine:
         if(self.endOfTheRound==True and self.endOfTheGame==False and self.position==1): # Si le tour est fini mais pas la partie et qu'on est en IP l'ordinateur commence le nouveau tour
             self.endOfTheRound=False
             self.computerPlay()
+        elif(self.endOfTheRound==True and self.endOfTheGame==False and self.position==0): # Si le tour est fini mais pas la partie et qu'on est en OOP le joueur commence le nouveau tour
+            self.endOfTheRound=False
         
         self.computerLastAction=action
         return action
