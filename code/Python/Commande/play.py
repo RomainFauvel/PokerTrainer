@@ -201,20 +201,6 @@ class Play(customtkinter.CTkFrame):
             button.place(relx=0.1, rely=(self.number_of_buttons)/(len(actions)+1), anchor=tkinter.CENTER)
             self.buttons.append(button)
 
-
-    def reset_display(self):
-        self.card3.setFlip(True)
-        self.card4.setFlip(True)
-        self.card5.setFlip(True)
-        self.card6.setFlip(False)
-        self.card7.setFlip(False)
-        computerAction = self.gameEngine.getComputerLastAction()
-        self.computer_action_label.configure(text=computerAction)
-        self.update_card_images()
-
-        #self.create_buttons()
-
-
     def home_event(self):
         self.reset_game()
         self.master.show_frame("Home")
@@ -300,16 +286,38 @@ class Play(customtkinter.CTkFrame):
         self.master.attributes('-topmost', True)
         self.reset_game()
 
+    def reset_display(self):
+        self.update_card_images()
+        self.card3.setFlip(True)
+        self.card4.setFlip(True)
+        self.card5.setFlip(True)
+        self.card6.setFlip(False)
+        self.card7.setFlip(False)
+        computerAction = self.gameEngine.getComputerLastAction()
+        self.computer_action_label.configure(text=computerAction)
+        
+
+        #self.create_buttons()
 
     def reset_game(self):
         self.gameEngine = GameEngine.GameEngine()
-        Scenario.Scenario()
-        self.gameTree.setRandomPlayerHandFromRange()
-        self.reset_display()
+        self.scenario= Scenario.Scenario()
+        self.gameTree= GameTree.GameTree()
+
+        self.playerHand = self.gameTree.getPlayerHand()
+        self.flop = self.gameTree.getFlop()
+        self.turn = self.gameTree.getTurn()
+        self.river = self.gameTree.getRiver()
+        self.round=0
+        self.worstAct = None
+        self.bestAct = None
+        self.round2Cond = False
+        self.round3Cond = False
+
         self.create_cards()
         self.create_buttons()
-        self.update_card_images()
         self.update_idletasks()
+        self.reset_display()
     
     def update_card_images(self):
         self.card3_label.configure(image=self.card3.get_image())

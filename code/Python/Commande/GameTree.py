@@ -52,7 +52,9 @@ class GameTree:
             self.stack=stack
 
         if(not(filePath==None or flop==None or river==None or turn==None)):
+            print("gameTree= "+str(self))
             self.initialise(self.filePath,self.playerHand,self.flop,self.river,self.turn) 
+            print(str(self))
     
     #Peux etre acceder depuis l exterieur sans initialiser un objet (exemple: GameTree.initialise(filePath,playerHand,flop,river,turn))
     @classmethod

@@ -26,7 +26,12 @@ class Scenario:
         self.river=self.deck.dealCards(1)
         self.turn=self.deck.dealCards(1)
         #on crée le GameTree avec tous les elements de la partie
+        print(self.nameFile[i])
+        print(str(self.flop))
+        print(str(self.turn))
+        print(str(self.river))
         self.tree = GameTree.GameTree("fichiersJson/"+self.nameFile[i],self.playerHand,self.flop,self.river,self.turn)
+        print("tree in scenario "+str(self.tree))
         self.deck.deleteHandFromDeck(self.tree.playerHand)
 
 

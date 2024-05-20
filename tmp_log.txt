@@ -1,14 +1,1 @@
-<<<<<<< HEAD
-{"exploitibility":null,"iteration":10,"time_ms":1}
-{"exploitibility":null,"iteration":20,"time_ms":3}
-{"exploitibility":null,"iteration":30,"time_ms":5}
-{"exploitibility":null,"iteration":40,"time_ms":8}
-{"exploitibility":null,"iteration":50,"time_ms":9}
-{"exploitibility":null,"iteration":60,"time_ms":10}
-{"exploitibility":null,"iteration":70,"time_ms":12}
-{"exploitibility":null,"iteration":80,"time_ms":14}
-{"exploitibility":null,"iteration":90,"time_ms":16}
-{"exploitibility":2.1380482451149874e-07,"iteration":10,"time_ms":4}
-=======
-{"exploitibility":2.85028789903663e-07,"iteration":10,"time_ms":4}
->>>>>>> d73e218623700ce26c21272c57d15677c311dbf8
+{"exploitibility":1.5114706286567525e-07,"iteration":10,"time_ms":1}
