@@ -61,6 +61,3 @@ def run_script():
 
 
 
-solveurRiverTest()
-
-
