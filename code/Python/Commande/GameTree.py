@@ -176,6 +176,12 @@ class GameTree:
     def setRandomPlayerHandFromRange(self):
         range=self.getRange()
         randomNomber=random.randint(0,len(range)-1)
+        print(str(self.river[0]))
+        print(str(self.turn[0]))
+        print(range[randomNomber])
+        while(range[randomNomber][:2]==str(self.river[0]) or range[randomNomber][:2]==str(self.turn[0]) or  range[randomNomber][2:]==str(self.river[0]) or range[randomNomber][2:]==str(self.turn[0])):
+            print("!!!!!!!!!!!!!!!!!!!!!!!!")
+            randomNomber=random.randint(0,len(range)-1)
         hand = range[randomNomber]
 
         string_card1 = hand[:2]
@@ -211,7 +217,11 @@ class GameTree:
                 
                 
         return actions,tab
-        
+    
+    def max(value1,value2):
+        if(value1>value2):
+            return value1
+        return value2
 
     def categorize_pair(self,pair):
         card1, card2 = pair[0:2], pair[2:4]  # Extrait les deux cartes du format "2d3c"
@@ -243,7 +253,7 @@ class GameTree:
 
         #calcule la moyenne
         for pairCardsCategorized in rangeIP_final.keys():
-            rangeIP_final[pairCardsCategorized]/=rangeIP_number[pairCardsCategorized]
+            rangeIP_final[pairCardsCategorized]=max(rangeIP_final[pairCardsCategorized]/rangeIP_number[pairCardsCategorized],0.01)
 
         return rangeIP_final
     
@@ -267,7 +277,7 @@ class GameTree:
 
         #calcule la moyenne
         for pairCardsCategorized in rangeOOP_final.keys():
-            rangeOOP_final[pairCardsCategorized]/=rangeOOP_number[pairCardsCategorized]
+            rangeOOP_final[pairCardsCategorized]=max(rangeOOP_final[pairCardsCategorized]/rangeOOP_number[pairCardsCategorized],0.01)
 
         return rangeOOP_final
         
@@ -302,14 +312,14 @@ class GameTree:
             self.rangeIP=self.categorize_rangeIP()
             for index, (key, value) in enumerate(self.rangeIP.items()):
                 pair = ''.join(key)
-                formatted_string += f"{pair}:{round(value,3)}"
+                formatted_string += f"{pair}:{value}"
                 if index != len(self.rangeIP) - 1:
                     formatted_string += ","
         else:
             self.rangeOOP=self.categorize_rangeOOP()
             for index, (key, value) in enumerate(self.rangeOOP.items()):
                 pair = ''.join(key)
-                formatted_string += f"{pair}:{round(value,3)}"
+                formatted_string += f"{pair}:{value}"
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
         return formatted_string   

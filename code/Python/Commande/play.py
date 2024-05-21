@@ -184,22 +184,22 @@ class Play(customtkinter.CTkFrame):
         self.cards_labels = [self.cardDeck1_label, self.cardDeck2_label, self.cardDeck3_label, self.cardDeck4_label, self.card1_label, self.card2_label, self.card1Op_label, self.card2Op_label, self.card3_label, self.card4_label, self.card5_label, self.card6_label, self.card7_label]
 
     def create_buttons(self):
-        # if(self.gameTree.isPlayable()==True):
-        for button in self.buttons:
-            button.destroy()
-        self.buttons = []
+        if(self.gameTree.isPlayable()==True):
+            for button in self.buttons:
+                button.destroy()
+            self.buttons = []
 
-        actions=self.gameTree.getActions()
-        self.number_of_buttons = 0
-        for i in range(len(actions)):
-            self.number_of_buttons+=1
-            button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],text_color="white")
-            # fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
-            # fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
-            # button.bind("<Button-1>",fct )
-            button.bind("<Button-1>", lambda event, action=button._text: self.on_button_click(action))
-            button.place(relx=0.1, rely=(self.number_of_buttons)/(len(actions)+1), anchor=tkinter.CENTER)
-            self.buttons.append(button)
+            actions=self.gameTree.getActions()
+            self.number_of_buttons = 0
+            for i in range(len(actions)):
+                self.number_of_buttons+=1
+                button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],text_color="white")
+                # fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
+                # fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
+                # button.bind("<Button-1>",fct )
+                button.bind("<Button-1>", lambda event, action=button._text: self.on_button_click(action))
+                button.place(relx=0.1, rely=(self.number_of_buttons)/(len(actions)+1), anchor=tkinter.CENTER)
+                self.buttons.append(button)
 
     def home_event(self):
         self.reset_game()
@@ -259,6 +259,10 @@ class Play(customtkinter.CTkFrame):
         computerAction = self.gameEngine.getComputerLastAction()
         self.computer_action_label.configure(text=computerAction)
 
+        
+        if(self.gameEngine.getEndOfTheGame()==True):
+            self.endOfTheGame()
+
         if(self.round == 2 and self.round2Cond==False):#Turn
 
             self.gameTree.dealcards(str(self.gameTree.getTurn()[0]))
@@ -269,9 +273,6 @@ class Play(customtkinter.CTkFrame):
         elif(self.round == 3 and self.round3Cond==False):#River
             self.card7.setFlip(True)
             self.round3Cond=True
-
-        if(self.gameEngine.getEndOfTheGame()==True):
-            self.endOfTheGame()
 
         self.create_buttons()
         self.update_card_images()

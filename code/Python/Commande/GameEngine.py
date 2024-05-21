@@ -152,7 +152,9 @@ class GameEngine:
                 if self.gameTree.actionBefore!=None:
                     action_before_parts=self.gameTree.actionBefore.split()
                     if len(action_before_parts)>1:
-                        if action_parts[0]=="CALL" and self.gameTree.stack==0: 
+                        action_before_value=action_before_parts[1].split(',')
+                        action_before_valueBis=action_before_value[0].split('.')
+                        if action_parts[0]=="CALL" and self.gameTree.stack<int(action_before_valueBis[0]): 
                             return True
                 return False
             return True
