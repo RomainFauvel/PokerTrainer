@@ -138,6 +138,10 @@ class GameTree:
     def setActionBeforeToNone(self):
         self.actionBefore=None
 
+    def setPotAndStackToInitialPotAndStack(self):
+        self.pot=self.initialPot
+        self.stack=self.initialStack
+
     #fonctions utiles
 
     # def play(self,todo): # se deplace dans l arbre en prenant en compte l'action réalisée par le joueur/Ordi

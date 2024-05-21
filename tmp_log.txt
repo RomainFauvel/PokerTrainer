@@ -1,1 +1,1 @@
-{"exploitibility":0.0,"iteration":10,"time_ms":0}
+{"exploitibility":3.012698641668976e-07,"iteration":10,"time_ms":1}

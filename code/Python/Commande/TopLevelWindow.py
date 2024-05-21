@@ -2,7 +2,6 @@ import customtkinter
 import os
 from PIL import Image
 
-
 class EndOfTheGame(customtkinter.CTkToplevel):
 
     def __init__(self):
@@ -17,10 +16,10 @@ class EndOfTheGame(customtkinter.CTkToplevel):
         self._create_widgets()
 
     def _create_widgets(self):
-
         #text
         self.acknowledment_text = customtkinter.CTkLabel(self,text="This is the end of the game. \nThank you for playing!",
-                                                              width=50, height=20)
+                                                            width=50, height=20)
+            
         self.acknowledment_text.cget("font").configure(size=18)
 
         self.acknowledment_text.grid(row=0, column=0,padx=(20,20),pady=(20), sticky="nsew")

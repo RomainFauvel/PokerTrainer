@@ -305,6 +305,7 @@ class Play(customtkinter.CTkFrame):
         self.flop = self.gameTree.getFlop()
         self.turn = self.gameTree.getTurn()
         self.river = self.gameTree.getRiver()
+        self.gameTree.setPotAndStackToInitialPotAndStack()
         self.round=0
         self.worstAct = None
         self.bestAct = None
