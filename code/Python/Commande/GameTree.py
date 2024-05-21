@@ -289,7 +289,12 @@ class GameTree:
                     self.rangeOOP[pairCards]=strategies[pairCards][action]
             #print("range OOP")
             #print(self.rangeOOP)
-
+            
+    def thresholdFunction(self,value,threshold):
+        if(value<threshold):
+            return threshold
+        return value
+    
     def formattedRange(self,position):
         
         formatted_string = ""
@@ -297,14 +302,14 @@ class GameTree:
             self.rangeIP=self.categorize_rangeIP()
             for index, (key, value) in enumerate(self.rangeIP.items()):
                 pair = ''.join(key)
-                formatted_string += f"{pair}:{value}"
+                formatted_string += f"{pair}:{round(value,3)}"
                 if index != len(self.rangeIP) - 1:
                     formatted_string += ","
         else:
             self.rangeOOP=self.categorize_rangeOOP()
             for index, (key, value) in enumerate(self.rangeOOP.items()):
                 pair = ''.join(key)
-                formatted_string += f"{pair}:{value}"
+                formatted_string += f"{pair}:{round(value,3)}"
                 if index != len(self.rangeOOP) - 1:
                     formatted_string += ","
         return formatted_string   
