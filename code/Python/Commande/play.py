@@ -288,9 +288,6 @@ class Play(customtkinter.CTkFrame):
 
     def reset_display(self):
         self.update_card_images()
-        self.card3.setFlip(True)
-        self.card4.setFlip(True)
-        self.card5.setFlip(True)
         self.card6.setFlip(False)
         self.card7.setFlip(False)
         computerAction = self.gameEngine.getComputerLastAction()
@@ -313,6 +310,11 @@ class Play(customtkinter.CTkFrame):
         self.bestAct = None
         self.round2Cond = False
         self.round3Cond = False
+        self.gameTree.setActionBeforeToNone()
+
+        print(str(self.gameEngine.getEndOfTheGame()))
+        print(str(self.gameEngine.getEndOfTheRound()))
+        print(str(self.gameEngine.getComputerLastAction()))
 
         self.create_cards()
         self.create_buttons()
