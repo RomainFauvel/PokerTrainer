@@ -106,6 +106,7 @@ class GameEngine:
         print("<--------------------------------->\n")
 
         if(action=="FOLD"):
+            self.computerLastAction=action
             self.endOfTheGame=True
             self.endOfTheRound=True
             return action

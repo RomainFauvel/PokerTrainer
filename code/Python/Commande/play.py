@@ -238,7 +238,8 @@ class Play(customtkinter.CTkFrame):
         print("pire action",self.worstAct)
         self.bestAct = self.gameTree.getPlayerBestAction()
         print("meilleure action",self.bestAct)
-  
+
+        probabilities=self.gameTree.getPlayerPossiblities()
         for button in self.buttons:
             if(button._text == self.worstAct):
                 button.configure(self,text_color="red", image=self.button_red_image)
@@ -246,6 +247,7 @@ class Play(customtkinter.CTkFrame):
                 button.configure(self,text_color="green", image=self.button_green_image)
             else:
                 button.configure(self,text_color="blue")
+            button.configure(self,text=button._text+"\n\n"+str(round(probabilities[button._text],2)))
 
         self.update_idletasks()
         
@@ -276,7 +278,7 @@ class Play(customtkinter.CTkFrame):
 
         self.create_buttons()
         self.update_card_images()
-        time.sleep(1)
+        time.sleep(2)
 
     
     def endOfTheGame(self):
