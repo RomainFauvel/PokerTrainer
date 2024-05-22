@@ -93,8 +93,8 @@ class Play(customtkinter.CTkFrame):
         self.exit_button.place(relx=0.05,rely=0.97,anchor=tkinter.CENTER)
 
         #Computer Action Label
-        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white")
-        self.computer_action_label.place(relx=0.515, rely=0.25, anchor=tkinter.CENTER)  
+        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white",height=40,width=100,font=("Arial",20))
+        self.computer_action_label.place(relx=0.7, rely=0.175, anchor=tkinter.CENTER)  
 
 
         #create cards_________________________________________________________________________________________________________________
@@ -108,6 +108,11 @@ class Play(customtkinter.CTkFrame):
         if(self.cards_labels != None):
             for card_label in self.cards_labels:
                 card_label.destroy()
+        
+        self.playerHand = self.gameTree.getPlayerHand()
+        self.flop = self.gameTree.getFlop()
+        self.turn = self.gameTree.getTurn()
+        self.river = self.gameTree.getRiver()
 
         #Deck affichage (pour l'esthétique tout à droite, empilement de carte)
         self.cardDeck1 = Cards.Card(None,None,False)
