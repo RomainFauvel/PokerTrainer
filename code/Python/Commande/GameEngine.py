@@ -66,7 +66,7 @@ class GameEngine:
 
         if(self.numRound==2 and self.getEndOfTheRound()==True):
             Solveur.solveurRiver()
-            GameTree.GameTree(filePath="output_result.json")
+            GameTree.GameTree(filePath="code\\Solveur\\output_result.json")
 
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
@@ -128,7 +128,7 @@ class GameEngine:
 
         if(self.numRound==2 and self.getEndOfTheRound()==True):
             Solveur.solveurRiver()
-            GameTree.GameTree(filePath="output_result.json")
+            GameTree.GameTree(filePath="code\\Solveur\\output_result.json")
 
         if(self.endOfTheRound==True):
             self.gameTree.setActionBeforeToNone() # Il faut remettre à 0 l'actionBefore pour continuer à gérer la fin du tour
