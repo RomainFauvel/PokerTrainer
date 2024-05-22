@@ -5,19 +5,25 @@ import GameTree
 import random
 import play
 
-
 class Scenario:
 
-    def __init__(self):
-        # recuperation d'un fichier Json aléatoirement
-        folder = "./fichiersJson"
-        self.nameFile = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+    def __init__(self,file=None):
+        if(file==None):
+            # recuperation d'un fichier Json aléatoirement
+            folder = "./fichiersJson"
+            self.nameFile = [f for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+            i=random.randint(0,len(self.nameFile)-1)
+            carte1 = CardsFromScenario(self.nameFile[i][:2])
+            carte2 = CardsFromScenario(self.nameFile[i][2:4])
+            carte3 = CardsFromScenario(self.nameFile[i][4:6])
+            file=self.nameFile[i]
+        else:
+            file=os.path.basename(file)
+            carte1 = CardsFromScenario(file[:2])
+            carte2 = CardsFromScenario(file[2:4])
+            carte3 = CardsFromScenario(file[4:6])
         #initialisation du scenario que l'on stock ensuite dans le GameTree
         # creation du flop a partir du titre du fichier json
-        i=random.randint(0,len(self.nameFile)-1)
-        carte1 = CardsFromScenario(self.nameFile[i][:2])
-        carte2 = CardsFromScenario(self.nameFile[i][2:4])
-        carte3 = CardsFromScenario(self.nameFile[i][4:6])
         self.flop = [carte1, carte2, carte3]
         self.deck=Cards.DeckOfCards()
         self.deck.deleteFlopFromDeck(self.flop)
@@ -26,12 +32,7 @@ class Scenario:
         self.river=self.deck.dealCards(1)
         self.turn=self.deck.dealCards(1)
         #on crée le GameTree avec tous les elements de la partie
-        print(self.nameFile[i])
-        print(str(self.flop))
-        print(str(self.turn))
-        print(str(self.river))
-        self.tree = GameTree.GameTree("fichiersJson/"+self.nameFile[i],self.playerHand,self.flop,self.river,self.turn)
-        print("tree in scenario "+str(self.tree))
+        self.tree = GameTree.GameTree("fichiersJson/"+file,self.playerHand,self.flop,self.river,self.turn)
         self.deck.deleteHandFromDeck(self.tree.playerHand)
 
 
