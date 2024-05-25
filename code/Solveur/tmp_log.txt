@@ -1,4 +1,4 @@
-{"exploitibility":4.725203514099121,"iteration":10,"time_ms":2}
-{"exploitibility":1.4714237451553345,"iteration":20,"time_ms":12}
-{"exploitibility":0.5227525234222412,"iteration":30,"time_ms":22}
-{"exploitibility":0.3142354488372803,"iteration":40,"time_ms":31}
+{"exploitibility":3.790754556655884,"iteration":10,"time_ms":4}
+{"exploitibility":1.3275415897369385,"iteration":20,"time_ms":12}
+{"exploitibility":0.6029932498931885,"iteration":30,"time_ms":24}
+{"exploitibility":0.3047637939453125,"iteration":40,"time_ms":33}

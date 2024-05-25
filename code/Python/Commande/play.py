@@ -320,6 +320,7 @@ class Play(customtkinter.CTkFrame):
         self.reset_game()
 
     def reset_display(self):
+        self.pot_label.configure(text="Pot: "+str(self.gameTree.getPot()))
         self.update_card_images()
         self.card6.setFlip(False)
         self.card7.setFlip(False)
