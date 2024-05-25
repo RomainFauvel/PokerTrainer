@@ -327,33 +327,38 @@ class GameTree:
     def updateStackAndPot(self,action):#prend l'action sous forme de string et met à jour l'effective stack pour ensuite appeler le solveur avec la bonne valeur
         # Décodage de l'action
         action_parts = action.split()
-        if len(action_parts) > 1: # On vérifie si l'action est bien un BET ou RAISE, et on diminue le montant de la stack
-            if action_parts[0]=="BET":
-                amount_str = action_parts[1].split(',')[0]  # Récupérer la partie avant la virgule.
-                amount_str_without_point=amount_str.split('.')[0] # Permet de gérer le cas si c'est un point et non une virgule dans le montant.
-                amount = int(amount_str_without_point)
-                self.stack -= amount
+        print(action_parts)
+        if action_parts[0]=="BET":
+            amount_str = action_parts[1].split(',')[0]  # Récupérer la partie avant la virgule.
+            amount_str_without_point=amount_str.split('.')[0] # Permet de gérer le cas si c'est un point et non une virgule dans le montant.
+            amount = int(amount_str_without_point)
+            self.stack -= amount
 
-                #On multiplie directement par 2 car :
-                #Le joueur suivant: fold => fin de partie
-                #Le joueur suivant: call => 2 fois la mise du BET dans le pot
-                #Le joueur suivant: raise => scénario géré par la condition suivante
-                self.pot +=2*amount 
+            #On multiplie directement par 2 car :
+            #Le joueur suivant: fold => fin de partie
+            #Le joueur suivant: call => 2 fois la mise du BET dans le pot
+            #Le joueur suivant: raise => scénario géré par la condition suivante
+            self.pot +=amount 
 
-            if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE et augmenter le pot que 2 fois le montant du RAISE
-                amount_str_current_action=action_parts[1].split(',')[0]
-                amount_str_current_action_without_point=amount_str_current_action.split('.')[0]
-                amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
-                amount_str_action_before_without_point=amount_str_action_before.split('.')[0]
-                amount_stack=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
-                self.stack-=amount_stack
+        if action_parts[0]=="RAISE": #dans le cas d'un raise faut diminuer la stack que du montant du RAISE et augmenter le pot que 2 fois le montant du RAISE
+            amount_str_current_action=action_parts[1].split(',')[0]
+            amount_str_current_action_without_point=amount_str_current_action.split('.')[0]
+            amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
+            amount_str_action_before_without_point=amount_str_action_before.split('.')[0]
+            amount_stack=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
+            self.stack-=amount_stack
 
-                amount_bet=2*int(amount_str_current_action_without_point)-2*int(amount_str_action_before_without_point)
-                self.pot+=amount_bet
+            amount_bet=int(amount_str_current_action_without_point)-int(amount_str_action_before_without_point)
+            self.pot+=amount_bet
+        
+        if action_parts[0]=="CALL":
+            amount_str_action_before=self.actionBefore.split()[1].split(',')[0]
+            amount_str_action_before_without_point=amount_str_action_before.split('.')[0]
+            self.pot+=int(amount_str_action_before_without_point)
 
         self.actionBefore=action
-        #print("Stack ="+str(self.stack))
-        #print("Pot ="+str(self.pot))
+        print("Stack ="+str(self.stack))
+        print("Pot ="+str(self.pot))
 
     
 if(__name__=="__main__"):
