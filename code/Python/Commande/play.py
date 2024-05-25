@@ -76,6 +76,9 @@ class Play(customtkinter.CTkFrame):
         self.button_red_image = customtkinter.CTkImage(Image.open(parent_path + "/Ressources/img/boutonRouge.png"),
                                                    size=self.button_size)
         
+        self.pot_img=Image.open(parent_path + "/Ressources/img/imgPot.png")
+        self.pot_image = customtkinter.CTkImage(self.pot_img,size=(self.pot_img.size[0],self.pot_img.size[1]))
+        
         
         #background  
         self.bg_label = customtkinter.CTkLabel(self, image=self.bg_image,text="")
@@ -98,9 +101,14 @@ class Play(customtkinter.CTkFrame):
         self.computer_action_label.place(relx=0.7, rely=0.175, anchor=tkinter.CENTER)  
 
         #Pot Label
-        self.pot_label = customtkinter.CTkLabel(self, text="Pot: "+str(self.gameTree.getPot()), text_color="black",
+        
+
+        self.pot_label = customtkinter.CTkLabel(self,text="Pot: "+str(self.gameTree.getPot()), text_color="black",
                                                 bg_color="white",height=40,width=100,font=("Arial",20))
         self.pot_label.place(relx=0.7, rely=0.7, anchor=tkinter.CENTER)
+
+        self.pot_img_label = customtkinter.CTkLabel(self, image=self.pot_image, text="",height=self.pot_img.size[1],width=self.pot_img.size[0])
+        self.pot_img_label.place(relx=0.7, rely=0.80, anchor=tkinter.CENTER)
 
 
         #create cards_________________________________________________________________________________________________________________
