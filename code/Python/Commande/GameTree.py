@@ -118,6 +118,12 @@ class GameTree:
     def getRange(self):
         return list(self.data["strategy"]["strategy"])
     
+    def getStack(self):
+        return self.stack
+    
+    def getPot(self):
+        return self.pot
+    
     # setters
 
     def setData(self,data):

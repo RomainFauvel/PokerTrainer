@@ -93,8 +93,14 @@ class Play(customtkinter.CTkFrame):
         self.exit_button.place(relx=0.05,rely=0.97,anchor=tkinter.CENTER)
 
         #Computer Action Label
-        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white",height=40,width=100,font=("Arial",20))
+        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white",
+                                                            height=40,width=100,font=("Arial",20))
         self.computer_action_label.place(relx=0.7, rely=0.175, anchor=tkinter.CENTER)  
+
+        #Pot Label
+        self.pot_label = customtkinter.CTkLabel(self, text="Pot: "+str(self.gameTree.getPot()), text_color="black",
+                                                bg_color="white",height=40,width=100,font=("Arial",20))
+        self.pot_label.place(relx=0.7, rely=0.7, anchor=tkinter.CENTER)
 
 
         #create cards_________________________________________________________________________________________________________________
@@ -198,7 +204,8 @@ class Play(customtkinter.CTkFrame):
             self.number_of_buttons = 0
             for i in range(len(actions)):
                 self.number_of_buttons+=1
-                button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],text_color="white")
+                button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],
+                                                text_color="white",font=("Arial",15))
                 # fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
                 # fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
                 # button.bind("<Button-1>",fct )
@@ -247,11 +254,10 @@ class Play(customtkinter.CTkFrame):
         probabilities=self.gameTree.getPlayerPossiblities()
         for button in self.buttons:
             if(button._text == self.worstAct):
-                button.configure(self,text_color="red", image=self.button_red_image)
+                button.configure(self, image=self.button_red_image)
             elif(button._text == self.bestAct):
-                button.configure(self,text_color="green", image=self.button_green_image)
-            else:
-                button.configure(self,text_color="blue")
+                button.configure(self, image=self.button_green_image)
+
             button.configure(self,text=button._text+"\n\n"+str(round(probabilities[button._text],2)))
 
         self.update_idletasks()
@@ -269,6 +275,7 @@ class Play(customtkinter.CTkFrame):
         
         if(self.gameEngine.getEndOfTheGame()==True):
             self.endOfTheGame()
+            return
 
         if(self.round == 2 and self.round2Cond==False):#Turn
 
@@ -281,11 +288,21 @@ class Play(customtkinter.CTkFrame):
             self.card7.setFlip(True)
             self.round3Cond=True
 
+        self.pot_label.configure(text="Pot: "+str(self.gameTree.getPot()))
+
+        self.waitNextRound()
+        
         self.create_buttons()
         self.update_card_images()
-        time.sleep(2)
 
     
+    def waitNextRound(self):
+        self.master.attributes('-topmost', False)
+        self.popUp = TopLevelWindow.WaitNextRound()
+        self.popUp.focus()
+        self.popUp.wait_window()
+        self.master.attributes('-topmost', True)
+
     def endOfTheGame(self):
         self.master.attributes('-topmost', False)
         self.popUp = TopLevelWindow.EndOfTheGame()
