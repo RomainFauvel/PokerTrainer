@@ -1,3 +1,4 @@
+import tkinter.font
 from PIL import Image
 import tkinter
 import customtkinter
@@ -21,6 +22,7 @@ class Play(customtkinter.CTkFrame):
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
+        print(tkinter.font.families())
         self.master = master
         self.width = width
         self.height = height
@@ -96,19 +98,19 @@ class Play(customtkinter.CTkFrame):
         self.exit_button.place(relx=0.05,rely=0.97,anchor=tkinter.CENTER)
 
         #Computer Action Label
-        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="black",bg_color="white",
-                                                            height=40,width=100,font=("Arial",20))
+        self.computer_action_label = customtkinter.CTkLabel(self, text="Computer Action", text_color="white",bg_color="#1E396F",
+                                                            height=40,width=100,font=("Playbill",35))
         self.computer_action_label.place(relx=0.7, rely=0.175, anchor=tkinter.CENTER)  
 
         #Pot Label
         
 
-        self.pot_label = customtkinter.CTkLabel(self,text="Pot: "+str(self.gameTree.getPot()), text_color="black",
-                                                bg_color="white",height=40,width=100,font=("Arial",20))
-        self.pot_label.place(relx=0.7, rely=0.7, anchor=tkinter.CENTER)
+        self.pot_label = customtkinter.CTkLabel(self,text="Pot: "+str(self.gameTree.getPot()), text_color="white",
+                                                bg_color="#203D74",height=40,width=100,font=("Playbill",35))
+        self.pot_label.place(relx=0.7, rely=0.82, anchor=tkinter.CENTER)
 
-        self.pot_img_label = customtkinter.CTkLabel(self, image=self.pot_image, text="",height=self.pot_img.size[1],width=self.pot_img.size[0])
-        self.pot_img_label.place(relx=0.7, rely=0.80, anchor=tkinter.CENTER)
+        self.pot_img_label = customtkinter.CTkLabel(self, image=self.pot_image, text="",height=self.pot_img.size[1],width=self.pot_img.size[0],bg_color="#203D74")
+        self.pot_img_label.place(relx=0.7, rely=0.7, anchor=tkinter.CENTER)
 
 
         #create cards_________________________________________________________________________________________________________________
@@ -213,7 +215,7 @@ class Play(customtkinter.CTkFrame):
             for i in range(len(actions)):
                 self.number_of_buttons+=1
                 button = customtkinter.CTkLabel(self, image=self.button_image, text=actions[i],
-                                                text_color="white",font=("Arial",15))
+                                                text_color="white",font=("Playbill",20))
                 # fct_str = "button_"+actions[i].lower().replace(" ","_").replace(",","_")+"_event" #nom de la fonction a appeler
                 # fct=getattr(self, fct_str) #transforme la chaine de caractere en pointeur vers la fonction
                 # button.bind("<Button-1>",fct )
