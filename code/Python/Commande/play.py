@@ -22,7 +22,6 @@ class Play(customtkinter.CTkFrame):
 
     def __init__(self, master: any, width: int = 200, height: int = 200):
         super().__init__(master, width, height)
-        print(tkinter.font.families())
         self.master = master
         self.width = width
         self.height = height
